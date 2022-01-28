@@ -125,7 +125,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <td><?php echo htmlentities($cnt); ?></td>
                                             <td><?php echo $row['FullName'];  ?></td>
                                             <td><?php echo $row['BookingNumber']; ?></td>
-                                            <td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>
+                                            <td><a href="edit-vehicle.php?id=<?php echo htmlentities($row['vid']); ?>"><?php echo htmlentities($row['BrandName']); ?>
                                                     , <?php echo htmlentities($row['VehiclesTitle']); ?></td>
                                             <td><?php echo htmlentities($row['FromDate']); ?></td>
                                             <td><?php echo htmlentities($row['ToDate']); ?></td>
