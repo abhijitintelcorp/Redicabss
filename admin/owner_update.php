@@ -11,6 +11,7 @@
 		 $owner_email_update=htmlspecialchars($_POST['owner_email_update']);
 		 $owner_vehicle_no_update=htmlspecialchars($_POST['owner_vehicle_no_update']);
 		 $owner_vehicle_rc_no_update=htmlspecialchars($_POST['owner_vehicle_rc_no_update']);
+		 $owner_vehicle_jcc_no_update=htmlspecialchars($_POST['owner_vehicle_jcc_no_update']);
 		 $owner_vehicle_brand_update=htmlspecialchars($_POST['owner_vehicle_brand_update']);
 		 $owner_vehicle_name_update=htmlspecialchars($_POST['owner_vehicle_name_update']);
 		 $owner_vehicle_color_update=htmlspecialchars($_POST['owner_vehicle_color_update']);
@@ -34,7 +35,7 @@
 		 $path2 = "image/".$side_image_update;
 	
        
-		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name_update',owner_mobile='$owner_mobile_update',owner_email='$owner_email_update',owner_vehicle_no='$owner_vehicle_no_update',owner_vehicle_rc_no='$owner_vehicle_rc_no_update',owner_vehicle_brand='$owner_vehicle_brand_update',owner_vehicle_name='$owner_vehicle_name_update',owner_vehicle_color='$owner_vehicle_color_update',driver_id='$driver_id_update' WHERE id='$user_id'";
+		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name_update',owner_mobile='$owner_mobile_update',owner_email='$owner_email_update',owner_vehicle_no='$owner_vehicle_no_update',owner_vehicle_rc_no='$owner_vehicle_rc_no_update',owner_vehicle_jcc_no=' $owner_vehicle_jcc_no_update',owner_vehicle_brand='$owner_vehicle_brand_update',owner_vehicle_name='$owner_vehicle_name_update',owner_vehicle_color='$owner_vehicle_color_update',driver_id='$driver_id_update' WHERE id='$user_id'";
         	  $inst_u_fn1_qry = mysqli_query($conn, $update_qry);
 
         	   if($inst_u_fn1_qry){
@@ -60,7 +61,20 @@
 		   }   
         } else {
         	 $update_qry = "UPDATE  add_owner SET front_image='$front_image_update',back_image='$back_image_update',side_image='$side_image_update' WHERE id='$user_id'";
+
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
+            $path = "image/".$front_image_update;
+		   if(move_uploaded_file($img_file1, $path)){
+            copy($path, "$path");
+		   }  
+		   $path = "image/".$back_image_update;
+		   if(move_uploaded_file($img_file2, $path)){
+            copy($path, "$path");
+		   } 
+		    $path = "image/".$side_image_update;
+		   if(move_uploaded_file($img_file3, $path)){
+            copy($path, "$path");
+		   }   
         }
        
         if($inst_u_fn_qry){
@@ -192,6 +206,15 @@
 											</div>
 									</div>
 
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Vehicle Jcc Number</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="owner_vehicle_jcc_no_update" id="owner_vehicle_jcc_no_update"  value="<?php echo $urows['owner_vehicle_jcc_no']; ?>" required>
+												</div>
+											</div>
+									</div>
+
 									<div class="col-md-5">
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Vehicle Brand</label>
@@ -221,11 +244,34 @@
 
 								
 
-									<div class="col-md-5">
+								<!-- 	<div class="col-md-5">
 										<div class="form-group">
 												<label class="col-sm-4 control-label"> Assign Driver</label>
 											<div class="col-sm-8">
 												<input class="selectpicker" name="driver_id_update" id="driver_id_update"value="<?php echo $urows['driver_id']; ?>"/>
+											</div>
+										</div>
+									</div> -->
+										<div class="col-md-5">
+										<div class="form-group">
+												<label class="col-sm-4 control-label"> Assign Driver</label>
+											<div class="col-sm-8">
+												<select class="selectpicker" name="driver_id_update" id="driver_id_update" >
+													<option value="<?php echo $urows['owner_vehicle_color']; ?>"> Select </option>
+													
+
+		<?php										
+			$qry = "SELECT id, name from tbldriver";
+		  	$exe = mysqli_query($conn, $qry); 
+		  	while ($row = mysqli_fetch_array($exe)) 
+		  	{
+		  ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?>
+  </option>
+  </select>
+  <?php
+	}
+  ?>
 											</div>
 										</div>
 									</div>
