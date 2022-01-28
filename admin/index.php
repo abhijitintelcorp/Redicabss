@@ -5,13 +5,11 @@ if(isset($_POST['login']))
 {
 $email=$_POST['username'];
 $password=md5($_POST['password']);
-$sql ="SELECT UserName,Password FROM admin WHERE UserName=:email and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
+$sql ="SELECT * FROM admin WHERE UserName='$email' and Password='$password'";
+$res = mysqli_query($conn, $sql);
+$row=mysqli_fetch_assoc($res);
+$count = mysqli_num_rows($res);
+if($count > 0)
 {
 $_SESSION['alogin']=$_POST['username'];
 echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";

@@ -10,16 +10,11 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from tblbrands  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
+$query = "delete from tblbrands  WHERE id=$id";
+ $query_run = mysqli_query($conn, $query);
 $msg="Page data updated  successfully";
 
 }
-
-
-
  ?>
 
 <!doctype html>
@@ -61,9 +56,10 @@ $msg="Page data updated  successfully";
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
 .succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
+    padding-top: 10px;
     background: #fff;
+    margin-left:50%;
+    margin-top:10px;
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
@@ -89,8 +85,7 @@ $msg="Page data updated  successfully";
 						<div class="panel panel-default">
 							<div class="panel-heading">Listed  Brands</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+							 <?php echo $msg."<br><br>"; ?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
@@ -108,29 +103,33 @@ $msg="Page data updated  successfully";
 											<th>Brand Name</th>
 											<th>Creation Date</th>
 											<th>Updation date</th>
-										
 											<th>Action</th>
 										</tr>
 										</tr>
 									</tfoot>
 									<tbody>
-
-									<?php $sql = "SELECT * from  tblbrands ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+<?php
+  extract($_POST); 
+                $query = "SELECT * FROM tblbrands";
+                $query_run = mysqli_query($conn, $query);
+                   $i = 1;
+                   if(mysqli_num_rows($query_run) > 0)        
+                        {
+                            while($row = mysqli_fetch_array($query_run))
+                            {
+                        ?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
+											 <td><?php  echo $row['BrandName'];  ?></td>
+                                			<td><?php  echo $row['CreationDate'];  ?></td>
+                                			<td><?php  echo $row['UpdationDate']; ?></td> 
+                                 		  
+											<!-- <td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->BrandName);?></td>
 											<td><?php echo htmlentities($result->CreationDate);?></td>
-											<td><?php echo htmlentities($result->UpdationDate);?></td>
-<td><a href="edit-brand.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-brands.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+											<td><?php echo htmlentities($result->UpdationDate);?></td>  -->
+<td><a href="edit-brand.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-brands.php?del=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										

@@ -61,10 +61,9 @@ else{
 												<div class="stat-panel text-center">
 <?php 
 $sql ="SELECT id from tblusers ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$regusers=$query->rowCount();
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$regusers=mysqli_num_rows($query);
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($regusers);?></div>
 													<div class="stat-panel-title text-uppercase">Reg Users</div>
@@ -79,10 +78,9 @@ $regusers=$query->rowCount();
 												<div class="stat-panel text-center">
 												<?php 
 $sql1 ="SELECT id from tblvehicles ";
-$query1 = $dbh -> prepare($sql1);;
-$query1->execute();
-$results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$totalvehicle=$query1->rowCount();
+$query1 = mysqli_query($conn,$sql1);;
+$results1=mysqli_fetch_assoc($query1);
+$totalvehicle=mysqli_num_rows($query1);
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($totalvehicle);?></div>
 													<div class="stat-panel-title text-uppercase">Listed Vehicles</div>
@@ -97,10 +95,9 @@ $totalvehicle=$query1->rowCount();
 												<div class="stat-panel text-center">
 <?php 
 $sql2 ="SELECT id from tblbooking ";
-$query2= $dbh -> prepare($sql2);
-$query2->execute();
-$results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$bookings=$query2->rowCount();
+$query2= mysqli_query($conn,$sql2);
+$results2=mysqli_fetch_assoc($query2);
+$bookings=mysqli_num_rows($query2);
 ?>
 
 													<div class="stat-panel-number h1 "><?php echo htmlentities($bookings);?></div>
@@ -115,11 +112,10 @@ $bookings=$query2->rowCount();
 											<div class="panel-body bk-warning text-light">
 												<div class="stat-panel text-center">
 <?php 
-$sql3 ="SELECT id from tblbrands ";
-$query3= $dbh -> prepare($sql3);
-$query3->execute();
-$results3=$query3->fetchAll(PDO::FETCH_OBJ);
-$brands=$query3->rowCount();
+$sql3 ="SELECT id from tblbrands";
+$query3= mysqli_query($conn,$sql3);
+$results3=mysqli_fetch_assoc($query3);
+$brands=mysqli_num_rows($query3);
 ?>												
 													<div class="stat-panel-number h1 "><?php echo htmlentities($brands);?></div>
 													<div class="stat-panel-title text-uppercase">Listed Brands</div>
@@ -149,10 +145,9 @@ $brands=$query3->rowCount();
 												<div class="stat-panel text-center">
 <?php 
 $sql4 ="SELECT id from tblsubscribers ";
-$query4 = $dbh -> prepare($sql4);
-$query4->execute();
-$results4=$query4->fetchAll(PDO::FETCH_OBJ);
-$subscribers=$query4->rowCount();
+$query4 = mysqli_query($conn,$sql4);
+$results4=mysqli_fetch_assoc($query4);
+$subscribers=mysqli_num_rows($query4);
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($subscribers);?></div>
 													<div class="stat-panel-title text-uppercase">Subscibers</div>
@@ -167,10 +162,9 @@ $subscribers=$query4->rowCount();
 												<div class="stat-panel text-center">
 												<?php 
 $sql6 ="SELECT id from tblcontactusquery ";
-$query6 = $dbh -> prepare($sql6);;
-$query6->execute();
-$results6=$query6->fetchAll(PDO::FETCH_OBJ);
-$query=$query6->rowCount();
+$query6 = mysqli_query($conn,$sql6);;
+$results6=mysqli_fetch_assoc($query6);
+$query=mysqli_num_rows($query6);
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($query);?></div>
 													<div class="stat-panel-title text-uppercase">Queries</div>
@@ -185,10 +179,9 @@ $query=$query6->rowCount();
 												<div class="stat-panel text-center">
 <?php 
 $sql5 ="SELECT id from tbltestimonial ";
-$query5= $dbh -> prepare($sql5);
-$query5->execute();
-$results5=$query5->fetchAll(PDO::FETCH_OBJ);
-$testimonials=$query5->rowCount();
+$query5=mysqli_query($conn,$sql5);
+$results5=mysqli_fetch_assoc($query5);
+$testimonials=mysqli_num_rows($query5);
 ?>
 
 													<div class="stat-panel-number h1 "><?php echo htmlentities($testimonials);?></div>

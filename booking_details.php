@@ -21,11 +21,9 @@
     		<div class="row">
     			<div class="col-md-6">
     				<h3 style=" border-bottom: 1px solid #00000030;">Customer Details</h3>
-    			
 	  					<p>Customer Name:</p>
 	  					<p>Email Id:</p>
 	  					<p>Contact No:</p>
-	  			
     			</div>
     			<div class="col-md-6">
     				<h3>Booking Status:</h3>
@@ -34,11 +32,9 @@
     		<div class="row">
     			<div class="col-md-6">
     				<h3 style=" border-bottom: 1px solid #00000030;">Vehicle</h3>
-    			
 	  					<p>Vehicle Name:</p>
 	  					<p>Reg. No1:</p>
 	  					<p>Contact No:</p>
-	  			
     			</div>
     			<div class="col-md-6">
     				<h3 style=" border-bottom: 1px solid #00000030;">Driver Details</h3>
