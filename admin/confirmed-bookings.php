@@ -141,7 +141,7 @@ echo htmlentities('Confirmed');
  else{
  	echo htmlentities('Cancelled');
  }
-										?></td>
+										?></td> 
 											<td><?php echo htmlentities($row['PostingDate']);?></td>
 										<td>
 
