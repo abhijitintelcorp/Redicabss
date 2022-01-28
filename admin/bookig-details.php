@@ -11,11 +11,9 @@ if(isset($_REQUEST['eid']))
 	{
 $eid=intval($_GET['eid']);
 $status="2";
-$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:eid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
-$query -> execute();
+$query = "UPDATE tblbooking SET Status=:status WHERE  id='$eid'";
+$result=mysqli_query($conn,$query);
+$row=mysqli_fetch_array($result);
   echo "<script>alert('Booking Successfully Cancelled');</script>";
 echo "<script type='text/javascript'> document.location = 'canceled-bookings.php; </script>";
 }
@@ -26,11 +24,9 @@ if(isset($_REQUEST['aeid']))
 $aeid=intval($_GET['aeid']);
 $status=1;
 
-$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:aeid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
-$query -> execute();
+$query = "UPDATE tblbooking SET Status=:status WHERE  id='$aeid'";
+$result=mysqli_query($conn,$query);
+$row=mysqli_fetch_array($result);
 echo "<script>alert('Booking Successfully Confirmed');</script>";
 echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
 }
@@ -112,46 +108,46 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
 				
 									<tbody>
 
-									<?php 
-$bid=intval($_GET['bid']);
-									$sql = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber,
-DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblvehicles.PricePerDay
-									  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.id=:bid";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':bid',$bid, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
-	<h3 style="text-align:center; color:red">#<?php echo htmlentities($result->BookingNumber);?> Booking Details </h3>
-
-		<tr>
+<?php 
+	extract($_POST);
+	$bid=intval($_GET['bid']);
+	$query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,
+	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
+	tblbooking.id,tblbooking.BookingNumber,
+	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblvehicles.PricePerDay
+	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.id='$bid'";
+	$query_run = mysqli_query($conn, $query);
+	$cnt=1;
+	if(mysqli_num_rows($query_run) > 0)   
+	{
+	while($row = mysqli_fetch_array($query_run))
+    {
+	?>		
+	<h3 style="text-align:center; color:red">#<?php echo $row['BookingNumber'];?> Booking Details </h3>
+										<tr>
 											<th colspan="4" style="text-align:center;color:blue">User Details</th>
 										</tr>
 										<tr>
 											<th>Booking No.</th>
-											<td>#<?php echo htmlentities($result->BookingNumber);?></td>
+											<td><?php echo $row['BookingNumber'];?></td>
 											<th>Name</th>
-											<td><?php echo htmlentities($result->FullName);?></td>
+											<td><?php echo $row['FullName'];?></td>
 										</tr>
 										<tr>											
 											<th>Email Id</th>
-											<td><?php echo htmlentities($result->EmailId);?></td>
+											<td><?php echo $row['EmailId'];?></td>
 											<th>Contact No</th>
-											<td><?php echo htmlentities($result->ContactNo);?></td>
+											<td><?php echo $row['ContactNo'];?></td>
 										</tr>
 											<tr>											
 											<th>Address</th>
-											<td><?php echo htmlentities($result->Address);?></td>
+											<td><?php echo $row['Address'];?></td>
 											<th>City</th>
-											<td><?php echo htmlentities($result->City);?></td>
+											<td><?php echo $row['City'];?></td>
 										</tr>
 											<tr>											
 											<th>Country</th>
-											<td colspan="3"><?php echo htmlentities($result->Country);?></td>
+											<td colspan="3"><?php echo $row['Country'];?></td>
 										</tr>
 
 										<tr>
@@ -159,21 +155,21 @@ foreach($results as $result)
 										</tr>
 											<tr>											
 											<th>Vehicle Name</th>
-											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
+											<td><a href="edit-vehicle.php?id=<?php echo$row['vid'];?>"><?php echo $row['BrandName'];?> , <?php echo $row['VehiclesTitle'];?></td>
 											<th>Booking Date</th>
-											<td><?php echo htmlentities($result->PostingDate);?></td>
+											<td><?php echo $row['PostingDate'];?></td>
 										</tr>
 										<tr>
 											<th>From Date</th>
-											<td><?php echo htmlentities($result->FromDate);?></td>
+											<td><?php echo $row['FromDate'];?></td>
 											<th>To Date</th>
-											<td><?php echo htmlentities($result->ToDate);?></td>
+											<td><?php echo $row['ToDate'];?></td>
 										</tr>
 <tr>
 	<th>Total Days</th>
-	<td><?php echo htmlentities($tdays=$result->totalnodays);?></td>
+	<td><?php echo htmlentities($tdays=$row['totalnodays']);?></td>
 	<th>Rent Per Days</th>
-	<td><?php echo htmlentities($ppdays=$result->PricePerDay);?></td>
+	<td><?php echo htmlentities($ppdays=$row['PricePerDay']);?></td>
 </tr>
 <tr>
 	<th colspan="3" style="text-align:center">Grand Total</th>
@@ -182,10 +178,10 @@ foreach($results as $result)
 <tr>
 <th>Booking Status</th>
 <td><?php 
-if($result->Status==0)
+if($row['Status']==0)
 {
 echo htmlentities('Not Confirmed yet');
-} else if ($result->Status==1) {
+} else if ($row['Status']==1) {
 echo htmlentities('Confirmed');
 }
  else{
@@ -193,15 +189,15 @@ echo htmlentities('Confirmed');
  }
 										?></td>
 										<th>Last updation Date</th>
-										<td><?php echo htmlentities($result->UpdationDate);?></td>
+										<td><?php echo htmlentities($row['UpdationDate']);?></td>
 									</tr>
 
-									<?php if($result->Status==0){ ?>
+									<?php if($row['Status']==0){ ?>
 										<tr>	
 										<td style="text-align:center" colspan="4">
-				<a href="bookig-details.php?aeid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Confirm this booking')" class="btn btn-primary"> Confirm Booking</a> 
+				<a href="bookig-details.php?aeid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Do you really want to Confirm this booking')" class="btn btn-primary"> Confirm Booking</a> 
 
-<a href="bookig-details.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')" class="btn btn-danger"> Cancel Booking</a>
+<a href="bookig-details.php?eid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Do you really want to Cancel this Booking')" class="btn btn-danger"> Cancel Booking</a>
 </td>
 </tr>
 <?php } ?>
