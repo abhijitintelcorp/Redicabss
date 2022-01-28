@@ -1,24 +1,6 @@
 <?php
-session_start();
-error_reporting(0);
+
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
-if(isset($_GET['del']))
-{
-$id=$_GET['del'];
-$sql = "delete from tbldriver  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$msg="Page data updated  successfully";
-
-}
-
-
 
  ?>
 
@@ -33,7 +15,7 @@ $msg="Page data updated  successfully";
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 	
-	<title>RediCabs |Admin Manage Drivers   </title>
+	<title>Car Rental Portal |Admin Manage Brands   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -83,53 +65,59 @@ $msg="Page data updated  successfully";
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Manage Drivers</h2>
+						<h2 class="page-title">Manage Brands</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Listed  Drivers</div>
+							<div class="panel-heading">Listed  Brands</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+				
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
-										<tr>
-										<th>#</th>
+														<tr>
+										<th>sl.no</th>
 												<th>Driver Name</th>
-											    <th>Driver Number</th>									
-											    <th>Action</th>
+												<th>Contact Number</th>
+												<th>Driver Email</th>
+												<th>Driver Adhar no.</th>
+												<th>Driver pancard no.</th>
+												<th>Driving Licence</th>
+										
+										
+											<th>Action</th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-										<th>#</th>
-											<th>Driver Name</th>
-											    <th>Driver Number</th>									
-											    <th>Action</th>
-										</tr>
-										</tr>
-									</tfoot>
+								
 									<tbody>
 
-									<?php $sql = "SELECT * from  tbldriver ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php
+                
+               
+                $select_qry = "SELECT * FROM tbldriver";
+                $select_fn_qry = mysqli_query($conn, $select_qry);
+                $count = 0;
+                while ($row=mysqli_fetch_array($select_fn_qry)) {
+                  $count++;
+              ?>
+					
+
 										<tr>
-											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->name);?></td>
-											<td><?php echo htmlentities($result->number);?></td>
-											
-<td><a href="edit-driver.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-driver.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
-										</tr>
-										<?php $cnt=$cnt+1; }} ?>
-										
+										<td><?php echo $count;?></td>
+										<td><?php echo $row['name'];?></td>
+										<td><?php echo $row['number'];?></td>
+										<td><?php echo $row['email'];?></td>
+										<td>   <img src="upload/<?php echo $row['adhar'];?>" width="80px" ></td>
+										<td>   <img src="upload/<?php echo $row['pan'];?>" width="80px" ></td>
+										<td>   <img src="upload/<?php echo $row['licence'];?>" width="80px" ></td>
+										<td><a href="edit-driver.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+										<a href="deletedriver.php?id=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+									
+
+								
+										<?php
+              }
+            ?>
+
 									</tbody>
 								</table>
 
@@ -159,4 +147,4 @@ foreach($results as $result)
 	<script src="js/main.js"></script>
 </body>
 </html>
-<?php } ?>
+
