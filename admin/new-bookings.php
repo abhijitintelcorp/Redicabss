@@ -22,6 +22,7 @@ else{
     <meta name="theme-color" content="#3e454c">
 
     <title>Car Rental Portal | New Bookings </title>
+    <!-- Car Rental New Booking Page -->
 
     <!-- Font awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
