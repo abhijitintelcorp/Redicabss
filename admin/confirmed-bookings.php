@@ -122,13 +122,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 											?>
                                         <tr>
-                                            s <td><?php echo htmlentities($cnt); ?></td>
+                                            <td><?php echo htmlentities($cnt); ?></td>
                                             <td><?php echo $row['FullName'];  ?></td>
                                             <td><?php echo $row['BookingNumber']; ?></td>
                                             <td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid); ?>"><?php echo htmlentities($result->BrandName); ?>
-                                                    , <?php echo htmlentities($result->VehiclesTitle); ?></td>
-                                            <td><?php echo htmlentities($result->FromDate); ?></td>
-                                            <td><?php echo htmlentities($result->ToDate); ?></td>
+                                                    , <?php echo htmlentities($row['VehiclesTitle']); ?></td>
+                                            <td><?php echo htmlentities($row['FromDate']); ?></td>
+                                            <td><?php echo htmlentities($row['ToDate']); ?></td>
                                             <td><?php
 															if ($row['Status'] == 0) {
 																echo htmlentities('Not Confirmed yet');
