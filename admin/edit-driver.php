@@ -1,29 +1,83 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
-// Code for change password	
-if(isset($_POST['submit']))
-{
-$name=$_POST['name'];
-$number=$_POST['number'];
-$id=$_GET['id'];
-$sql="update   tbldriver set name=:name,number=:number	where id=:id";
-$query = $dbh->prepare($sql);
-$query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':number',$number,PDO::PARAM_STR);
-$query->bindParam(':id',$id,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
+	include('includes/config.php');
+	$user_id = $_GET['id'];
+	$u_query = "SELECT * FROM tbldriver WHERE id='$user_id'";
+	$user_update_query = mysqli_query($conn, $u_query);
+	$urows = mysqli_fetch_array($user_update_query);
+	 //update
+    if (isset($_POST['upsubmit'])) {
+         $upname=htmlspecialchars($_POST['upname']);
+		 $upnumber=htmlspecialchars($_POST['upnumber']);
+		 $upemail=htmlspecialchars($_POST['upemail']);
+		 $uplocation=htmlspecialchars($_POST['uplocation']);
+		 
+	
+     	$upadhar=$_FILES['upadhar']['name'];
+		 $type=$_FILES['upadhar']['type'];
+		 $size=$_FILES['upadhar']['size'];
+		 $img_file1=$_FILES['upadhar']['tmp_name'];
 
-$msg="Driver Update successfully";
+		 $uppan=$_FILES['uppan']['name'];
+		 $img_type=$_FILES['uppan']['type'];
+		 $img_size=$_FILES['uppan']['size'];
+		 $img_file2=$_FILES['uppan']['tmp_name'];
 
+		 $uplicence=$_FILES['uplicence']['name'];
+		 $img_type=$_FILES['uplicence']['type'];
+		 $img_size=$_FILES['uplicence']['size'];
+		 $img_file3=$_FILES['uplicence']['tmp_name'];
+
+		 $path1 = "image/".$uppan;
+		 $path2 = "image/".$uplicence;
+	
+       
+
+		    $update_qry = "UPDATE tbldriver SET  name='$upname',number='$upnumber',email='$upemail',location='$uplocation' WHERE id='$user_id'";
+        	  $inst_u_fn1_qry = mysqli_query($conn, $update_qry);
+
+        	   if($inst_u_fn1_qry){
+        	header("location:manage-driver.php");
+        }
+ 
+		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
+		   
+		    	if(empty($upadhar) OR empty($uppan) OR empty($uplicence)) {
+            $update_qry = "UPDATE  tbldriver SET adhar='$upadhar',pan='$uppan',licence='$uplicence' WHERE id='$user_id'";
+            $inst_u_fn_qry = mysqli_query($conn, $update_qry);
+            $path = "image/".$upadhar;
+		   if(move_uploaded_file($img_file1, $path)){
+            copy($path, "$path");
+		   }  
+		   $path = "image/".$uppan;
+		   if(move_uploaded_file($img_file2, $path)){
+            copy($path, "$path");
+		   } 
+		   $path = "image/".$uplicence;
+		   if(move_uploaded_file($img_file3, $path)){
+            copy($path, "$path");
+		   }   
+        } else {
+			$update_qry = "UPDATE  tbldriver SET adhar='$upadhar',pan='$uppan',licence='$uplicence' WHERE id='$user_id'";
+            $inst_u_fn_qry = mysqli_query($conn, $update_qry);
+			$path = "image/".$upadhar;
+			if(move_uploaded_file($img_file1, $path)){
+			 copy($path, "$path");
+			}  
+			$path = "image/".$uppan;
+			if(move_uploaded_file($img_file2, $path)){
+			 copy($path, "$path");
+			} 
+			$path = "image/".$uplicence;
+			if(move_uploaded_file($img_file3, $path)){
+			 copy($path, "$path");
+			}  
+        } 
+        if($inst_u_fn_qry){
+        	header("location:manage-driver.php");
+        }
 }
+}
+
 ?>
 
 <!doctype html>
@@ -94,47 +148,64 @@ $msg="Driver Update successfully";
 								<div class="panel panel-default">
 									<div class="panel-heading">Update driver</div>
 									<div class="panel-body">
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-
-<?php	
-$id=$_GET['id'];
-$ret="select * from tbldriver where id=:id";
-$query= $dbh -> prepare($ret);
-$query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query -> rowCount() > 0)
-{
-foreach($results as $result)
-{
-?>
+									<form method="post" name="chngpwd" class="form-horizontal" enctype="multipart/form-data" >
 
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Driver Name</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo htmlentities($result->name);?>"name="name" id="name" required>
+<!-- 													
+<input type="hidden" class="form-control" id="id" placeholder="Enter Name" name="id" value="<?php echo $urows['id'];?>"> -->
+													<input type="text" class="form-control" name="upname" id="upname"value="<?php echo $urows['name'];?>" required>
 												</div>												
 											</div>
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Driver Number</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo htmlentities($result->number);?>"name="number" id="number"  required>
+													<input type="text" class="form-control" name="upnumber" id="upnumber" value="<?php echo $urows['number'];?>" required>
 												</div>												
 											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label"> Driver Email</label>
+												<div class="col-sm-8">
+											<div class="form-group">
+													<input type="email" class="form-control" name="upemail" id="upemail" value="<?php echo $urows['email'];?>" required>
+												</div>
+												</div>
+												<div class="form-group">
+												<label class="col-sm-4 control-label">Driver's Location</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="uplocation" id="uplocation" value="<?php echo $urows['location'];?>"required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driver Adhar no.</label>
+												<div class="col-sm-8">
+												<img src="image/<?php echo $urows['adhar'];?>" style=" width:80px;">
+													<input type="file" class="form-control" name="upadhar" id="upadhar">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driver pancard no.</label>
+												<div class="col-sm-8">
+												<img src="image/<?php echo $urows['pan'];?>" style=" width:80px;">
+													<input type="file" class="form-control" name="uppan" id="uppan">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driving Licence</label>
+												<div class="col-sm-8">
+												<img src="image/<?php echo $urows['licence'];?>" style=" width:80px;">
+													<input type="file" class="form-control" name="uplicence" id="uplicence">
+												</div>
+											</div>
+
 											<div class="hr-dashed"></div>
 											
-										<?php }} ?>
-								
 											
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 								
-													<button class="btn btn-primary" name="submit" type="submit">Submit</button>
+													<button class="btn btn-primary" name="upsubmit" type="submit">Submit</button>
 												</div>
 											</div>
 
@@ -170,4 +241,3 @@ foreach($results as $result)
 </body>
 
 </html>
-<?php } ?>
