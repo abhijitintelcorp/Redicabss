@@ -141,7 +141,7 @@ if(mysqli_num_rows($query_run) > 0)
 
     {
 
-					?>	
+					?>	   
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php  echo $row['FullName'];  ?></td>
