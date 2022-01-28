@@ -2,7 +2,7 @@
 
 include('includes/config.php');
 
- ?>
+?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -14,8 +14,8 @@ include('includes/config.php');
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal |Admin Manage Brands   </title>
+
+	<title>Car Rental Portal |Admin Manage Brands </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -33,32 +33,33 @@ include('includes/config.php');
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
-  <style>
+	<style>
 		.errorWrap {
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #dd3d36;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-.succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #5cb85c;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-		</style>
+			padding: 10px;
+			margin: 0 0 20px 0;
+			background: #fff;
+			border-left: 4px solid #dd3d36;
+			-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+		}
+
+		.succWrap {
+			padding: 10px;
+			margin: 0 0 20px 0;
+			background: #fff;
+			border-left: 4px solid #5cb85c;
+			-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+		}
+	</style>
 
 </head>
 
 <body>
-	<?php include('includes/header.php');?>
+	<?php include('includes/header.php'); ?>
 
 	<div class="ts-main-content">
-		<?php include('includes/leftbar.php');?>
+		<?php include('includes/leftbar.php'); ?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
 
@@ -69,66 +70,67 @@ include('includes/config.php');
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Listed  Brands</div>
+							<div class="panel-heading">Listed Brands</div>
 							<div class="panel-body">
-				
+
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
-														<tr>
-										<th>sl.no</th>
-												<th>Driver Name</th>
-												<th>Contact Number</th>
-												<th>Driver Email</th>
-												<th>Driver's Location</th>
-												<th>Driver Adhar no.</th>
-												<th>Driver pancard no.</th>
-												<th>Driving Licence</th>
-										
-										
+										<tr>
+											<th>sl.no</th>
+											<th>Driver Name</th>
+											<th>Contact Number</th>
+											<th>Driver Email</th>
+											<th>Driver's Location</th>
+											<th>Driver Adhar no.</th>
+											<th>Driver pancard no.</th>
+											<th>Driving Licence</th>
+
+
 											<th>Action</th>
 										</tr>
 									</thead>
-								
+
 									<tbody>
 
-									<?php
-                
-               
-                $select_qry = "SELECT * FROM tbldriver";
-                $select_fn_qry = mysqli_query($conn, $select_qry);
-                $count = 0;
-                while ($row=mysqli_fetch_array($select_fn_qry)) {
-                  $count++;
-              ?>
-					
-
-										<tr>
-										<td><?php echo $count;?></td>
-										<td><?php echo $row['name'];?></td>
-										<td><?php echo $row['number'];?></td>
-										<td><?php echo $row['email'];?></td>
-										<td><?php echo $row['location'];?></td>
-										<td>   <img src="image/<?php echo $row['adhar'];?>" width="80px" ></td>
-										<td>   <img src="image/<?php echo $row['pan'];?>" width="80px" ></td>
-										<td>   <img src="image/<?php echo $row['licence'];?>" width="80px" ></td>
-										<td><a href="edit-driver.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-										<a href="deletedriver.php?id=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
-									
-
-								
 										<?php
-              }
-            ?>
+
+
+										$select_qry = "SELECT * FROM tbldriver";
+										$select_fn_qry = mysqli_query($conn, $select_qry);
+										$count = 0;
+										while ($row = mysqli_fetch_array($select_fn_qry)) {
+											$count++;
+										?>
+
+
+											<tr>
+												<td><?php echo $count; ?></td>
+												<td><?php echo $row['name']; ?></td>
+												<td><?php echo $row['number']; ?></td>
+												<td><?php echo $row['email']; ?></td>
+												<td><?php echo $row['location']; ?></td>
+												<td> <img src="image/<?php echo $row['adhar']; ?>" width="80px"></td>
+												<td> <img src="image/<?php echo $row['pan']; ?>" width="80px"></td>
+												<td> <img src="image/<?php echo $row['licence']; ?>" width="80px"></td>
+												<td><a href="edit-driver.php?id=<?php echo $row['id']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+													<a href="deletedriver.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
+												</td>
+
+
+
+											<?php
+										}
+											?>
 
 									</tbody>
 								</table>
 
-						
+
 
 							</div>
 						</div>
 
-					
+
 
 					</div>
 				</div>
@@ -148,5 +150,5 @@ include('includes/config.php');
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>
 
+</html>
