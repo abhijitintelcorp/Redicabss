@@ -65,7 +65,7 @@ include('includes/config.php');
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Manage Brands</h2>
+						<h2 class="page-title">Manage Driver</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
@@ -79,6 +79,7 @@ include('includes/config.php');
 												<th>Driver Name</th>
 												<th>Contact Number</th>
 												<th>Driver Email</th>
+												<th>Driver's Location</th>
 												<th>Driver Adhar no.</th>
 												<th>Driver pancard no.</th>
 												<th>Driving Licence</th>
@@ -106,9 +107,10 @@ include('includes/config.php');
 										<td><?php echo $row['name'];?></td>
 										<td><?php echo $row['number'];?></td>
 										<td><?php echo $row['email'];?></td>
-										<td>   <img src="upload/<?php echo $row['adhar'];?>" width="80px" ></td>
-										<td>   <img src="upload/<?php echo $row['pan'];?>" width="80px" ></td>
-										<td>   <img src="upload/<?php echo $row['licence'];?>" width="80px" ></td>
+										<td><?php echo $row['location'];?></td>
+										<td>   <img src="image/<?php echo $row['adhar'];?>" width="80px" ></td>
+										<td>   <img src="image/<?php echo $row['pan'];?>" width="80px" ></td>
+										<td>   <img src="image/<?php echo $row['licence'];?>" width="80px" ></td>
 										<td><a href="edit-driver.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 										<a href="deletedriver.php?id=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 									
