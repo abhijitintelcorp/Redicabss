@@ -17,6 +17,12 @@
 						<li><a href="manage-vehicles.php">Manage Vehicles</a></li>
 					</ul>
 				</li>
+	<li><a href="#"><i class="fa fa-user"></i> Owner</a>
+					<ul>
+						<li><a href="add-owner.php">Add Owner</a></li>
+						<li><a href="manage-owner.php">Manage Owner</a></li>
+					</ul>
+	</li>
 <li><a href="#"><i class="fa fa-user"></i> Drivers</a>
 <ul>
 <li><a href="add-driver.php">Add Driver</a></li>
