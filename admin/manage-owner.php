@@ -117,7 +117,7 @@
 										
 											<td><img src="image/<?php echo $row['side_image'];?>" width="30" height="30"  alt=""></td>
 											
-											<td><a href="owner_update.php?u_up_id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
+											<td><a href="owner_update.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
 
 											<td><a href="owner_delete.php?owner_details_delete=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
 
