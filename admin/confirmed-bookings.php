@@ -116,7 +116,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  
 	 where tblbooking.Status='$status'";
 											$query_run = mysqli_query($conn, $query);
-											$cnt = 1;
+											$cnt=1;
 											if (mysqli_num_rows($query_run) > 0) {
 												while ($row = mysqli_fetch_array($query_run)) {
 
