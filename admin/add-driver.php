@@ -9,6 +9,7 @@ if(isset($_POST['submit']))
 $name=htmlspecialchars($_POST['name']);
 $number=htmlspecialchars($_POST['number']);
 $email=htmlspecialchars($_POST['email']);
+$location=htmlspecialchars($_POST['location']);
 $adhar=htmlspecialchars($_POST['adhar']);
 $pan=htmlspecialchars($_POST['pan']);
 $licence=htmlspecialchars($_POST['licence']);
@@ -28,24 +29,24 @@ $adhar=$_FILES['adhar']['name'];
 		$img_file3=$_FILES['licence']['tmp_name'];
 
 
-		$path1 = "upload/".$pan;
-		$path2 = "upload/".$licence;
+		$path1 = "image/".$pan;
+		$path2 = "image/".$licence;
 
 		if($img_type=='image/jpg' || $img_type=='image/jpeg' || $img_type=='image/png' || $img_type=='image/gif'){
 			if($img_size<=7000000){
 			{
 
-$insert_qry="INSERT INTO tbldriver(`name`,`number`,`email`,`adhar`,`pan`,`licence`)VALUES('$name','$number','$email','$adhar','$pan','$licence')";
+$insert_qry="INSERT INTO tbldriver(`name`,`number`,`email`,`location`,`adhar`,`pan`,`licence`)VALUES('$name','$number','$email','$location','$adhar','$pan','$licence')";
 $fn_qry = mysqli_query($conn, $insert_qry);
-$path = "upload/".$adhar;
+$path = "image/".$adhar;
 if(move_uploaded_file($img_file1, $path)){
  copy($path, "$path");
 }  
-$path = "upload/".$pan;
+$path = "image/".$pan;
 if(move_uploaded_file($img_file2, $path)){
  copy($path, "$path");
 } 
- $path = "upload/".$licence;
+ $path = "image/".$licence;
 if(move_uploaded_file($img_file3, $path)){
  copy($path, "$path");
 }   
@@ -142,6 +143,12 @@ if(move_uploaded_file($img_file3, $path)){
 												<div class="col-sm-8">
 											<div class="form-group">
 													<input type="email" class="form-control" name="email" id="email" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driver's Location</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="location" id="location" required>
 												</div>
 											</div>
 											<div class="form-group">
