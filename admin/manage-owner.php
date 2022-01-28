@@ -79,6 +79,7 @@
 											<th>Email Id</th>
 											<th>Vehicle Number</th>
 											<th>Vehicle RC Number</th>
+											<th>Vehicle Jcc Number</th>
 											<th>Vehicle Brand</th>
 											<th>Vehicle Name</th>
 											<th>Vehicle Color</th>
@@ -106,9 +107,11 @@
 											<td><?php echo $row['owner_email'];?></td>
 											<td><?php echo $row['owner_vehicle_no'];?></td>
 											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
+											<td><?php echo $row['owner_vehicle_jcc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_brand'];?></td>
 											<td><?php echo $row['owner_vehicle_name'];?></td>
 											<td><?php echo $row['owner_vehicle_color'];?></td>
+   
 											<td><?php echo $row['driver_id'];?></td>
 
 											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
