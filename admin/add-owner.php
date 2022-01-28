@@ -214,6 +214,13 @@
 													<option value="2">SAM</option>
 
 												</select>
+		$qry = "SELECT id,BrandName from tblbrands";
+		  $exe = mysqli_query($conn, $qry); 
+		  while ($row = mysqli_fetch_array($exe)) 
+		  {
+		  ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['BrandName'] ?>
+  </option>
 											</div>
 										</div>
 									</div>
