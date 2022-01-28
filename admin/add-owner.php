@@ -10,6 +10,7 @@
 		 $owner_email=htmlspecialchars($_POST['owner_email']);
 		 $owner_vehicle_no=htmlspecialchars($_POST['owner_vehicle_no']);
 		 $owner_vehicle_rc_no=htmlspecialchars($_POST['owner_vehicle_rc_no']);
+		 $owner_vehicle_jcc_no=htmlspecialchars($_POST['owner_vehicle_jcc_no']);
 		 $owner_vehicle_brand=htmlspecialchars($_POST['owner_vehicle_brand']);
 		 $owner_vehicle_name=htmlspecialchars($_POST['owner_vehicle_name']);
 		 $owner_vehicle_color=htmlspecialchars($_POST['owner_vehicle_color']);
@@ -33,7 +34,7 @@
   
 		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
 		    if($size<=7000000){
-         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$created_at')";
+         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_jcc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no', '$owner_vehicle_jcc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$created_at')";
          $res_query=mysqli_query($conn, $insert_qry);
 		 }  
 		  $path = "image/".$front_image;
@@ -177,6 +178,16 @@
 
 									<div class="col-md-5">
 											<div class="form-group">
+												<label class="col-sm-4 control-label">Vehicle Jcc Number</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" placeholder=" Vehicle Jcc Number" required>
+												</div>
+											</div>
+									</div>
+
+
+									<div class="col-md-5">
+											<div class="form-group">
 												<label class="col-sm-4 control-label">Vehicle Brand</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_brand" id="owner_vehicle_brand" placeholder="Vehicle Brand" required>
@@ -202,7 +213,8 @@
 											</div>
 									</div>
 
-								
+
+																
 
 									<div class="col-md-5">
 										<div class="form-group">
@@ -210,17 +222,20 @@
 											<div class="col-sm-8">
 												<select class="selectpicker" name="driver_id" id="driver_id" >
 													<option value=""> Select </option>
-													<option value="1">RAM</option>
-													<option value="2">SAM</option>
+													
 
-												</select>
-		$qry = "SELECT id,BrandName from tblbrands";
-		  $exe = mysqli_query($conn, $qry); 
-		  while ($row = mysqli_fetch_array($exe)) 
-		  {
+		<?php										
+			$qry = "SELECT id, name from tbldriver";
+		  	$exe = mysqli_query($conn, $qry); 
+		  	while ($row = mysqli_fetch_array($exe)) 
+		  	{
 		  ?>
-  <option  value="<?php echo $row['id'] ?>"><?php echo $row['BrandName'] ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?>
   </option>
+  </select>
+  <?php
+	}
+  ?>
 											</div>
 										</div>
 									</div>
