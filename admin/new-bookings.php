@@ -60,6 +60,7 @@ else{
     </style>
 
 </head>
+<!--body -->
 
 <body>
     <?php include('includes/header.php');?>
