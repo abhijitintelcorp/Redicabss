@@ -16,6 +16,18 @@
 html {
   font-size: 14px;
 }
+.ts-sidebar {
+  background: #2c3136;
+  max-height: 0;
+  transition: max-height 0.3s;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  bottom: 0;
+  top: 60px;
+  overflow-y: auto;
+}
 @media only screen and (min-width: 480px) {
   html {
     font-size: 17px;
@@ -695,14 +707,14 @@ li {
 .ts-sidebar-menu a {
   display: block;
   text-decoration: none;
-  padding: 12px 15px;
+  padding: 5% 5%;
   color: #fff;
 }
 .ts-sidebar-menu li {
   position: relative;
 }
 .ts-sidebar-menu li i {
-  color: #585c64;
+  color: #ffffff;
   margin-right: 10px;
 }
 .ts-sidebar-menu li ul {

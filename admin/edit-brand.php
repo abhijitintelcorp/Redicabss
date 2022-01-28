@@ -71,7 +71,6 @@ if(isset($_POST['submit']))
 }
 		</style>
 
-
 </head>
 
 <body>
