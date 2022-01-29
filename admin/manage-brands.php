@@ -114,7 +114,7 @@ $msg="Page data updated  successfully";
   extract($_POST); 
                 $query = "SELECT * FROM tblbrands";
                 $query_run = mysqli_query($conn, $query);
-                   $i = 1;
+                   $cnt = 1;
                    if(mysqli_num_rows($query_run) > 0)        
                         {
                             while($row = mysqli_fetch_array($query_run))
