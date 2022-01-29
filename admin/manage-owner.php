@@ -92,6 +92,8 @@
 									</thead>
 
 	<?php
+	$sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
+	
          $retrive_qyr="SELECT * FROM add_owner";
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
