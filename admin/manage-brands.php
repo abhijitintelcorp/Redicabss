@@ -125,11 +125,6 @@ $msg="Page data updated  successfully";
                                             <td><?php  echo $row['BrandName'];  ?></td>
                                             <td><?php  echo $row['CreationDate'];  ?></td>
                                             <td><?php  echo $row['UpdationDate']; ?></td>
-
-                                            <!-- <td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo $row['BrandName'];?></td>
-											<td><?php echo $row['CreationDate'];?></td>
-											<td><?php echo $row['UpdationDate'];?></td>  -->
                                             <td><a href="edit-brand.php?id=<?php echo $row['id'];?>"><i
                                                         class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                                 <a href="manage-brands.php?del=<?php echo $row['id'];?>"
