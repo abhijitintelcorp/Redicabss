@@ -10,8 +10,8 @@ else{
 	if(isset($_POST['submit']))
  {
   extract($_POST); 
-
-  $sql = "insert into tblbrands(BrandName)values('$brand')";
+$brand=htmlspecialchars($_POST['brand']);
+$sql = "insert into tblbrands(BrandName)values('$brand')";
   $res=mysqli_query($conn, $sql);
   if($res){
   $msg="<b class='succWrap'>Brand Created Successfully</b>";
