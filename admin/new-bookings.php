@@ -121,7 +121,7 @@ else{
 
                 <div class="row">
                     <div class="col-md-12">
->>>>>>> Nirmala
+
 
                         <h2 class="page-title">New Bookings</h2>
 
@@ -133,7 +133,7 @@ else{
                             </div>
                             <div class="panel-body">
 
-<<<<<<< HEAD
+
 <?php 
 $status=0;
 $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.Status=:status";
@@ -141,7 +141,7 @@ $query = $dbh -> prepare($sql);
 $query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-=======
+
                                 <table id="zctb" class="display table table-striped table-bordered table-hover"
                                     cellspacing="0" width="100%">
                                     <thead>
@@ -184,7 +184,6 @@ $query_run = mysqli_query($conn, $query);
 $cnt=1;
 if(mysqli_num_rows($query_run) > 0)   
 {
-<<<<<<< HEAD
 foreach($results as $result)
 {	
 ?>	
@@ -197,23 +196,6 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->ToDate);?></td>
 											<td><?php 
 if($result->Status==0)
-=======
-	while($row = mysqli_fetch_array($query_run))
-
-    {
-
-					?>
-                                        <tr>
-                                            <td><?php echo htmlentities($cnt);?></td>
-                                            <td><?php  echo $row['FullName'];  ?></td>
-                                            <td><?php echo $row['BookingNumber'];?></td>
-                                            <td><a href="edit-vehicle.php?id=<?php echo htmlentities($row['vid']);?>"><?php echo htmlentities($row['BrandName']);?>
-                                                    , <?php echo htmlentities($row['VehiclesTitle']); ?></td>
-                                            <td><?php echo htmlentities($row['FromDate']); ?></td>
-                                            <td><?php echo htmlentities($row['ToDate']); ?></td>
-                                            <td><?php
-if($row['Status']==0)
->>>>>>> Nirmala
 {
 echo htmlentities('Not Confirmed yet');
 } else if ($row['Status']==1) {
@@ -230,17 +212,6 @@ echo htmlentities('Confirmed');
                                                 <a href="bookig-details.php?bid=<?php echo $row['id'];?>"> View</a>
                                             </td>
 
-<<<<<<< HEAD
-										</tr>
-										<?php $cnt=$cnt+1; }} ?>
-										
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-=======
                                         </tr>
                                         <?php $cnt=$cnt+1; }} ?>
 
@@ -251,7 +222,6 @@ echo htmlentities('Confirmed');
 
                             </div>
                         </div>
->>>>>>> Nirmala
 
 
 
