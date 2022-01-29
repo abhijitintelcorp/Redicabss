@@ -123,7 +123,7 @@ $msg="Vehicle  record deleted successfully";
 $query = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,
 tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
 $query_run = mysqli_query($conn, $query);
-                   $i = 1;
+                   $cnt = 1;
                    if(mysqli_num_rows($query_run) > 0)        
                         {
                             while($row = mysqli_fetch_array($query_run))
@@ -131,14 +131,14 @@ $query_run = mysqli_query($conn, $query);
                         ?>
                                         <tr>
                                             <td><?php echo htmlentities($cnt);?></td>
-                                            <td><?php echo htmlentities($result->VehiclesTitle);?></td>
-                                            <td><?php echo htmlentities($result->BrandName);?></td>
-                                            <td><?php echo htmlentities($result->PricePerDay);?></td>
-                                            <td><?php echo htmlentities($result->FuelType);?></td>
-                                            <td><?php echo htmlentities($result->ModelYear);?></td>
-                                            <td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i
+                                            <td><?php echo $row['VehiclesTitle'];?></td>
+                                            <td><?php echo $row['BrandName'];?></td>
+                                            <td><?php echo $row['PricePerDay'];?></td>
+                                            <td><?php echo $row['FuelType'];?></td>
+                                            <td><?php echo $row['ModelYear'];?></td>
+                                            <td><a href="edit-vehicle.php?id=<?php echo $row['id'];?>"><i
                                                         class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                                <a href="manage-vehicles.php?del=<?php echo $result->id;?>"
+                                                <a href="manage-vehicles.php?del=<?php echo $row['id'];?>"
                                                     onclick="return confirm('Do you want to delete');"><i
                                                         class="fa fa-close"></i></a>
                                             </td>
