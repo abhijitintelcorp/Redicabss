@@ -142,7 +142,7 @@ $query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 
-                                <table id="zctb" class="display table table-striped table-bordered table-hover"
+                                <table id="zctb" class="display table table-striped table-bordered table-hover">
                                     cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
