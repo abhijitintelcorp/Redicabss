@@ -125,42 +125,42 @@ else{
 										</tr>
 									</tfoot>
 									<tbody>
-
-									<?php 
+<?php 
+extract($_POST); 
 $status=0;
-									$sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.Status=:status";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+$query = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.Status='$status'";
+$query_run = mysqli_query($conn, $query);
 $cnt=1;
-if($query->rowCount() > 0)
+if(mysqli_num_rows($query_run) > 0)   
 {
-foreach($results as $result)
-{				?>	
+	while($row = mysqli_fetch_array($query_run))
+
+    {
+
+					?>	
 										<tr>
-											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><?php echo htmlentities($result->BookingNumber);?></td>
-											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
-											<td><?php echo htmlentities($result->FromDate);?></td>
-											<td><?php echo htmlentities($result->ToDate);?></td>
+										<td><?php echo htmlentities($cnt);?></td>
+										<td><?php  echo $row['FullName'];  ?></td>
+										<td><?php echo $row['BookingNumber'];?></td>
+											<td><a href="edit-vehicle.php?id=<?php echo $row['vid'];?>"><?php echo $row['BrandName'];?> , <?php echo $row['VehiclesTitle'];?></td>
+											<td><?php echo $row['FromDate'];?></td>
+											<td><?php echo $row['ToDate'];?></td>
 											<td><?php 
-if($result->Status==0)
+if($row->Status==0)
 {
 echo htmlentities('Not Confirmed yet');
-} else if ($result->Status==1) {
+} else if ($row->Status==1) {
 echo htmlentities('Confirmed');
 }
  else{
  	echo htmlentities('Cancelled');
  }
 										?></td>
-											<td><?php echo htmlentities($result->PostingDate);?></td>
+											<td><?php echo $row['PostingDate'];?></td>
 										<td>
 
 
-<a href="bookig-details.php?bid=<?php echo htmlentities($result->id);?>"> View</a>
+<a href="bookig-details.php?bid=<?php echo $row['id'];?>"> View</a>
 </td>
 
 										</tr>
