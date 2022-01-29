@@ -2,32 +2,56 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
+
 // Code for change password	
 if(isset($_POST['submit']))
 {
-$name=$_POST['name'];
-$number=$_POST['number'];
-$sql="INSERT INTO  tbldriver(name,number) VALUES(:name,:number)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':number',$number,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$msg="Driver added successfully";
-}
-else 
-{
-$error="Something went wrong. Please try again";
-}
+$name=htmlspecialchars($_POST['name']);
+$number=htmlspecialchars($_POST['number']);
+$email=htmlspecialchars($_POST['email']);
+$adhar=htmlspecialchars($_POST['adhar']);
+$pan=htmlspecialchars($_POST['pan']);
+$licence=htmlspecialchars($_POST['licence']);
+$adhar=$_FILES['adhar']['name'];
+		$img_type=$_FILES['adhar']['type'];
+		$img_size=$_FILES['adhar']['size'];
+		$img_file1=$_FILES['adhar']['tmp_name'];
+		// echo $name." ".$type." ".$size." ".$img_file;
+		$pan=$_FILES['pan']['name'];
+		$img_type=$_FILES['pan']['type'];
+		$img_size=$_FILES['pan']['size'];
+		$img_file2=$_FILES['pan']['tmp_name'];
 
+		$licence=$_FILES['licence']['name'];
+		$img_type=$_FILES['licence']['type'];
+		$img_size=$_FILES['licence']['size'];
+		$img_file3=$_FILES['licence']['tmp_name'];
+
+
+		$path1 = "upload/".$pan;
+		$path2 = "upload/".$licence;
+
+		if($img_type=='image/jpg' || $img_type=='image/jpeg' || $img_type=='image/png' || $img_type=='image/gif'){
+			if($img_size<=7000000){
+			{
+
+$insert_qry="INSERT INTO tbldriver(`name`,`number`,`email`,`adhar`,`pan`,`licence`)VALUES('$name','$number','$email','$adhar','$pan','$licence')";
+$fn_qry = mysqli_query($conn, $insert_qry);
+$path = "upload/".$adhar;
+if(move_uploaded_file($img_file1, $path)){
+ copy($path, "$path");
+}  
+$path = "upload/".$pan;
+if(move_uploaded_file($img_file2, $path)){
+ copy($path, "$path");
+} 
+ $path = "upload/".$licence;
+if(move_uploaded_file($img_file3, $path)){
+ copy($path, "$path");
+}   
 }
+}
+		}}
 ?>
 
 <!doctype html>
@@ -98,24 +122,47 @@ $error="Something went wrong. Please try again";
 								<div class="panel panel-default">
 									<div class="panel-heading">AddDriver</div>
 									<div class="panel-body">
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
+										<form method="post" name="chngpwd" class="form-horizontal" enctype="multipart/form-data" onSubmit="return valid();">
 										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+				
 											<div class="form-group">
-												<label class="col-sm-4 control-label">DriverName</label>
+												<label class="col-sm-4 control-label">Driver Name</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="name" id="name" required>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-sm-4 control-label">ContactNumber</label>
+												<label class="col-sm-4 control-label">Contact Number</label>
 												<div class="col-sm-8">
 													<input type="number" class="form-control" name="number" id="number" required>
 												</div>
 											</div>
-
+											<div class="form-group">
+												<label class="col-sm-4 control-label"> Driver Email</label>
+												<div class="col-sm-8">
+											<div class="form-group">
+													<input type="email" class="form-control" name="email" id="email" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driver Adhar no.</label>
+												<div class="col-sm-8">
+													<input type="file" class="form-control" name="adhar" id="adhar" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driver pancard no.</label>
+												<div class="col-sm-8">
+													<input type="file" class="form-control" name="pan" id="pan" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Driving Licence</label>
+												<div class="col-sm-8">
+													<input type="file" class="form-control" name="licence" id="licence" required>
+												</div>
+											</div>
+										
 											<div class="hr-dashed"></div>
 											
 										
@@ -160,4 +207,5 @@ $error="Something went wrong. Please try again";
 </body>
 
 </html>
-<?php } ?>
+
+ 

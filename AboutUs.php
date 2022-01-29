@@ -4,7 +4,7 @@ include('includes/config.php');
 error_reporting(0);
 
 ?>
-
+ 
 <!DOCTYPE HTML>
 <html lang="en">
 <head>

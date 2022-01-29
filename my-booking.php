@@ -68,6 +68,8 @@ $msg="Booking Successfully Cancelled";
 ?>
 </head>
 <body>
+<!--Laxmipriya -->
+<h1>Hello Bhagirathi</h1>
 
 <!-- Start Switcher -->
 <?php include('includes/colorswitcher.php');?>
