@@ -26,6 +26,8 @@ if(isset($_POST['submit']))
 
 
 ?>
+
+
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -119,9 +121,9 @@ if(isset($_POST['submit']))
 </div>
 </div>
 <div class="form-group">
-<label class="col-sm-2 control-label">Select Vehicleno<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Select Vehicle No<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="vehicleno" id="vehicleno" required>
+<select class="selectpicker" name="owner_vehicle_no" id="owner_vehicle_no" required>
 <option value=""> Select </option>
 <?php              
   $qry = "SELECT id,owner_vehicle_no from add_owner";
@@ -129,34 +131,39 @@ if(isset($_POST['submit']))
   while ($row = mysqli_fetch_array($exe)) 
   {
   ?>
-  <option  value="<?php echo $row['id'] ?>"><?php echo $row['owner_vehicle_no'] ?>
+  <option  value="<?php echo $row['owner_vehicle_no'] ?>"><?php echo $row['owner_vehicle_no'] ?>
   </option>
 
 <?php }  ?> 
 
 </select>
 </div>
-
-<?php
-//  $vehicleno =$_POST['owner_vehicle_no']; 
-//        //run your query here to fetch the result and store it in a variable $data
-//      echo json_encode($data);
-//  ?>   
  
 </div>
 <div class="form-group">
-<label class="col-sm-2 control-label">VehicleRCNo<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehreg" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>"required>
-
+<label class="col-sm-2 control-label">Vehicle RC No<span style="color:red">*</span></label>
+<div class="col-sm-4" id="vehicle_no">
+<input type="text" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no" class="form-control" value="<?php  echo $row['owner_vehicle_rc_no'];?>"> 
 </div>
-<label class="col-sm-2 control-label">VehiclChasisNo<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehchas" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>" required>
+<div class="form-group">
+<!--- <label class="col-sm-2 control-label">Owner Name<span style="color:red">*</span></label>  -->
+<div class="col-sm-6" id="vehicle_no">
+<!--- <input type="text" name="owner_name" id="owner_name" class="form-control" value="<?php  // echo $row['owner_name'];?>"> -->
+</div>
+  </div>
+<div class="form-group">
+<!-- <label class="col-sm-2 control-label">Owner Mobile No.<span style="color:red">*</span></label> -->
+<div class="col-sm-6" id="vehicle_no">
+<!--  <input type="text" name="owner_mobile" id="owner_mobile" class="form-control" value="<?php // echo $row['owner_mobile'];?>"> --->
+</div>
+  </div>
+<div class="form-group">
+<!--- <label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> -->
+<div class="col-sm-6" id="vehicle_no">
+<!--	<input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php // echo $row['owner_vehicle_jcc_no'];?>"> -->
 </div>
 </div>
-
-											
+										
 <div class="hr-dashed"></div>
 <div class="form-group">
 <label class="col-sm-2 control-label">Vehical Overview<span style="color:red">*</span></label>
@@ -362,15 +369,25 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 //        });
 //    });
 //  });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(".myselect").change(function () {
-   
-   $( "select option:selected" ).each(function() {
-	   
-	   $(this).parent().next('.returnValue').val($( this ).text());
-   });
+$(document).ready(function() {
+$('#owner_vehicle_no').on('change', function() {
+var owner_vehicle_no = this.value;
+$.ajax({
+url: "get_vehicle.php",
+type: "POST",
+data: {
+owner_vehicle_no: owner_vehicle_no
+},
+cache: false,
+success: function(result){
+$("#vehicle_no").html(result);
+}
+});
+}); 
 });
 </script>
-	</script>
+	
 </body>
 </html>
