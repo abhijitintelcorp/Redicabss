@@ -137,17 +137,11 @@ if(isset($_POST['submit']))
 </select>
 </div>
 
-<!-- <?php	
-$id = $_GET['id'];
-$select="SELECT * FROM add_owner WHERE owner_vehicle_no='$id'";
-$result=mysqli_query($conn, $select);
-$row = mysqli_fetch_assoc($result);
-?> -->
 <?php
- $vehicleno =$_POST['owner_vehicle_no']; 
-       //run your query here to fetch the result and store it in a variable $data
-     echo json_encode($data);
- ?>   
+//  $vehicleno =$_POST['owner_vehicle_no']; 
+//        //run your query here to fetch the result and store it in a variable $data
+//      echo json_encode($data);
+//  ?>   
  
 </div>
 <div class="form-group">
@@ -357,17 +351,26 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
 	<script>
-		$(document).ready(function(){
-   $('#vehicleno').change(function(){
-   var vehicleno = $(this).val();
-   var data_String;
-    data_String = 'vehicleno='+vehicleno;
-    $.post('post-avehical.php',data_String,function(data){
-          var data= jQuery.parseJSON(data);
-           $('#vehreg').val(data.vehreg)
-       });
+// 		$(document).ready(function(){
+//    $('#vehicleno').change(function(){
+//    var vehicleno = $(this).val();
+//    var data_String;
+//     data_String = 'vehicleno='+vehicleno;
+//     $.post('post-avehical.php',data_String,function(data){
+//           var data= jQuery.parseJSON(data);
+//            $('#vehreg').val(data.vehreg)
+//        });
+//    });
+//  });
+<script>
+$(".myselect").change(function () {
+   
+   $( "select option:selected" ).each(function() {
+	   
+	   $(this).parent().next('.returnValue').val($( this ).text());
    });
- });
+});
+</script>
 	</script>
 </body>
 </html>
