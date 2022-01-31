@@ -37,17 +37,23 @@ $crashcensor=$_POST['crashcensor'];
 $leatherseats=$_POST['leatherseats'];
 $id=intval($_GET['id']);
 
-$query="update tblvehicles set ownname=:ownname,ContactNo=:ContactNo,email=:email,vehno=:vehno,vehreg=:vehreg,
-vehchas=:vehchas, VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,
-PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,
-AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,
-BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,
-PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,
-LeatherSeats=:leatherseats where id='$id'";
-$query_run = mysqli_query($query);
-$msg="Data updated successfully";
+$query="UPDATE tblvehicles SET ownname='$ownname',ContactNo='$ContactNo',email='$email',vehno='$vehno',vehreg='$vehreg',
+vehchas='$vehchas', VehiclesTitle='$vehicletitle',VehiclesBrand='$brand',VehiclesOverview='$vehicleoverview',
+PricePerDay='$priceperday',FuelType='$fueltype',ModelYear='$modelyear',SeatingCapacity='$seatingcapacity',
+AirConditioner='$airconditioner',PowerDoorLocks='$powerdoorlocks',AntiLockBrakingSystem='$antilockbrakingsys',
+BrakeAssist='$brakeassist',PowerSteering='$powersteering',DriverAirbag='$driverairbag',PassengerAirbag='$passengerairbag',
+PowerWindows='$powerwindow',CDPlayer='$cdplayer',CentralLocking='$centrallocking',CrashSensor='$crashcensor',
+LeatherSeats='$leatherseats' where id='$id'";
+$query_run = mysqli_query($conn,$query);
+if($query_run){
+    header("location:manage-vehicles.php");
+}else{
+    $msg="updated failed";
+}
+
 }
 ?>
+
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -119,11 +125,11 @@ $msg="Data updated successfully";
                                             <strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?>
                                         </div><?php } ?>
                                         <?php 
+                                        
 $id=intval($_GET['id']);
 $query ="SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid from tblvehicles join tblbrands on 
 tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id='$id'";
 $query_run = mysqli_query($conn, $query);
-                   $cnt = 1;
                    if(mysqli_num_rows($query_run) > 0)        
                         {
                             while($row = mysqli_fetch_array($query_run))
@@ -168,7 +174,7 @@ $query_run = mysqli_query($conn, $query);
                                                 <label class="col-sm-2 control-label">VehicleTitle<span
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" name="VehiclesTitle" class="form-control"
+                                                    <input type="text" name="vehicletitle" class="form-control"
                                                         value="<?php echo $row['VehiclesTitle'];?>" required>
                                                 </div>
                                             </div>
@@ -180,24 +186,22 @@ $query_run = mysqli_query($conn, $query);
                                                         <option value="<?php echo $row['bid'];?>">
                                                             <?php echo $bdname=$row['BrandName']; ?>
                                                         </option>
-                                                        <?php 
-$ret="select id,BrandName from tblbrands";
-$query = mysqli_query($conn, $ret);
-$count=mysqli_num_rows($query);
-                   if(count> 0)        
+                                                        <?php $query1="select id,BrandName from tblbrands";
+$query_run1 = mysqli_query($conn, $query1);
+                   if(mysqli_num_rows($query_run1) > 0)        
                         {
-                            while($row = mysqli_fetch_array($query))
+                            while($result = mysqli_fetch_array($query_run1))
                             {
-                        
-                                                                            if($row['BrandName']==$bdname)
-                                                                            {
-                                                                            continue;
-                                                                            } else{
-                                                                            ?>
-                                                        <option value="<?php echo $row['id'];?>">
-                                                            <?php echo $row['BrandName'];?>
-                                                        </option>
+
+if($result['BrandName']==$bdname)
+{
+continue;
+} else{
+?>
+                                                        <option value="<?php echo htmlentities($result['id']);?>">
+                                                            <?php echo htmlentities($result['BrandName']);?></option>
                                                         <?php }}} ?>
+
 
                                                     </select>
                                                 </div>
@@ -258,33 +262,48 @@ $count=mysqli_num_rows($query);
 
 
                                             <div class="form-group">
-                                                <div class="col-sm-4">
-                                                    Image 1 <img src="img/vehicleimages/<?php echo $row['Vimage1'];?>"
-                                                        width="300" height="200" style="border:solid 1px #000">
-                                                    <a href="changeimage1.php?imgid=<?php echo $row['id'];?>">Change
-                                                        Image 1</a>
+                                                <div class="col-sm-4">Image 1&nbsp;&nbsp;
+                                                    <img src="img/vehicleimages/<?php echo $row['Vimage1'];?>"
+                                                        width="300" height="200" style="border:solid 1px #000"></br>
+                                                    <a href="changeimage1.php?imgid=<?php echo $row['id'];?>"></br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Change Image 1</a>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    Image 2<img src="img/vehicleimages/<?php echo $row['Vimage2'];?>"
-                                                        width="300" height="200" style="border:solid 1px #000">
-                                                    <a href="changeimage2.php?imgid=<?php echo $row['id'];?>">Change
-                                                        Image 2</a>
+                                                    Image 2&nbsp;&nbsp;<img
+                                                        src="img/vehicleimages/<?php echo $row['Vimage2'];?>"
+                                                        width="300" height="200" style="border:solid 1px #000"></br>
+                                                    <a href="changeimage2.php?imgid=<?php echo $row['id'];?>"></br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Change Image 2</a>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    Image 3<img src="img/vehicleimages/<?php echo $row['Vimage3'];?>"
-                                                        width="300" height="200" style="border:solid 1px #000">
-                                                    <a href="changeimage3.php?imgid=<?php echo $row['id'];?>">Change
-                                                        Image 3</a>
+                                                    Image 3&nbsp;&nbsp;<img
+                                                        src="img/vehicleimages/<?php echo $row['Vimage3'];?>"
+                                                        width="300" height="200" style="border:solid 1px #000"></br>
+                                                    <a href="changeimage3.php?imgid=<?php echo $row['id'];?>"></br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Change Image 3</a>
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group">
                                                 <div class="col-sm-4">
-                                                    Image 4<img src="img/vehicleimages/<?php echo $row['Vimage4'];?>"
-                                                        width="300" height="200" style="border:solid 1px #000">
-                                                    <a href="changeimage4.php?imgid=<?php echo $row['id'];?>">Change
-                                                        Image 4</a>
+                                                    Image 4&nbsp;&nbsp;<img
+                                                        src="img/vehicleimages/<?php echo $row['Vimage4'];?>"
+                                                        width="300" height="200" style="border:solid 1px #000"></br>
+                                                    <a href="changeimage4.php?imgid=<?php echo $row['id'];?>"></br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Change Image 4</a>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     Image 5
@@ -293,9 +312,12 @@ $count=mysqli_num_rows($query);
 echo htmlentities("File not available");
 } else {?>
                                                     <img src="img/vehicleimages/<?php echo $row['Vimage5'];?>"
-                                                        width="300" height="200" style="border:solid 1px #000">
-                                                    <a href="changeimage5.php?imgid=<?php echo $row['id'];?>">Change
-                                                        Image 5</a>
+                                                        width="300" height="200" style="border:solid 1px #000"></br>
+                                                    <a href="changeimage5.php?imgid=<?php echo $row['id'];?>"></br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Change Image 5</a>
                                                     <?php } ?>
                                                 </div>
 
@@ -317,7 +339,7 @@ echo htmlentities("File not available");
 
                                         <div class="form-group">
                                             <div class="col-sm-3">
-                                                <?php if($result->AirConditioner==1)
+                                                <?php if($row['AirConditioner']==1)
 {?>
                                                 <div class="checkbox checkbox-inline">
                                                     <input type="checkbox" id="inlineCheckbox1" name="airconditioner"
@@ -333,7 +355,7 @@ echo htmlentities("File not available");
                                                 <?php } ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php if($result->PowerDoorLocks==1)
+                                                <?php if($row['PowerDoorLocks']==1)
 {?>
                                                 <div class="checkbox checkbox-inline">
                                                     <input type="checkbox" id="inlineCheckbox1" name="powerdoorlocks"
@@ -349,7 +371,7 @@ echo htmlentities("File not available");
                                                 <?php }?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php if($result->AntiLockBrakingSystem==1)
+                                                <?php if($row['AntiLockBrakingSystem']==1)
 {?>
                                                 <div class="checkbox checkbox-inline">
                                                     <input type="checkbox" id="inlineCheckbox1"
@@ -365,7 +387,7 @@ echo htmlentities("File not available");
                                                 <?php } ?>
                                             </div>
                                             <div class="col-sm-3">
-                                                <?php if($result->BrakeAssist==1)
+                                                <?php if($row['BrakeAssist']==1)
 {
 	?>
                                                 <div class="checkbox checkbox-inline">
@@ -381,188 +403,190 @@ echo htmlentities("File not available");
                                                 </div>
                                                 <?php } ?>
                                             </div>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <?php if($result->PowerSteering==1)
+                                        <div class="form-group">
+                                            <?php if($row['PowerSteering']==1)
 {
 	?>
+                                            <div class="col-sm-3">
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="powersteering"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox1"> Power Steering </label>
+                                                </div>
+                                                <?php } else {?>
                                                 <div class="col-sm-3">
                                                     <div class="checkbox checkbox-inline">
                                                         <input type="checkbox" id="inlineCheckbox1" name="powersteering"
-                                                            checked value="1">
+                                                            value="1">
                                                         <label for="inlineCheckbox1"> Power Steering </label>
                                                     </div>
-                                                    <?php } else {?>
-                                                    <div class="col-sm-3">
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input type="checkbox" id="inlineCheckbox1"
-                                                                name="powersteering" value="1">
-                                                            <label for="inlineCheckbox1"> Power Steering </label>
-                                                        </div>
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <?php if($result->DriverAirbag==1)
-{
-?>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input type="checkbox" id="inlineCheckbox1"
-                                                                name="driverairbag" checked value="1">
-                                                            <label for="inlineCheckbox2">Driver Airbag</label>
-                                                        </div>
-                                                        <?php } else { ?>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input type="checkbox" id="inlineCheckbox1"
-                                                                name="driverairbag" value="1">
-                                                            <label for="inlineCheckbox2">Driver Airbag</label>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <?php if($result->DriverAirbag==1)
-{
-?>
-                                                            <div class="checkbox checkbox-inline">
-                                                                <input type="checkbox" id="inlineCheckbox1"
-                                                                    name="passengerairbag" checked value="1">
-                                                                <label for="inlineCheckbox3"> Passenger Airbag </label>
-                                                            </div>
-                                                            <?php } else { ?>
-                                                            <div class="checkbox checkbox-inline">
-                                                                <input type="checkbox" id="inlineCheckbox1"
-                                                                    name="passengerairbag" value="1">
-                                                                <label for="inlineCheckbox3"> Passenger Airbag </label>
-                                                            </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <?php if($result->PowerWindows==1)
-{
-?>
-                                                            <div class="checkbox checkbox-inline">
-                                                                <input type="checkbox" id="inlineCheckbox1"
-                                                                    name="powerwindow" checked value="1">
-                                                                <label for="inlineCheckbox3"> Power Windows </label>
-                                                            </div>
-                                                            <?php } else { ?>
-                                                            <div class="checkbox checkbox-inline">
-                                                                <input type="checkbox" id="inlineCheckbox1"
-                                                                    name="powerwindow" value="1">
-                                                                <label for="inlineCheckbox3"> Power Windows </label>
-                                                            </div>
-                                                            <?php } ?>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-                                                            <div class="col-sm-3">
-                                                                <?php if($result->CDPlayer==1)
-{
-?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="cdplayer" checked value="1">
-                                                                    <label for="inlineCheckbox1"> CD Player </label>
-                                                                </div>
-                                                                <?php } else {?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="cdplayer" value="1">
-                                                                    <label for="inlineCheckbox1"> CD Player </label>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <?php if($result->CentralLocking==1)
-{
-?>
-                                                                <div class="checkbox  checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="centrallocking" checked value="1">
-                                                                    <label for="inlineCheckbox2">Central Locking</label>
-                                                                </div>
-                                                                <?php } else { ?>
-                                                                <div class="checkbox checkbox-success checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="centrallocking" value="1">
-                                                                    <label for="inlineCheckbox2">Central Locking</label>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <?php if($result->CrashSensor==1)
-{
-?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="crashcensor" checked value="1">
-                                                                    <label for="inlineCheckbox3"> Crash Sensor </label>
-                                                                </div>
-                                                                <?php } else {?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="crashcensor" value="1">
-                                                                    <label for="inlineCheckbox3"> Crash Sensor </label>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <?php if($result->CrashSensor==1)
-{
-?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="leatherseats" checked value="1">
-                                                                    <label for="inlineCheckbox3"> Leather Seats </label>
-                                                                </div>
-                                                                <?php } else { ?>
-                                                                <div class="checkbox checkbox-inline">
-                                                                    <input type="checkbox" id="inlineCheckbox1"
-                                                                        name="leatherseats" value="1">
-                                                                    <label for="inlineCheckbox3"> Leather Seats </label>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-
-                                                        <?php }} ?>
-
-
-                                                        <div class="form-group">
-                                                            <div class="col-sm-8 col-sm-offset-2">
-
-                                                                <button class="btn btn-primary" name="submit"
-                                                                    type="submit" style="margin-top:4%">Save
-                                                                    changes</button>
-                                                            </div>
-                                                        </div>
-
-                                                        </form>
-                                                    </div>
+                                                    <?php } ?>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['DriverAirbag']==1)
+{
+?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="driverairbag"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox2">Driver Airbag</label>
+                                                </div>
+                                                <?php } else { ?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="driverairbag"
+                                                        value="1">
+                                                    <label for="inlineCheckbox2">Driver Airbag</label>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['DriverAirbag']==1)
+{
+?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="passengerairbag"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox3"> Passenger Airbag </label>
+                                                </div>
+                                                <?php } else { ?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="passengerairbag"
+                                                        value="1">
+                                                    <label for="inlineCheckbox3"> Passenger Airbag </label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['PowerWindows']==1)
+{
+?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="powerwindow"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox3"> Power Windows </label>
+                                                </div>
+                                                <?php } else { ?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="powerwindow"
+                                                        value="1">
+                                                    <label for="inlineCheckbox3"> Power Windows </label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <?php if($row['CDPlayer']==1)
+{
+?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="cdplayer" checked
+                                                        value="1">
+                                                    <label for="inlineCheckbox1"> CD Player </label>
+                                                </div>
+                                                <?php } else {?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="cdplayer"
+                                                        value="1">
+                                                    <label for="inlineCheckbox1"> CD Player </label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['CentralLocking']==1)
+{
+?>
+                                                <div class="checkbox  checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="centrallocking"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox2">Central Locking</label>
+                                                </div>
+                                                <?php } else { ?>
+                                                <div class="checkbox checkbox-success checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="centrallocking"
+                                                        value="1">
+                                                    <label for="inlineCheckbox2">Central Locking</label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['CrashSensor']==1)
+{
+?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="crashcensor"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox3"> Crash Sensor </label>
+                                                </div>
+                                                <?php } else {?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="crashcensor"
+                                                        value="1">
+                                                    <label for="inlineCheckbox3"> Crash Sensor </label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <?php if($row['CrashSensor']==1)
+                                                                {?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="leatherseats"
+                                                        checked value="1">
+                                                    <label for="inlineCheckbox3"> Leather Seats </label>
+                                                </div>
+                                                <?php } else { ?>
+                                                <div class="checkbox checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" name="leatherseats"
+                                                        value="1">
+                                                    <label for="inlineCheckbox3"> Leather Seats </label>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
 
 
 
+
+                                        <div class="form-group">
+                                            <div class="col-sm-8 col-sm-offset-2">
+
+                                                <button class="btn btn-primary" name="submit" type="submit"
+                                                    style="margin-top:4%">Save
+                                                    changes</button>
+                                            </div>
+                                        </div>
+
+                                        </form>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
 
-                    <!-- Loading Scripts -->
-                    <script src="js/jquery.min.js"></script>
-                    <script src="js/bootstrap-select.min.js"></script>
-                    <script src="js/bootstrap.min.js"></script>
-                    <script src="js/jquery.dataTables.min.js"></script>
-                    <script src="js/dataTables.bootstrap.min.js"></script>
-                    <script src="js/Chart.min.js"></script>
-                    <script src="js/fileinput.js"></script>
-                    <script src="js/chartData.js"></script>
-                    <script src="js/main.js"></script>
+                </div>
+            </div>
+
+            <?php }} ?>
+
+        </div>
+    </div>
+    </div>
+
+    <!-- Loading Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/fileinput.js"></script>
+    <script src="js/chartData.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
