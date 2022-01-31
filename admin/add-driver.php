@@ -123,12 +123,13 @@ if (isset($_POST['submit'])) {
 								<div class="panel panel-default">
 									<div class="panel-heading">AddDriver</div>
 									<div class="panel-body">
-										<form method="post" name="chngpwd" class="form-horizontal" enctype="multipart/form-data" onSubmit="return valid();">
+										<form method="post" name="chngpwd" id="chngpwd" class="form-horizontal" enctype="multipart/form-data" onSubmit="return valid();">
 
 
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Driver Name</label>
 												<div class="col-sm-8">
+
 													<input type="text" class="form-control" name="name" id="name" required>
 												</div>
 											</div>
@@ -178,7 +179,7 @@ if (isset($_POST['submit'])) {
 												<div class="form-group">
 													<div class="col-sm-8 col-sm-offset-4">
 
-														<button class="btn btn-primary" name="submit" type="submit">Submit</button>
+														<button class="btn btn-primary" value="submit" name="submit" type="submit">Submit</button>
 													</div>
 												</div>
 
@@ -210,6 +211,11 @@ if (isset($_POST['submit'])) {
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/validation.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
 
 </body>
 
