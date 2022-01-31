@@ -38,20 +38,15 @@ else{
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 <?php include('includes/header.php');?>
-
 	<div class="ts-main-content">
 <?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
-
 				<div class="row" >
 					<div class="col-md-12">
-
-						<h2 class="page-title" style="border-bottom: 2px solid #0a0a0a;">Dashboard</h2>
-						
+						<h2 class="page-title" style="border-bottom: 2px solid #0a0a0a;">Dashboard</h2>					
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
@@ -76,8 +71,13 @@ $regusers=mysqli_num_rows($query);
 										<div class="panel panel-default" style="border: 2px solid;border-color: black">
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
+<<<<<<< HEAD
 												<?php 
 $sql1 ="SELECT id from tblvehicles";
+=======
+<?php 
+$sql1 ="SELECT id from tblvehicles ";
+>>>>>>> Abhijit
 $query1 = mysqli_query($conn,$sql1);;
 $results1=mysqli_fetch_assoc($query1);
 $totalvehicle=mysqli_num_rows($query1);

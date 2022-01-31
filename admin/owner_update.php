@@ -32,17 +32,14 @@
 
 		 $path1 = "image/".$back_image_update;
 		 $path2 = "image/".$side_image_update;
-	
-       
+	     
 		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name_update',owner_mobile='$owner_mobile_update',owner_email='$owner_email_update',owner_vehicle_no='$owner_vehicle_no_update',owner_vehicle_rc_no='$owner_vehicle_rc_no_update',owner_vehicle_brand='$owner_vehicle_brand_update',owner_vehicle_name='$owner_vehicle_name_update',owner_vehicle_color='$owner_vehicle_color_update',driver_id='$driver_id_update' WHERE id='$user_id'";
         	  $inst_u_fn1_qry = mysqli_query($conn, $update_qry);
 
         	   if($inst_u_fn1_qry){
         	header("location:manage-owner.php");
         }
- 
-		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
-		   
+		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){		   
 		    	if(empty($front_image_update) OR empty($back_image_update) OR empty($side_image_update)) {
             $update_qry = "UPDATE  add_owner SET front_image='$front_image_update',back_image='$back_image_update',side_image='$side_image_update' WHERE id='$user_id'";
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
@@ -61,13 +58,22 @@
         } else {
         	 $update_qry = "UPDATE  add_owner SET front_image='$front_image_update',back_image='$back_image_update',side_image='$side_image_update' WHERE id='$user_id'";
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
+			 $path = "image/".$front_image_update;
+		   if(move_uploaded_file($img_file1, $path)){
+            copy($path, "$path");
+		   }  
+		   $path = "image/".$back_image_update;
+		   if(move_uploaded_file($img_file2, $path)){
+            copy($path, "$path");
+		   } 
+		    $path = "image/".$side_image_update;
+		   if(move_uploaded_file($img_file3, $path)){
+            copy($path, "$path");
+		   }   
         }
-       
         if($inst_u_fn_qry){
         	header("location:manage-owner.php");
-        }
-    
-        
+        } 
 }
 }
 

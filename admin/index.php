@@ -3,7 +3,7 @@ session_start();
 include('includes/config.php');
 if(isset($_POST['login']))
 {
-$email=$_POST['username'];
+$email=htmlspecialchars$_POST['username'];
 $password=md5($_POST['password']);
 $sql ="SELECT * FROM admin WHERE UserName='$email' and Password='$password'";
 $res = mysqli_query($conn, $sql);
@@ -14,13 +14,9 @@ if($count > 0)
 $_SESSION['alogin']=$_POST['username'];
 echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
 } else{
-  
   echo "<script>alert('Invalid Details');</script>";
-
 }
-
 }
-
 ?>
 <!doctype html>
 <html lang="en" class="no-js">
