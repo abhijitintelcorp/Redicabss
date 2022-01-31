@@ -7,7 +7,6 @@ $result = mysqli_query($conn,"SELECT * FROM add_owner where owner_vehicle_no = '
 while($row = mysqli_fetch_array($result)) {
 ?>
 <input type="text" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no" class="form-control" value="<?php  echo $row['owner_vehicle_rc_no'];?>">
-
 <div class="row">
 <div class="col-sm-12"> 
 <label class="control-label">Owner Name<span style="color:red">*</span></label>

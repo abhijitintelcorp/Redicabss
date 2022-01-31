@@ -18,6 +18,7 @@ if(isset($_POST['submit']))
   	$msg="<b class='errorWrap'>Vehicle  Failed</b>";
   }    
 }
+
 // move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
 // move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
 // move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
