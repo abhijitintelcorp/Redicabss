@@ -50,10 +50,8 @@ if($query_run){
 }else{
     $msg="updated failed";
 }
-
 }
 ?>
-
 <!doctype html>
 <html lang="en" class="no-js">
 
