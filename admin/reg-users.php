@@ -10,17 +10,11 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from tblbrands  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$msg="Page data updated  successfully";
-
+$query = "delete from tblbrands  WHERE id='$id'";
+$query_run = mysqli_query($conn, $query);
+$msg="Page data updated successfully";
 }
-
-
-
- ?>
+?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -122,25 +116,24 @@ $msg="Page data updated  successfully";
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT * from  tblusers ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php $query1 = "SELECT * from  tblusers ";
+$query_run1 = mysqli_query($conn, $query1);
+$cnt = 1;
+if(mysqli_num_rows($query_run1) > 0)        
+	 {
+		 while($row = mysqli_fetch_array($query_run1))
+		 {
+	 ?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><?php echo htmlentities($result->EmailId);?></td>
-											<td><?php echo htmlentities($result->ContactNo);?></td>
-	<td><?php echo htmlentities($result->dob);?></td>
-											<td><?php echo htmlentities($result->Address);?></td>
-											<td><?php echo htmlentities($result->City);?></td>
-											<td><?php echo htmlentities($result->Country);?></td>
-											<td><?php echo htmlentities($result->RegDate);?></td>
+											<td><?php echo $row['FullName'];?></td>
+											<td><?php echo $row['EmailId'];?></td>
+											<td><?php echo $row['ContactNo'];?></td>
+											<td><?php echo $row['dob'];?></td>
+											<td><?php echo $row['Address'];?></td>
+											<td><?php echo $row['City'];?></td>
+											<td><?php echo $row['Country'];?></td>
+											<td><?php echo $row['RegDate'];?></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										

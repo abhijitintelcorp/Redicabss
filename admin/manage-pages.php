@@ -11,15 +11,10 @@ if($_POST['submit']=="Update")
 {
 	$pagetype=$_GET['type'];
 	$pagedetails=$_POST['pgedetails'];
-$sql = "UPDATE tblpages SET detail=:pagedetails WHERE type=:pagetype";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':pagetype',$pagetype, PDO::PARAM_STR);
-$query-> bindParam(':pagedetails',$pagedetails, PDO::PARAM_STR);
-$query -> execute();
+$query = "UPDATE tblpages SET detail='$pagedetails' WHERE type='$pagetype'";
+$query_run = mysqli_query($conn,$query);
 $msg="Page data updated  successfully";
-
 }
-
 ?>
 
 <!doctype html>
@@ -184,17 +179,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			<textarea class="form-control" rows="5" cols="50" name="pgedetails" id="pgedetails" placeholder="Package Details" required>
 										<?php 
 $pagetype=$_GET['type'];
-$sql = "SELECT detail from tblpages where type=:pagetype";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':pagetype',$pagetype,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{		
-echo htmlentities($result->detail);
+$query1 = "SELECT detail from tblpages where type='$pagetype'";
+$query_run1 = mysqli_query($conn, $query1);
+                   $cnt = 1;
+                   if(mysqli_num_rows($query_run1) > 0)        
+                        {
+                            while($row = mysqli_fetch_array($query_run1))
+                            {
+                        
+echo $row['detail'];
 }}
 ?>
 

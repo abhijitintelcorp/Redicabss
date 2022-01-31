@@ -80,7 +80,7 @@ else{
                         <div class="panel panel-default">
                             <div class="panel-heading">Bookings Info
 
-                                <a href="add-booking.php">Add Booking<span class="pull-right">Add Booking</span></a>
+                                <a href="add-booking.php"><span class="pull-right">Add Booking</span></a>
                             </div>
                             <div class="panel-body">
 
