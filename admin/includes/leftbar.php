@@ -29,7 +29,7 @@
 <li><a href="manage-driver.php">Manage Drivers</a></li>
 </ul>
 </li>
-
+<li><a href="Document.php"><i class="fa fa-user"></i> DocumentManagement</a>
 <li><a href="#"><i class="fa fa-sitemap"></i> Bookings</a>
 					<ul>
 						<li><a href="new-bookings.php">New</a></li>

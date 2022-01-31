@@ -136,19 +136,20 @@ if(isset($_POST['submit']))
 
 </select>
 </div>
-
-<?php
-//  $vehicleno =$_POST['owner_vehicle_no']; 
-//        //run your query here to fetch the result and store it in a variable $data
-//      echo json_encode($data);
-//  ?>   
  
 </div>
 <div class="form-group">
 <label class="col-sm-2 control-label">VehicleRCNo<span style="color:red">*</span></label>
+<?php
+$qry = "SELECT * from add_owner where owner_vehicle_no=111111";
+$exe = mysqli_query($conn, $qry); 
+while ($row = mysqli_fetch_array($exe)) 
+{
+?>
 <div class="col-sm-4">
-<input type="text" name="vehreg" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>"required>
-
+<input type="text" name="vehreg" id="vehreg" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>"required>
+<?php }
+?>  
 </div>
 <label class="col-sm-2 control-label">VehiclChasisNo<span style="color:red">*</span></label>
 <div class="col-sm-4">
@@ -363,14 +364,11 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 //    });
 //  });
 <script>
-$(".myselect").change(function () {
-   
-   $( "select option:selected" ).each(function() {
-	   
-	   $(this).parent().next('.returnValue').val($( this ).text());
-   });
+$("#vehicleno").change(function () {
+    var selectedValue = $(this).val();
+    $("#vehreg").val($(this).find("option:selected").attr("value"))
 });
 </script>
-	</script>
+	
 </body>
 </html>
