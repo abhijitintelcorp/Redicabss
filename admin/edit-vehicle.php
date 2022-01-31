@@ -7,7 +7,7 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-
+$id= $_GET['id'];
 if(isset($_POST['submit']))
   {
 $ownname=$_POST['ownname'];
