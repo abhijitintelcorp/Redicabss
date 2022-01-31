@@ -74,28 +74,29 @@
 									<thead>
 										<tr>
 										<th>Sl.No.</th>
-											<th>Owner Name</th>
-											<th>Mobile</th>
+											<!-- <th>Owner Name</th> -->
+											<!-- <th>Mobile</th>
 											<th>Email Id</th>
 											<th>Vehicle Number</th>
 											<th>Vehicle RC Number</th>
 											<th>Vehicle Jcc Number</th>
 											<th>Vehicle Brand</th>
 											<th>Vehicle Name</th>
-											<th>Vehicle Color</th>
+											<th>Vehicle Color</th>  -->
 											<th>Assign Driver</th>
-											<th>Front Image</th>
+										<!-- 	<th>Front Image</th>
 											<th>Back Image</th>
 											<th>Side Image</th>
-											<th colspan="2">Action</th>
+											<th colspan="2">Action</th> -->
 										</tr>
 									</thead>
 
 	<?php
-	$sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-	
-         $retrive_qyr="SELECT * FROM add_owner";
-         $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
+
+	$sql = "SELECT name from tbldriver  join add_owner on tbldriver.id=add_owner.driver_id";
+
+         // $retrive_qyr="SELECT * FROM add_owner";
+         $retrive_fn_query=mysqli_query($conn,$sql);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
            $count++;
@@ -104,19 +105,19 @@
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
-											<td><?php echo $row['owner_name'];?></td>
-											<td><?php echo $row['owner_mobile'];?></td>
+											<!-- <td><?php echo $row['owner_name'];?></td>  -->
+											<!-- <td><?php echo $row['owner_mobile'];?></td>
 											<td><?php echo $row['owner_email'];?></td>
 											<td><?php echo $row['owner_vehicle_no'];?></td>
 											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_jcc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_brand'];?></td>
 											<td><?php echo $row['owner_vehicle_name'];?></td>
-											<td><?php echo $row['owner_vehicle_color'];?></td>
-   
-											<td><?php echo $row['driver_id'];?></td>
+											<td><?php echo $row['owner_vehicle_color'];?></td> --> 
+    
+											<td><?php echo $row['name'];?></td>
 
-											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
+											<!-- <td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
 
 											<td><img src="image/<?php echo $row['back_image'];?>" width="30" height="30"  alt=""></td>
 										
@@ -125,7 +126,7 @@
 											<td><a href="owner_update.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
 
 											<td><a href="owner_delete.php?owner_details_delete=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
-
+ -->
 										</tr>
 
 										
