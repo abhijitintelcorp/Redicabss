@@ -35,6 +35,7 @@
 						<li><a href="new-bookings.php">New</a></li>
 						<li><a href="confirmed-bookings.php">Confirmed</a></li>
 						<li><a href="canceled-bookings.php">Canceled</a></li>
+						<li><a href="Delay-booking.php">Delayed Pickup</a></li>
 					</ul>
 				</li>
 

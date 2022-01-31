@@ -6,93 +6,26 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-else{ 
 
 if(isset($_POST['submit']))
   {
-$ownname=htmlspecialchars($_POST['ownname']);
-$ContactNo=htmlspecialchars($_POST['ContactNo']);
-$email=htmlspecialchars($_POST['email']);
-$vehno=htmlspecialchars($_POST['vehno']);
-$vehreg=htmlspecialchars($_POST['vehreg']);
-$vehchas=htmlspecialchars($_POST['vehchas']);	
-$vehicletitle=htmlspecialchars($_POST['vehicletitle']);
-$brand=htmlspecialchars($_POST['brandname']);
-$vehicleoverview=htmlspecialchars($_POST['vehicalorcview']);
-$priceperday=htmlspecialchars($_POST['priceperday']);
-$fueltype=htmlspecialchars($_POST['fueltype']);
-$modelyear=htmlspecialchars($_POST['modelyear']);
-$seatingcapacity=htmlspecialchars($_POST['seatingcapacity']);
-$vimage1=$_FILES["img1"]["name"];
-$vimage2=$_FILES["img2"]["name"];
-$vimage3=$_FILES["img3"]["name"];
-$vimage4=$_FILES["img4"]["name"];
-$vimage5=$_FILES["img5"]["name"];
-$airconditioner=htmlspecialchars($_POST['airconditioner']);
-$powerdoorlocks=htmlspecialchars($_POST['powerdoorlocks']);
-$antilockbrakingsys=htmlspecialchars($_POST['antilockbrakingsys']);
-$brakeassist=htmlspecialchars($_POST['brakeassist']);
-$powersteering=htmlspecialchars($_POST['powersteering']);
-$driverairbag=htmlspecialchars($_POST['driverairbag']);
-$passengerairbag=htmlspecialchars($_POST['passengerairbag']);
-$powerwindow=htmlspecialchars($_POST['powerwindow']);
-$cdplayer=htmlspecialchars($_POST['cdplayer']);
-$centrallocking=htmlspecialchars($_POST['centrallocking']);
-$crashcensor=htmlspecialchars($_POST['crashcensor']);
-$leatherseats=htmlspecialchars($_POST['leatherseats']);
-move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
-move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
-move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
-move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicleimages/".$_FILES["img4"]["name"]);
-move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicleimages/".$_FILES["img5"]["name"]);
-
-$sql="INSERT INTO tblvehicles(ownname,ContactNo,email,vehno,vehreg,vehchas,VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES('$ownname','$ContactNo','$email','$vehno','$vehreg','$vehchas','$vehicletitle','$brand','$vehicleoverview','$priceperday','$fueltype','$modelyear','$seatingcapacity','$vimage1','$vimage2','$vimage3','$vimage4','$vimage5','$airconditioner','$powerdoorlocks','$antilockbrakingsys','$brakeassist','$powersteering','$driverairbag','$passengerairbag','$powerwindow','$cdplayer','$centrallocking','$crashcensor','$leatherseats')";
-$query = mysqli_query($conn,$sql);
-$query->bindParam(':ownname',$ownname,PDO::PARAM_STR);
-$query->bindParam(':ContactNo',$ContactNo,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
-$query->bindParam(':vehno',$vehno,PDO::PARAM_STR);
-$query->bindParam(':vehreg',$vehreg,PDO::PARAM_STR);
-$query->bindParam(':vehchas',$vehchas,PDO::PARAM_STR);
-$query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
-$query->bindParam(':brand',$brand,PDO::PARAM_STR);
-$query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
-$query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-$query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
-$query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-$query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
-$query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
-$query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
-$query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
-$query->bindParam(':vimage4',$vimage4,PDO::PARAM_STR);
-$query->bindParam(':vimage5',$vimage5,PDO::PARAM_STR);
-$query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
-$query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
-$query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
-$query->bindParam(':brakeassist',$brakeassist,PDO::PARAM_STR);
-$query->bindParam(':powersteering',$powersteering,PDO::PARAM_STR);
-$query->bindParam(':driverairbag',$driverairbag,PDO::PARAM_STR);
-$query->bindParam(':passengerairbag',$passengerairbag,PDO::PARAM_STR);
-$query->bindParam(':powerwindow',$powerwindow,PDO::PARAM_STR);
-$query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
-$query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
-$query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
-$query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$msg="Vehicle posted successfully";
+  extract($_POST); 
+  $sql="INSERT INTO tblvehicles(ownname,ContactNo,email,vehno,vehreg,vehchas,VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES('$ownname','$ContactNo','$email','$vehno','$vehreg','$vehchas','$vehicletitle','$brand','$vehicleoverview','$priceperday','$fueltype','$modelyear','$seatingcapacity','$vimage1','$vimage2','$vimage3','$vimage4','$airconditioner','$powerdoorlocks','$antilockbrakingsys','$brakeassist','$powersteering','$driverairbag','$passengerairbag','$powerwindow','$cdplayer','$centrallocking','$crashcensor','$leatherseats')";
+  $res=mysqli_query($conn, $sql);
+  if($res){
+  $msg="<b class='succWrap'>Vehicle posted Successfully</b>";
+  } else {
+  	$msg="<b class='errorWrap'>Vehicle  Failed</b>";
+  }    
 }
-else 
-{
-$error="Something went wrong. Please try again";
-}
+// move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
+// move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
+// move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
+// move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicleimages/".$_FILES["img4"]["name"]);
+// move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicleimages/".$_FILES["img5"]["name"]);
 
-}
 
-
-	?>
+?>
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -159,66 +92,70 @@ $error="Something went wrong. Please try again";
 							<div class="col-md-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">Basic Info</div>
-<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-
-									<div class="panel-body">
+  <?php echo $msg."<br><br>"; ?>
+<div class="panel-body">
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
 	<div class="form-group">
-<label class="col-sm-2 control-label">OwnerName<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="ownname" class="form-control" required>
-</div>
-<label class="col-sm-2 control-label">ContactNo<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="ContactNo" class="form-control" required>
-</div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">EmailId<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="email" class="form-control" required>
-</div>
-<label class="col-sm-2 control-label">VehicleNumber<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehno" class="form-control" required>
-</div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">VehiclRegNo<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehreg" class="form-control" required>
-</div>
-<label class="col-sm-2 control-label">VehiclChasisNo<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehchas" class="form-control" required>
-</div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">Vehicle Title<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="vehicletitle" class="form-control" required>
-</div>
 <label class="col-sm-2 control-label">Select Brand<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="brandname" required>
+<select class="selectpicker" name="brand" id="brand" required>
 <option value=""> Select </option>
-<?php $ret="select id,BrandName from tblbrands";
-$query= $dbh -> prepare($ret);
-//$query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
-{
-foreach($results as $result)
-{
-?>
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?></option>
-<?php }} ?>
+<?php              
+  $qry = "SELECT id,BrandName from tblbrands";
+  $exe = mysqli_query($conn, $qry); 
+  while ($row = mysqli_fetch_array($exe)) 
+  {
+  ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['BrandName'] ?>
+  </option>
+
+<?php }  ?>
 
 </select>
 </div>
+<label class="col-sm-2 control-label">Vehicle Name<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<input type="text" name="vehicletitle" class="form-control" required>
 </div>
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label">Select Vehicleno<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<select class="selectpicker" name="vehicleno" id="vehicleno" required>
+<option value=""> Select </option>
+<?php              
+  $qry = "SELECT id,owner_vehicle_no from add_owner";
+  $exe = mysqli_query($conn, $qry); 
+  while ($row = mysqli_fetch_array($exe)) 
+  {
+  ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['owner_vehicle_no'] ?>
+  </option>
+
+<?php }  ?> 
+
+</select>
+</div>
+
+<?php
+//  $vehicleno =$_POST['owner_vehicle_no']; 
+//        //run your query here to fetch the result and store it in a variable $data
+//      echo json_encode($data);
+//  ?>   
+ 
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label">VehicleRCNo<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<input type="text" name="vehreg" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>"required>
+
+</div>
+<label class="col-sm-2 control-label">VehiclChasisNo<span style="color:red">*</span></label>
+<div class="col-sm-4">
+<input type="text" name="vehchas" class="form-control" value="<?php echo $row['owner_vehicle_rc_no'];?>" required>
+</div>
+</div>
+
 											
 <div class="hr-dashed"></div>
 <div class="form-group">
@@ -268,13 +205,13 @@ foreach($results as $result)
 
 <div class="form-group">
 <div class="col-sm-4">
-Image 1 <span style="color:red">*</span><input type="file" name="img1" required>
+FrontImage <span style="color:red">*</span><input type="file" name="img1" required>
 </div>
 <div class="col-sm-4">
-Image 2<span style="color:red">*</span><input type="file" name="img2" required>
+SideImage<span style="color:red">*</span><input type="file" name="img2" required>
 </div>
 <div class="col-sm-4">
-Image 3<span style="color:red"></span><input type="file" name="img3" >
+BackImage<span style="color:red"></span><input type="file" name="img3" >
 </div>
 </div>
 
@@ -283,9 +220,7 @@ Image 3<span style="color:red"></span><input type="file" name="img3" >
 <div class="col-sm-4">
 Image 4<span style="color:red"></span><input type="file" name="img4" >
 </div>
-<div class="col-sm-4">
-Image 5<input type="file" name="img5">
-</div>
+
 
 </div>
 <div class="hr-dashed"></div>									
@@ -415,6 +350,27 @@ Image 5<input type="file" name="img5">
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+// 		$(document).ready(function(){
+//    $('#vehicleno').change(function(){
+//    var vehicleno = $(this).val();
+//    var data_String;
+//     data_String = 'vehicleno='+vehicleno;
+//     $.post('post-avehical.php',data_String,function(data){
+//           var data= jQuery.parseJSON(data);
+//            $('#vehreg').val(data.vehreg)
+//        });
+//    });
+//  });
+<script>
+$(".myselect").change(function () {
+   
+   $( "select option:selected" ).each(function() {
+	   
+	   $(this).parent().next('.returnValue').val($( this ).text());
+   });
+});
+</script>
+	</script>
 </body>
 </html>
-<?php } ?>
