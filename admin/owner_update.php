@@ -6,36 +6,37 @@
 	$urows = mysqli_fetch_array($user_update_query);
 	 //update
     if (isset($_POST['owner_update_submit'])) {
-         $owner_name_update=htmlspecialchars($_POST['owner_name_update']);
-		 $owner_mobile_update=htmlspecialchars($_POST['owner_mobile_update']);
-		 $owner_email_update=htmlspecialchars($_POST['owner_email_update']);
-		 $owner_vehicle_no_update=htmlspecialchars($_POST['owner_vehicle_no_update']);
-		 $owner_vehicle_rc_no_update=htmlspecialchars($_POST['owner_vehicle_rc_no_update']);
-		 $owner_vehicle_jcc_no_update=htmlspecialchars($_POST['owner_vehicle_jcc_no_update']);
-		 $owner_vehicle_brand_update=htmlspecialchars($_POST['owner_vehicle_brand_update']);
-		 $owner_vehicle_name_update=htmlspecialchars($_POST['owner_vehicle_name_update']);
-		 $owner_vehicle_color_update=htmlspecialchars($_POST['owner_vehicle_color_update']);
-		 $driver_id_update=htmlspecialchars($_POST['driver_id_update']);
-     	$front_image_update=$_FILES['front_image_update']['name'];
-		 $type=$_FILES['front_image_update']['type'];
-		 $size=$_FILES['front_image_update']['size'];
-		 $img_file1=$_FILES['front_image_update']['tmp_name'];
+         $owner_name=htmlspecialchars($_POST['owner_name']);
+		 $owner_mobile=htmlspecialchars($_POST['owner_mobile']);
+		 $owner_email=htmlspecialchars($_POST['owner_email']);
+		 $owner_vehicle_no=htmlspecialchars($_POST['owner_vehicle_no']);
+		 $owner_vehicle_rc_no=htmlspecialchars($_POST['owner_vehicle_rc_no']);
+		 $owner_vehicle_jcc_no=htmlspecialchars($_POST['owner_vehicle_jcc_no']);
+		 $owner_vehicle_brand=htmlspecialchars($_POST['owner_vehicle_brand']);
+		 $owner_vehicle_name=htmlspecialchars($_POST['owner_vehicle_name']);
+		 $owner_vehicle_color=htmlspecialchars($_POST['owner_vehicle_color']);
+		 $driver_id=htmlspecialchars($_POST['driver_id']);
 
-		 $back_image_update=$_FILES['back_image_update']['name'];
-		 $type=$_FILES['back_image_update']['type'];
-		 $size=$_FILES['back_image_update']['size'];
-		 $img_file2=$_FILES['back_image_update']['tmp_name'];
+     	$front_image=$_FILES['front_image']['name'];
+		 $type=$_FILES['front_image']['type'];
+		 $size=$_FILES['front_image']['size'];
+		 $img_file1=$_FILES['front_image']['tmp_name'];
 
-		 $side_image_update=$_FILES['side_image_update']['name'];
-		 $type=$_FILES['side_image_update']['type'];
-		 $size=$_FILES['side_image_update']['size'];
-		 $img_file3=$_FILES['side_image_update']['tmp_name'];
+		 $back_image=$_FILES['back_image']['name'];
+		 $type=$_FILES['back_image']['type'];
+		 $size=$_FILES['back_image']['size'];
+		 $img_file2=$_FILES['back_image']['tmp_name'];
 
-		 $path1 = "image/".$back_image_update;
-		 $path2 = "image/".$side_image_update;
+		 $side_image=$_FILES['side_image']['name'];
+		 $type=$_FILES['side_image']['type'];
+		 $size=$_FILES['side_image']['size'];
+		 $img_file3=$_FILES['side_image']['tmp_name'];
+
+		 $path1 = "image/".$back_image;
+		 $path2 = "image/".$side_image;
 	
        
-		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name_update',owner_mobile='$owner_mobile_update',owner_email='$owner_email_update',owner_vehicle_no='$owner_vehicle_no_update',owner_vehicle_rc_no='$owner_vehicle_rc_no_update',owner_vehicle_jcc_no=' $owner_vehicle_jcc_no_update',owner_vehicle_brand='$owner_vehicle_brand_update',owner_vehicle_name='$owner_vehicle_name_update',owner_vehicle_color='$owner_vehicle_color_update',driver_id='$driver_id_update' WHERE id='$user_id'";
+		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name',owner_mobile='$owner_mobile',owner_email='$owner_email',owner_vehicle_no='$owner_vehicle_no',owner_vehicle_rc_no='$owner_vehicle_rc_no',owner_vehicle_jcc_no=' $owner_vehicle_jcc_no',owner_vehicle_brand='$owner_vehicle_brand',owner_vehicle_name='$owner_vehicle_name',owner_vehicle_color='$owner_vehicle_color',driver_id='$driver_id' WHERE id='$user_id'";
         	  $inst_u_fn1_qry = mysqli_query($conn, $update_qry);
 
         	   if($inst_u_fn1_qry){
@@ -44,34 +45,34 @@
  
 		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
 		   
-		    	if(empty($front_image_update) OR empty($back_image_update) OR empty($side_image_update)) {
-            $update_qry = "UPDATE  add_owner SET front_image='$front_image_update',back_image='$back_image_update',side_image='$side_image_update' WHERE id='$user_id'";
+		    	if(empty($front_image) OR empty($back_image) OR empty($side_image)) {
+            $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image' WHERE id='$user_id'";
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
-             $path = "image/".$front_image_update;
+             $path = "image/".$front_image;
 		   if(move_uploaded_file($img_file1, $path)){
             copy($path, "$path");
 		   }  
-		   $path = "image/".$back_image_update;
+		   $path = "image/".$back_image;
 		   if(move_uploaded_file($img_file2, $path)){
             copy($path, "$path");
 		   } 
-		    $path = "image/".$side_image_update;
+		    $path = "image/".$side_image;
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
 		   }   
         } else {
-        	 $update_qry = "UPDATE  add_owner SET front_image='$front_image_update',back_image='$back_image_update',side_image='$side_image_update' WHERE id='$user_id'";
+        	 $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image' WHERE id='$user_id'";
 
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
-            $path = "image/".$front_image_update;
+            $path = "image/".$front_image;
 		   if(move_uploaded_file($img_file1, $path)){
             copy($path, "$path");
 		   }  
-		   $path = "image/".$back_image_update;
+		   $path = "image/".$back_image;
 		   if(move_uploaded_file($img_file2, $path)){
             copy($path, "$path");
 		   } 
-		    $path = "image/".$side_image_update;
+		    $path = "image/".$side_image;
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
 		   }   
@@ -155,16 +156,16 @@
 									<div class="panel-heading">Edit Owner</div>
 									<div class="panel-body">
 
-					<form action="" method="post" name="add_owner_update" class="form-horizontal" enctype="multipart/form-data">
+					<form action="" method="post" name="add_owner_update" id="add_owner_update"  class="form-horizontal" enctype="multipart/form-data">
 										
 											
   	        <!-- 	<div class="errorWrap"><strong>ERROR</strong></div>
 			<div class="succWrap"><strong>SUCCESS</strong></div> -->
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Owner Name <span style="color:red">*</span></label>
+												<label for="owner_name" class="col-sm-4 control-label">Owner Name <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_name_update" id="owner_name_update"  value="<?php echo $urows['owner_name']; ?>" required>
+													<input type="text" class="form-control" name="owner_name" id="owner_name"  value="<?php echo $urows['owner_name']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -173,7 +174,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Mobile <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="number" class="form-control" name="owner_mobile_update" id="owner_mobile_update" value="<?php echo $urows['owner_mobile']; ?>" required>
+													<input type="number" class="form-control" name="owner_mobile" id="owner_mobile" value="<?php echo $urows['owner_mobile']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -182,7 +183,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label"> Email Id  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_email_update" id="owner_email" value="<?php echo $urows['owner_email']; ?>" required>
+													<input type="email" class="form-control" name="owner_email" id="owner_email" value="<?php echo $urows['owner_email']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -192,7 +193,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label"> Vehicle Number  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_no_update" id="owner_vehicle_no_update" value="<?php echo $urows['owner_vehicle_no']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_no" id="owner_vehicle_no" value="<?php echo $urows['owner_vehicle_no']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -201,7 +202,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Vehicle RC Number  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_rc_no_update" id="owner_vehicle_rc_no_update"  value="<?php echo $urows['owner_vehicle_rc_no']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no"  value="<?php echo $urows['owner_vehicle_rc_no']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -210,7 +211,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Vehicle Jcc Number  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_jcc_no_update" id="owner_vehicle_jcc_no_update"  value="<?php echo $urows['owner_vehicle_jcc_no']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no"  value="<?php echo $urows['owner_vehicle_jcc_no']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -219,7 +220,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Vehicle Brand  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_brand_update" id="owner_vehicle_brand_update"  value="<?php echo $urows['owner_vehicle_brand']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_brand" id="owner_vehicle_brand"  value="<?php echo $urows['owner_vehicle_brand']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -228,7 +229,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label"> Vehicle Name  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_name_update" id="owner_vehicle_name_update" value="<?php echo $urows['owner_vehicle_name']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_name" id="owner_vehicle_name" value="<?php echo $urows['owner_vehicle_name']; ?>" required>
 												</div>
 											</div>
 									</div>
@@ -237,7 +238,7 @@
 											<div class="form-group">
 												<label class="col-sm-4 control-label"> Vehicle Color  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_color_update" id="owner_vehicle_color_update" value="<?php echo $urows['owner_vehicle_color']; ?>" required>
+													<input type="text" class="form-control" name="owner_vehicle_color" id="owner_vehicle_color" value="<?php echo $urows['owner_vehicle_color']; ?>">
 												</div>
 											</div>
 									</div>
@@ -256,23 +257,35 @@
 										<div class="form-group">
 												<label class="col-sm-4 control-label"> Assign Driver  <span style="color:red">*</span></label>
 											<div class="col-sm-8">
-												<select class="selectpicker" name="driver_id_update" id="driver_id_update" >
-													<option value="<?php echo $urows['driver_id']; ?>"> Select </option>
-													
+												<select class="selectpicker" name="driver_id" id="driver_id" >
 
-		<?php										
+													<?php										
 			// $qry = "SELECT id, name from tbldriver";
-		$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id";
+		$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id WHERE add_owner.id='$user_id'";
 		  	$exe = mysqli_query($conn, $sql); 
 		  	while ($row = mysqli_fetch_array($exe)) 
 		  	{
 		  ?>
-  <option  value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?>
+													<option value="<?php echo $row['driver_id']; ?>"> <?php echo $row['name']; ?> </option>
+													
+ <?php
+	}
+  ?>
+		
+		<?php										
+			// $qry = "SELECT id, name from tbldriver";
+		$sql = "SELECT * FROM tbldriver";
+		  	$exe1 = mysqli_query($conn, $sql); 
+		  	while ($rows = mysqli_fetch_array($exe1)) 
+		  	{
+		  ?>
+  <option  value="<?php echo $rows['id'] ?>"><?php echo $rows['name'] ?>
   </option>
-  </select>
+
   <?php
 	}
   ?>
+    </select>
 											</div>
 										</div>
 									</div>
@@ -288,18 +301,18 @@
 									<div class="col-sm-4">
 										Front Image
 										<img src="image/<?php echo $urows['front_image']; ?>" style="width:20%;">
-										 <span style="color:red">*</span><input type="file" name="front_image_update" required>
+										 <span style="color:red">*</span><input type="file" name="front_image" id="front_image" required>
 
 									</div>
 									<div class="col-sm-4">
 										Back Image 
 										<img src="image/<?php echo $urows['back_image']; ?>" style="width:20%;"> 
-										<span style="color:red">*</span><input type="file" name="back_image_update" required>
+										<span style="color:red">*</span><input type="file" name="back_image"  id="back_image" required>
 									</div>
 									<div class="col-sm-4">
 										Side Image 
 										<img src="image/<?php echo $urows['side_image']; ?>" style="width:20%;">
-										 <span style="color:red">*</span><input type="file" name="side_image_update" required>
+										 <span style="color:red">*</span><input type="file" name="side_image" id="side_image" required>
 									</div>
 								</div>
 
@@ -343,6 +356,9 @@
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>
+	<script src="js/validation.js"></script>
 
 </body>
 
