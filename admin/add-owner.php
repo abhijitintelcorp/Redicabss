@@ -50,6 +50,9 @@
             copy($path, "$path");
 		   }   
 		}
+		if($res_query){
+			header("location:manage-owner.php");
+		}
 	}
 ?>
 
