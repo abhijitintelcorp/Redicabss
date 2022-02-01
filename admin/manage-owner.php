@@ -48,6 +48,14 @@
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
+.addbtn{
+	margin-left: 1100px;
+	margin-bottom: 20px;
+	background-color: #37a6c4;
+	color: white;
+	font-size: 18px;
+
+}
 		</style>
 
 </head>
@@ -64,7 +72,7 @@
 					<div class="col-md-12">
 
 						<h2 class="page-title">Manage Owner</h2>
-
+<a href="add-owner.php"><button class="addbtn">+ Add Owner</button></a>
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
 							<div class="panel-heading">Owner Details</div>
@@ -79,24 +87,20 @@
 											<th>Email Id</th>
 											<th>Vehicle Number</th>
 											<th>Vehicle RC Number</th>
-											<th>Vehicle Jcc Number</th>
 											<th>Vehicle Brand</th>
 											<th>Vehicle Name</th>
-											<th>Vehicle Color</th> 
+											<!-- <th>Vehicle Color</th>
 											<th>Assign Driver</th>
 											<th>Front Image</th>
 											<th>Back Image</th>
-											<th>Side Image</th>
+											<th>Side Image</th> -->
 											<th colspan="2">Action</th>
 										</tr>
 									</thead>
 
 	<?php
-
-	$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id";
-
-         // $retrive_qyr="SELECT * FROM add_owner";
-         $retrive_fn_query=mysqli_query($conn,$sql);
+         $retrive_qyr="SELECT * FROM add_owner";
+         $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
            $count++;
@@ -105,27 +109,25 @@
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
-											<td><?php echo $row['owner_name'];?></td> 
+											<td><?php echo $row['owner_name'];?></td>
 											<td><?php echo $row['owner_mobile'];?></td>
 											<td><?php echo $row['owner_email'];?></td>
 											<td><?php echo $row['owner_vehicle_no'];?></td>
 											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
-											<td><?php echo $row['owner_vehicle_jcc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_brand'];?></td>
 											<td><?php echo $row['owner_vehicle_name'];?></td>
-											<td><?php echo $row['owner_vehicle_color'];?></td> 
-    
-											<td><?php echo $row['name'];?></td>
+<!-- 											<td><?php echo $row['owner_vehicle_color'];?></td>
+											<td><?php echo $row['driver_id'];?></td>
 
 											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
 
 											<td><img src="image/<?php echo $row['back_image'];?>" width="30" height="30"  alt=""></td>
 										
-											<td><img src="image/<?php echo $row['side_image'];?>" width="30" height="30"  alt=""></td>
+											<td><img src="image/<?php echo $row['side_image'];?>" width="30" height="30"  alt=""></td> -->
 											
 											<td><a href="owner_update.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
 
-											<td><a href="owner_delete.php?owner_details_delete=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
+											<td><a href="owner_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
 
 										</tr>
 
@@ -151,7 +153,7 @@
 	</div>
 
 	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
@@ -162,4 +164,3 @@
 	<script src="js/main.js"></script>
 </body>
 </html>
-
