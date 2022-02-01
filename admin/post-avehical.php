@@ -6,7 +6,6 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-
 if(isset($_POST['submit']))
   {
   extract($_POST); 
@@ -127,7 +126,7 @@ if(isset($_POST['submit']))
 <select class="selectpicker" name="owner_vehicle_no" id="owner_vehicle_no" required>
 <option value=""> Select </option>
 <?php              
-  $qry = "SELECT id,owner_vehicle_no from add_owner";
+  $qry = "SELECT owner_vehicle_no FROM add_owner";
   $exe = mysqli_query($conn, $qry); 
   while ($row = mysqli_fetch_array($exe)) 
   {
@@ -267,9 +266,6 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 <label for="brakeassist"> Brake Assist </label>
 </div>
 </div>
-
-
-
 <div class="form-group">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
@@ -294,8 +290,6 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 <label for="powerwindow"> Power Windows </label>
 </div>
 </div>
-
-
 <div class="form-group">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
@@ -320,9 +314,6 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 </div>
 </div>
 </div>
-
-
-
 
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-2">
