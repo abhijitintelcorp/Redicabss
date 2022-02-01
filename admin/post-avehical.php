@@ -6,6 +6,7 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
+
 if(isset($_POST['submit']))
   {
   extract($_POST); 
@@ -123,44 +124,45 @@ if(isset($_POST['submit']))
 <div class="form-group">
 <label class="col-sm-2 control-label">Select Vehicle No<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="owner_vehicle_no" id="owner_vehicle_no" required>
+<select class="selectpicker" name="owner_vehicle_no" id="owner_vehicle_no">
 <option value=""> Select </option>
 <?php              
-  $qry = "SELECT owner_vehicle_no FROM add_owner";
+  $qry = "SELECT * from add_owner";
   $exe = mysqli_query($conn, $qry); 
   while ($row = mysqli_fetch_array($exe)) 
   {
+	  $owner_vehicle_rc_no = $row['owner_vehicle_rc_no'];
+	  $owner_name = $row['owner_name'];
+	  $owner_mobile = $row['owner_mobile'];
+	  $owner_vehicle_jcc_no = $row['owner_vehicle_jcc_no'];
   ?>
-  <option  value="<?php echo $row['owner_vehicle_no'] ?>"><?php echo $row['owner_vehicle_no'] ?>
+  <option owner_vehicle_rc_no="<?php echo $row['owner_vehicle_rc_no']; ?>" owner_name="<?php echo $row['owner_name']; ?>" owner_mobile="<?php echo $row['owner_mobile']; ?>" owner_vehicle_jcc_no="<?php echo $row['owner_vehicle_jcc_no']; ?>" value="<?php echo $row['owner_vehicle_no'] ?>"><?php echo $row['owner_vehicle_no'] ?>
   </option>
 
 <?php }  ?> 
 
+
 </select>
 </div>
- 
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">Vehicle RC No<span style="color:red">*</span></label>
-<div class="col-sm-4" id="vehicle_no">
+ <label class="col-sm-2 control-label">Vehicle RC No<span style="color:red">*</span></label>
+<div class="col-sm-4">
 <input type="text" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no" class="form-control" value="<?php  echo $row['owner_vehicle_rc_no'];?>"> 
 </div>
+</div>
 <div class="form-group">
-<!--- <label class="col-sm-2 control-label">Owner Name<span style="color:red">*</span></label>  -->
-<div class="col-sm-6" id="vehicle_no">
-<!--- <input type="text" name="owner_name" id="owner_name" class="form-control" value="<?php  // echo $row['owner_name'];?>"> -->
+ <label class="col-sm-2 control-label">Owner Name<span style="color:red">*</span></label>  
+<div class="col-sm-4">
+ <input type="text" name="owner_name" id="owner_name" class="form-control" value="<?php  echo $row['owner_name'];?>"> 
+  </div>
+ <label class="col-sm-2 control-label">Owner Mobile No.<span style="color:red">*</span></label> 
+<div class="col-sm-4">
+ <input type="text" name="owner_mobile" id="owner_mobile" class="form-control" value="<?php echo $row['owner_mobile'];?>"> 
 </div>
   </div>
 <div class="form-group">
-<!-- <label class="col-sm-2 control-label">Owner Mobile No.<span style="color:red">*</span></label> -->
-<div class="col-sm-6" id="vehicle_no">
-<!--  <input type="text" name="owner_mobile" id="owner_mobile" class="form-control" value="<?php // echo $row['owner_mobile'];?>"> --->
-</div>
-  </div>
-<div class="form-group">
-<!--- <label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> -->
-<div class="col-sm-6" id="vehicle_no">
-<!--	<input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php // echo $row['owner_vehicle_jcc_no'];?>"> -->
+<label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> 
+<div class="col-sm-4">
+<input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php echo $row['owner_vehicle_jcc_no'];?>"> 
 </div>
 </div>
 										
@@ -266,6 +268,9 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 <label for="brakeassist"> Brake Assist </label>
 </div>
 </div>
+
+
+
 <div class="form-group">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
@@ -290,6 +295,8 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 <label for="powerwindow"> Power Windows </label>
 </div>
 </div>
+
+
 <div class="form-group">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
@@ -314,6 +321,9 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 </div>
 </div>
 </div>
+
+
+
 
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-2">
@@ -361,25 +371,21 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 //        });
 //    });
 //  });
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-$('#owner_vehicle_no').on('change', function() {
-var owner_vehicle_no = this.value;
-$.ajax({
-url: "get_vehicle.php",
-type: "POST",
-data: {
-owner_vehicle_no: owner_vehicle_no
-},
-cache: false,
-success: function(result){
-$("#vehicle_no").html(result);
-}
+$(document).ready(function () {     
+$('select[name="owner_vehicle_no"]').change(function(){
+   var owner_vehicle_rc_no = $('option:selected', this).attr('owner_vehicle_rc_no');
+   $("#owner_vehicle_rc_no").val(owner_vehicle_rc_no);
+   var owner_name = $('option:selected', this).attr('owner_name');
+   $("#owner_name").val(owner_name);
+   var owner_mobile = $('option:selected', this).attr('owner_mobile');
+   $("#owner_mobile").val(owner_mobile);
+   var owner_vehicle_jcc_no = $('option:selected', this).attr('owner_vehicle_jcc_no');
+   $("#owner_vehicle_jcc_no").val(owner_vehicle_jcc_no);
 });
-}); 
 });
 </script>
-	
+
 </body>
 </html>
