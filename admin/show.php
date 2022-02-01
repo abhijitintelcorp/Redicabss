@@ -1,7 +1,19 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+</head>
 <?php
-$id=$_GET['id'];
-$sql = "SELECT PricePerDay,FuelType,ModelYear,SeatingCapacity,id from tblvehicles where id='$id'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+include('includes/config.php');
+$brand=$_GET["brand"];
+if($brand!=""){
+$query="SELECT id,VehiclesTitle from tblvehicles WHERE VehiclesBrand='$brand'";
+$query_run = mysqli_query($conn, $query);
+echo "<select> ";
+while($row = mysqli_fetch_array($query_run)){
+echo "<option>"; echo $row['VehiclesTitle']; echo "</option>";
+}
+echo "</select>";
+}
 ?>
