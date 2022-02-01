@@ -79,9 +79,10 @@
 											<th>Email Id</th>
 											<th>Vehicle Number</th>
 											<th>Vehicle RC Number</th>
+											<th>Vehicle Jcc Number</th>
 											<th>Vehicle Brand</th>
 											<th>Vehicle Name</th>
-											<th>Vehicle Color</th>
+											<th>Vehicle Color</th> 
 											<th>Assign Driver</th>
 											<th>Front Image</th>
 											<th>Back Image</th>
@@ -91,8 +92,11 @@
 									</thead>
 
 	<?php
-         $retrive_qyr="SELECT * FROM add_owner";
-         $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
+
+	$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id";
+
+         // $retrive_qyr="SELECT * FROM add_owner";
+         $retrive_fn_query=mysqli_query($conn,$sql);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
            $count++;
@@ -101,15 +105,17 @@
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
-											<td><?php echo $row['owner_name'];?></td>
+											<td><?php echo $row['owner_name'];?></td> 
 											<td><?php echo $row['owner_mobile'];?></td>
 											<td><?php echo $row['owner_email'];?></td>
 											<td><?php echo $row['owner_vehicle_no'];?></td>
 											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
+											<td><?php echo $row['owner_vehicle_jcc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_brand'];?></td>
 											<td><?php echo $row['owner_vehicle_name'];?></td>
-											<td><?php echo $row['owner_vehicle_color'];?></td>
-											<td><?php echo $row['driver_id'];?></td>
+											<td><?php echo $row['owner_vehicle_color'];?></td> 
+    
+											<td><?php echo $row['name'];?></td>
 
 											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
 
