@@ -103,7 +103,7 @@
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
-           $count++;
+         $count++;
      ?>
 
 									<tbody>
