@@ -343,8 +343,6 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 					</div>
 				</div>
 				
-			
-
 			</div>
 		</div>
 	</div>
@@ -371,6 +369,7 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 //        });
 //    });
 //  });
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function () {     
