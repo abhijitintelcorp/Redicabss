@@ -113,75 +113,142 @@ header('location:index.php');
                         <div class="row">
 							<div class="col-md-10">
 								<div class="panel panel-default">
-<div class="panel-heading">
-  <button class="tablinks" style="width: 100px;
-    color: black;" onclick="openCity(event, 'owner')">owner</button>
-  <button class="tablinks"  style="width: 100px;
-    color: black;" onclick="openCity(event, 'driver')">driver</button>
-  <button class="tablinks"style="width: 100px;
-    color: black;" onclick="openCity(event, 'Tokyo')">vehicle</button>
-</div>
-<div class="panel-body">
-<div id="owner" class="tabcontent">
-  <h3>owner</h3>
+								<div class="tab">
+  									<button class="tablinks" onclick="openCity(event, 'owner')">owner</button>
+									<button class="tablinks" onclick="openCity(event, 'driver')">driver</button>
+									<button class="tablinks" onclick="openCity(event, 'vehicle')">vehicle</button>
+								 </div>
+
+<div id="owner" class="tabcontent"> 
+ 
+							
+								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+									<thead>
+										<tr>
+										<th>Sl.No.</th>
+											<th>Owner Name</th>											
+											<th>Vehicle RC Number</th>											
+											<th>Front Image</th>
+									</thead>
+
   <?php 
   include('includes/config.php');
-$sql ="SELECT * from add_owner";
-$query = mysqli_query($conn,$sql);
-$results=mysqli_fetch_assoc($query);
-$row=mysqli_num_rows($query);
+  $retrive_qyr="SELECT * FROM add_owner";
+  $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
+  $count=0;
+  while($row=mysqli_fetch_array($retrive_fn_query)){
+	$count++;
 ?>
-  
-											<div class="form-group">
-												<label class="col-sm-4 control-label"> Name</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo $row['owner_name'];?>" name="brand" id="brand" required>
-												</div>
-											</div>
-											<div class="hr-dashed"></div>
-											
-										<?php ?>
+  											<tbody>
+										<tr>
+											<td><?php echo $count;?></td>
+											<td><?php echo $row['owner_name'];?></td>
+
+											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>										
+
+										</tr>
+									</tbody>
+									<?php }?>
+ 							 </table>
 </div>
 
+
+
 <div id="driver" class="tabcontent">
-  <h3>driver</h3>
+<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+									<thead>
+										<tr>
+										   <th>Sl.No.</th>											
+											<th>Name</th>
+											<th>Adhar card</th>
+											<th>Pan card</th>
+											<th>Licence</th>											
+										</tr>
+									</thead>
+  <!-- <h3>driver</h3> -->
   <?php   
   include('includes/config.php');
-$sql ="SELECT * from tbldriver";
-$query = mysqli_query($conn,$sql);
-$results=mysqli_fetch_assoc($query);
-$row=mysqli_num_rows($query);
+  $retrive_qyr="SELECT * FROM tbldriver";
+  $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
+  $count=0;
+  while($row=mysqli_fetch_array($retrive_fn_query)){
+	$count++;
 ?>
-  <div class="form-group">
+  											<!-- <div class="form-group">
 												<label class="col-sm-4 control-label">Driver</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" value="<?php echo $row['name'];?>" name="driver" id="driver" required>
 												</div>
-											</div>
-                                            <?php ?>
-</div>
+											</div> -->
+											<tbody>
+										<tr>
+											<td><?php echo $count;?></td>
+											
+											<td><?php echo $row['name'];?></td>
+											
+											<td><img src="image/<?php echo $row['adhar'];?>" width="30" height="30"  alt=""></td>
 
+											<td><img src="image/<?php echo $row['pan'];?>" width="30" height="30"  alt=""></td>
+										
+											<td><img src="image/<?php echo $row['licence'];?>" width="30" height="30"  alt=""></td>
+											
+											
+
+										</tr>
+
+										
+									</tbody>
+                                            <?php } ?>
+  </table>
+</div>
+<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+									<thead>
+										<tr>
+										   <th>Sl.No.</th>											
+											<th>vehicleName</th>
+											<th>vehicleNumber</th>
+											<th>RCNumber</th>																				
+										</tr>
+									</thead>
 <div id="vehicle" class="tabcontent">
-  <h3>vehicle</h3>
+<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+									<thead>
+										<tr>
+										   <th>Sl.No.</th>											
+											<th>vehicleName</th>
+											<th>vehicleNumber</th>
+											<th>RCNumber</th>																				
+										</tr>
+									</thead>
   <?php   
   include('includes/config.php');
-$sql ="SELECT * from tblvehicles";
-$query = mysqli_query($conn,$sql);
-$results=mysqli_fetch_assoc($query);
-$row=mysqli_num_rows($query);
+  $retrive_qyr="SELECT * FROM tblvehicles";
+  $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
+  $count=0;
+  while($row=mysqli_fetch_array($retrive_fn_query)){
+	$count++;
 ?>
-  <div class="form-group">
-												<label class="col-sm-4 control-label">Vehicles</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo $row['VehiclesTitle'];?>" name="vehicle" id="vehicle" required>
-												</div>
-											</div>
-                                            <?php ?>
+  												<tbody>
+										<tr>
+											<td><?php echo $count;?></td>
+											
+											<td><?php echo $row['VehiclesTitle'];?></td>
+											<td><?php echo $row['vehno'];?></td>
+											
+											<td><img src="image/<?php echo $row['Vimage1'];?>" width="30" height="30"  alt=""></td>
+										</tr>
+
+										
+									</tbody>
+                                           
+                                            <?php }?>
+  </table>
 </div>
-</div>
-</div>
-</div>
-</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
 
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
@@ -193,6 +260,21 @@ $row=mysqli_num_rows($query);
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
     
 </body>
 
