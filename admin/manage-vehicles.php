@@ -125,14 +125,14 @@ $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePe
        {                       
 ?>	
 										<tr>
-											<td><?php echo $row['BrandName'];?></td>
+											<td><?php echo $cnt; ?></td>
 											<td><?php echo $row['VehiclesTitle'];?></td>
 											<td><?php echo $row['BrandName'];?></td>
 											<td><?php echo $row['PricePerDay'];?></td>
 											<td><?php echo $row['FuelType'];?></td>
 											<td><?php echo $row['ModelYear'];?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+		<td><a href="edit-vehicle.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-vehicles.php?del=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										

@@ -3,7 +3,7 @@ session_start();
 include('includes/config.php');
 if(isset($_POST['login']))
 {
-$email=htmlspecialchars$_POST['username'];
+$email=htmlspecialchars($_POST['username']);
 $password=md5($_POST['password']);
 $sql ="SELECT * FROM admin WHERE UserName='$email' and Password='$password'";
 $res = mysqli_query($conn, $sql);
