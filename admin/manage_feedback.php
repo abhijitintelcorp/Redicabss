@@ -134,7 +134,7 @@
 											
 											<td><a href=""><i class="fa fa-edit"></i></a></td>
 
-											<td><a href=""><i class="fa fa-close"></i></a></td>
+											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
 										</tr>
 									</tbody>
 	<?php
