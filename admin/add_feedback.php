@@ -1,5 +1,58 @@
 <!-- insert -->
 
+<?php
+error_reporting(0);
+ 	include('includes/config.php');
+ 	date_default_timezone_set('Asia/Kolkata');
+ 	if(isset($_POST['feedback_submit']))
+	{
+		$booking_no=htmlspecialchars($_POST['booking_no']);
+		$driver_id=htmlspecialchars($_POST['driver_id']);
+		$polite_professional=htmlspecialchars($_POST['polite_professional']);
+		$value_money=htmlspecialchars($_POST['value_money']);
+		$ontime_pikup=htmlspecialchars($_POST['ontime_pikup']);
+		$comfortable_ride=htmlspecialchars($_POST['comfortable_ride']);
+		$familiar=htmlspecialchars($_POST['familiar']);
+		$status=2;
+
+					$insert_qry="INSERT INTO add_feedback(booking_no,polite_professional,value_money,ontime_pikup,comfortable_ride,familiar,status)VALUES('$booking_no','$polite_professional','$value_money','$ontime_pikup','$comfortable_ride','$familiar','$status')";
+					$fn_qry = mysqli_query($conn, $insert_qry);
+				} else if(isset($_POST['medium_submit'])){
+					$didnot_take_ride=htmlspecialchars($_POST['didnot_take_ride']);
+		             $unsafe_ride=htmlspecialchars($_POST['unsafe_ride']);
+		             $uncomfortable_ride=htmlspecialchars($_POST['uncomfortable_ride']);
+		             $rash_riding=htmlspecialchars($_POST['rash_riding']);
+		             $unprofessional_rider=htmlspecialchars($_POST['unprofessional_rider']);
+		             $bad_car_condition=htmlspecialchars($_POST['bad_car_condition']);
+		             $not_wearing_mask=htmlspecialchars($_POST['not_wearing_mask']);
+		             $reason=htmlspecialchars($_POST['reason']);
+					 $status=1;
+
+					$insert_qry="INSERT INTO add_feedback(didnot_take_ride,unsafe_ride,uncomfortable_ride,rash_riding,	unprofessional_rider,bad_car_condition,not_wearing_mask,reason,status)VALUES('$didnot_take_ride','$unsafe_ride','$uncomfortable_ride','$rash_riding','$unprofessional_rider','$bad_car_condition','$not_wearing_mask','$reason','$status')";
+					$fn_qry = mysqli_query($conn, $insert_qry);
+				} else if(isset($_POST['bad_submit'])){
+					$d_didnot_take_ride=htmlspecialchars($_POST['d_didnot_take_ride']);
+		             $d_unsafe_ride=htmlspecialchars($_POST['d_unsafe_ride']);
+		             $uncomfortable_ride=htmlspecialchars($_POST['uncomfortable_ride']);
+		             $d_rash_riding=htmlspecialchars($_POST['d_rash_riding']);
+		             $d_unprofessional_rider=htmlspecialchars($_POST['d_unprofessional_rider']);
+		             $d_bad_car_condition=htmlspecialchars($_POST['d_bad_car_condition']);
+		             $d_not_wearing_mask=htmlspecialchars($_POST['d_not_wearing_mask']);
+		             $d_reason=htmlspecialchars($_POST['d_reason']);
+					 $status=0;
+
+					 $insert_qry="INSERT INTO add_feedback(d_didnot_take_ride,d_unsafe_ride,uncomfortable_ride,d_rash_riding,	d_unprofessional_rider,d_bad_car_condition,d_not_wearing_mask,d_reason,status)VALUES('$d_didnot_take_ride','$d_unsafe_ride','$uncomfortable_ride','$d_rash_riding','$d_unprofessional_rider','$d_bad_car_condition','$d_not_wearing_mask','$d_reason','$status')";
+					 $fn_qry = mysqli_query($conn, $insert_qry);
+					} else {
+
+						echo "<b stye='color:red;'>Please Try again Later</b>";
+					
+					if($fn_qry)
+					{
+						header('location:manage_feedback.php');
+					}
+				}
+?>
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -105,19 +158,19 @@
 								<div class="panel-heading"><h3><center>Good</center></h3></div>
 									<div class="panel-body">
 
-						<form action="" method="post" name="" class="form-horizontal" enctype="multipart/form-data" >
+						<form action="" method="post" name="feedbak_form" class="form-horizontal" enctype="multipart/form-data" >
 																	
 
 							<div class="col-md-12">
-								
+
 									<h4>What Went Well??</h4>
 
 								</div><br>
 								<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="good1" name="good1" value="good">
-											  <label for="good1"> Polite and Professional Driver</label>
+													 <input type="checkbox" id="good1" name="polite_professional" value="Polite and Professional Driver">
+											  <label for="good1">Polite and Professional Driver</label>
 												</div>
 											</div>
 									</div>
@@ -125,7 +178,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="good2" name="good2" value="good">
+													 <input type="checkbox" id="good2" name="value_money" value="Value of Money">
 											  <label for="good2">Value of Money</label>
 												</div>
 											</div>
@@ -133,7 +186,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="good3" name="good3" value="good">
+													 <input type="checkbox" id="good3" name="ontime_pikup" value="On Time Pikup">
 											  <label for="good3"> On Time Pikup</label>
 												</div>
 											</div>
@@ -141,7 +194,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="good4" name="good4" value="good">
+													 <input type="checkbox" id="good4" name="comfortable_ride" value="Comfortable Ride">
 											  <label for="good4">Comfortable Ride</label>
 												</div>
 											</div>
@@ -149,28 +202,18 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="good5" name="good5" value="good">
+													 <input type="checkbox" id="good5" name="familiar" value="Driver Familiar With The Route">
 											  <label for="good5">Driver Familiar With The Route</label>
 												</div>
 											</div>
 									</div>
-									<div class="col-md-5">
-											<div class="form-group" >
-												<div class="col-sm-8">
-													 <input type="checkbox" onclick="goodComment()">
-													<label>My Reason is Not Listed</label>
-													 <textarea type="text"  name="good6" id="Gcmt" style="display:none"></textarea> 
-											  
-												</div>
-											</div>
-									</div>
+									
 
 
-
-											<div class="form-group">
+			 								<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 						
-										<button class="btn btn-primary" name="" type="submit">Submit</button>
+										<button class="btn btn-primary" name="feedback_submit" type="submit">Submit</button>
 												</div>
 											</div>
 								
@@ -190,7 +233,7 @@
 								<div class="panel-heading"><h3><center>Medium</center></h3></div>
 									<div class="panel-body">
 
-						<form action="" method="post" name="" id="" class="form-horizontal" enctype="multipart/form-data">
+						<form action="" method="post" name="feedback_form" id="" class="form-horizontal" enctype="multipart/form-data">
 																	
 
 							<div class="col-md-12">
@@ -201,7 +244,7 @@
 								<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium1" name="medium1" value="medium">
+													 <input type="checkbox" id="medium1" name="didnot_take_ride" value="Did Not Take This Ride">
 											  <label for="medium1"> Did Not Take This Ride</label>
 												</div>
 											</div>
@@ -210,7 +253,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium2" name="medium2" value="medium">
+													 <input type="checkbox" id="medium2" name="unsafe_ride" value="Unsafe Ride Experience">
 											  <label for="medium2">Unsafe Ride Experience</label>
 												</div>
 											</div>
@@ -218,7 +261,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium3" name="medium3" value="medium">
+													 <input type="checkbox" id="medium3" name="uncomfortable_ride" value="  Uncomfortable Ride">
 											  <label for="medium3"> Uncomfortable Ride</label>
 												</div>
 											</div>
@@ -226,7 +269,7 @@
 								<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium4" name="medium4" value="medium">
+													 <input type="checkbox" id="medium4" name="rash_riding" value="Rash Riding">
 											  <label for="medium4">Rash Riding</label>
 												</div>
 											</div>
@@ -234,7 +277,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium5" name="medium5" value="medium">
+													 <input type="checkbox" id="medium5" name="unprofessional_rider" value="Unprofessional Rider Behaviour">
 											  <label for="medium5">Unprofessional Rider Behaviour</label>
 												</div>
 											</div>
@@ -242,7 +285,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium6" name="medium6" value="medium">
+													 <input type="checkbox" id="medium6" name="bad_car_condition" value="Bad Car Condition">
 											  <label for="medium6">Bad Car Condition</label>
 												</div>
 											</div>
@@ -250,7 +293,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="medium7" name="medium7" value="medium">
+													 <input type="checkbox" id="medium7" name="not_wearing_mask" value="The Driver Was Not Wearing Masks">
 											  <label for="medium7">The Driver Was Not Wearing Masks</label>
 												</div>
 											</div>
@@ -258,9 +301,9 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													<input type="checkbox" onclick="mediumComment()">
+													<input type="checkbox" name="reason" value="My Reason is Not Listed" onclick="mediumComment()">
 													<label>My Reason is Not Listed</label>
-													 <textarea type="text"  name="medium8" id="Mcmt" style="display:none"></textarea> 
+													 <textarea type="text"   id="Mcmt" style="display:none"></textarea> 
 											  
 												</div>
 											</div>
@@ -271,7 +314,7 @@
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 						
-										<button class="btn btn-primary" name="" type="submit">Submit</button>
+										<button class="btn btn-primary" name="medium_submit" type="submit">Submit</button>
 												</div>
 											</div>
 								
@@ -291,7 +334,7 @@
 								<div class="panel-heading"><h3><center>Bad</center></h3></div>
 									<div class="panel-body">
 
-						<form action="" method="post" name="" id="" class="form-horizontal" enctype="multipart/form-data">
+						<form action="" method="post" name="feedback_form" id="" class="form-horizontal" enctype="multipart/form-data">
 																	
 
 							<div class="col-md-12">
@@ -302,7 +345,7 @@
 								<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad1" name="bad1" value="bad">
+													 <input type="checkbox" id="bad1" name="d_didnot_take_ride" value=" Did Not Take This Ride">
 											  <label for="bad1"> Did Not Take This Ride</label>
 												</div>
 											</div>
@@ -311,7 +354,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad2" name="bad2" value="bad">
+													 <input type="checkbox" id="bad2" name="d_unsafe_ride" value="Unsafe Ride Experience">
 											  <label for="bad2">Unsafe Ride Experience</label>
 												</div>
 											</div>
@@ -319,7 +362,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad3" name="bad3" value="bad">
+													 <input type="checkbox" id="bad3" name="d_uncomfortable_ride" value="Uncomfortable Ride">
 											  <label for="bad3"> Uncomfortable Ride</label>
 												</div>
 											</div>
@@ -327,7 +370,7 @@
 								<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad4" name="bad4" value="bad">
+													 <input type="checkbox" id="bad4" name="d_rash_riding" value="Rash Riding">
 											  <label for="bad4">Rash Riding</label>
 												</div>
 											</div>
@@ -335,7 +378,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad5" name="bad5" value="bad">
+													 <input type="checkbox" id="bad5" name="d_unprofessional_rider" value="Unprofessional Rider Behaviour">
 											  <label for="bad5">Unprofessional Rider Behaviour</label>
 												</div>
 											</div>
@@ -343,7 +386,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad6" name="bad6" value="bad">
+													 <input type="checkbox" id="bad6" name="d_bad_car_condition" value="Bad Car Condition">
 											  <label for="bad6">Bad Car Condition</label>
 												</div>
 											</div>
@@ -351,7 +394,7 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													 <input type="checkbox" id="bad7" name="bad7" value="bad">
+													 <input type="checkbox" id="bad7" name="d_not_wearing_mask" value="The Driver Was Not Wearing Masks">
 											  <label for="bad7">The Driver Was Not Wearing Masks</label>
 												</div>
 											</div>
@@ -359,9 +402,9 @@
 									<div class="col-md-5">
 											<div class="form-group">
 												<div class="col-sm-8">
-													<input type="checkbox" onclick="badComment()">
+													<input type="checkbox" name="d_reason" value="My Reason is Not Listed"  onclick="badComment()">
 													<label>My Reason is Not Listed</label>
-													 <textarea type="text"  name="bad8" id="Bcmt" style="display:none"></textarea> 
+													 <textarea type="text"  id="Bcmt" style="display:none"></textarea> 
 											  
 												</div>
 											</div>
@@ -372,7 +415,7 @@
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 						
-										<button class="btn btn-primary" name="" type="submit">Submit</button>
+										<button class="btn btn-primary" name="bad_submit" type="submit">Submit</button>
 												</div>
 											</div>
 								
@@ -454,7 +497,7 @@ btn2.onclick = function () {
 </script>
 
 <!--Good  Comment-->
-<script>
+<!-- <script>
 function goodComment() {
   var x = document.getElementById("Gcmt");
   if (x.style.display === "none") {
@@ -463,7 +506,7 @@ function goodComment() {
     x.style.display = "none";
   }
 }
-</script>
+</script> -->
 
 <!--Medium  Comment-->
 <script>
