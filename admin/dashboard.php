@@ -75,18 +75,8 @@ $regusers=mysqli_num_rows($query);
 										<div class="panel panel-default" style="border: 2px solid;border-color: black">
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
-<<<<<<< HEAD
-<<<<<<< HEAD
-												<?php 
-$sql1 ="SELECT id from tblvehicles";
-=======
-<?php 
-$sql1 ="SELECT id from tblvehicles ";
->>>>>>> Abhijit
-=======
 												<?php 
 $sql1 ="SELECT id from tblvehicles ";
->>>>>>> Abhijit
 $query1 = mysqli_query($conn,$sql1);;
 $results1=mysqli_fetch_assoc($query1);
 $totalvehicle=mysqli_num_rows($query1);
