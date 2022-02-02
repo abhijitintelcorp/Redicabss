@@ -111,7 +111,6 @@ if(isset($_POST['submit']))
   ?>
   <option  value="<?php echo $row['id'] ?>"><?php echo $row['BrandName'] ?>
   </option>
-
 <?php }  ?>
 
 </select>
@@ -136,12 +135,9 @@ if(isset($_POST['submit']))
 	  $owner_mobile = $row['owner_mobile'];
 	  $owner_vehicle_jcc_no = $row['owner_vehicle_jcc_no'];
   ?>
-  <option owner_vehicle_rc_no="<?php echo $row['owner_vehicle_rc_no']; ?>" owner_name="<?php echo $row['owner_name']; ?>" owner_mobile="<?php echo $row['owner_mobile']; ?>" owner_vehicle_jcc_no="<?php echo $row['owner_vehicle_jcc_no']; ?>" value="<?php echo $row['owner_vehicle_no'] ?>"><?php echo $row['owner_vehicle_no'] ?>
+  <option owner_vehicle_rc_no="<?php echo $row['owner_vehicle_rc_no']; ?>" owner_name="<?php echo $row['owner_name']; ?>" owner_mobile="<?php echo $row['owner_mobile']; ?>" owner_email="<?php echo $row['owner_email']; ?>" owner_vehicle_jcc_no="<?php echo $row['owner_vehicle_jcc_no']; ?>" value="<?php echo $row['owner_vehicle_no'] ?>"><?php echo $row['owner_vehicle_no'] ?>
   </option>
-
 <?php }  ?> 
-
-
 </select>
 </div>
  <label class="col-sm-2 control-label">Vehicle RC No<span style="color:red">*</span></label>
@@ -160,6 +156,10 @@ if(isset($_POST['submit']))
 </div>
   </div>
 <div class="form-group">
+	 <label class="col-sm-2 control-label">Owner Email<span style="color:red">*</span></label> 
+<div class="col-sm-4">
+ <input type="text" name="owner_email" id="owner_email" class="form-control" value="<?php echo $row['owner_email'];?>"> 
+</div>
 <label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> 
 <div class="col-sm-4">
 <input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php echo $row['owner_vehicle_jcc_no'];?>"> 
@@ -380,6 +380,8 @@ $('select[name="owner_vehicle_no"]').change(function(){
    $("#owner_name").val(owner_name);
    var owner_mobile = $('option:selected', this).attr('owner_mobile');
    $("#owner_mobile").val(owner_mobile);
+   var owner_email = $('option:selected', this).attr('owner_email');
+   $("#owner_email").val(owner_email);
    var owner_vehicle_jcc_no = $('option:selected', this).attr('owner_vehicle_jcc_no');
    $("#owner_vehicle_jcc_no").val(owner_vehicle_jcc_no);
 });
