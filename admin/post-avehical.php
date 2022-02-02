@@ -268,9 +268,6 @@ Image 4<span style="color:red"></span><input type="file" name="img4" >
 <label for="brakeassist"> Brake Assist </label>
 </div>
 </div>
-
-
-
 <div class="form-group">
 <div class="col-sm-3">
 <div class="checkbox checkbox-inline">
