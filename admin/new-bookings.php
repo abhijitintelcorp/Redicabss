@@ -74,7 +74,7 @@ else{
                 <div class="row">
                     <div class="col-md-12">
 
-<<<<<<< HEAD
+
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
