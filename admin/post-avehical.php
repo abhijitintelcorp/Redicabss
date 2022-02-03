@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
                 <div class="row">
                     <div class="col-md-12">
 
-                        <h2 class="page-title">Post A Vehicle</h2>
+                        <h2 class="page-title">Vehicle Registration</h2>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -111,7 +111,6 @@ if (isset($_POST['submit'])) {
                                                         <option value="<?php echo $row['id'] ?>">
                                                             <?php echo $row['BrandName'] ?>
                                                         </option>
-
                                                         <?php }  ?>
 
                                                     </select>
@@ -128,259 +127,302 @@ if (isset($_POST['submit'])) {
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-4">
                                                     <select class="selectpicker" name="owner_vehicle_no"
-                                                        id="owner_vehicle_no" required>
+                                                        id="owner_vehicle_no">
                                                         <option value=""> Select </option>
                                                         <?php
-														$qry = "SELECT id,owner_vehicle_no from add_owner";
+														$qry = "SELECT * from add_owner";
 														$exe = mysqli_query($conn, $qry);
 														while ($row = mysqli_fetch_array($exe)) {
+															$owner_vehicle_rc_no = $row['owner_vehicle_rc_no'];
+															$owner_name = $row['owner_name'];
+															$owner_mobile = $row['owner_mobile'];
+															$owner_vehicle_jcc_no = $row['owner_vehicle_jcc_no'];
 														?>
-                                                        <option value="<?php echo $row['owner_vehicle_no'] ?>">
+                                                        <option
+                                                            owner_vehicle_rc_no="<?php echo $row['owner_vehicle_rc_no']; ?>"
+                                                            owner_name="<?php echo $row['owner_name']; ?>"
+                                                            owner_mobile="<?php echo $row['owner_mobile']; ?>"
+                                                            owner_email="<?php echo $row['owner_email']; ?>"
+                                                            owner_vehicle_jcc_no="<?php echo $row['owner_vehicle_jcc_no']; ?>"
+                                                            value="<?php echo $row['owner_vehicle_no'] ?>">
                                                             <?php echo $row['owner_vehicle_no'] ?>
                                                         </option>
-
                                                         <?php }  ?>
-
                                                     </select>
                                                 </div>
-
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-sm-2 control-label">Vehicle RC No<span
                                                         style="color:red">*</span></label>
-                                                <div class="col-sm-4" id="vehicle_no">
+                                                <div class="col-sm-4">
                                                     <input type="text" name="owner_vehicle_rc_no"
                                                         id="owner_vehicle_rc_no" class="form-control"
                                                         value="<?php echo $row['owner_vehicle_rc_no']; ?>">
                                                 </div>
-                                                <div class="form-group">
-                                                    <!--- <label class="col-sm-2 control-label">Owner Name<span style="color:red">*</span></label>  -->
-                                                    <div class="col-sm-6" id="vehicle_no">
-                                                        <!--- <input type="text" name="owner_name" id="owner_name" class="form-control" value="<?php  // echo $row['owner_name'];
-																																				?>"> -->
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <!-- <label class="col-sm-2 control-label">Owner Mobile No.<span style="color:red">*</span></label> -->
-                                                    <div class="col-sm-6" id="vehicle_no">
-                                                        <!--  <input type="text" name="owner_mobile" id="owner_mobile" class="form-control" value="<?php // echo $row['owner_mobile'];
-																																					?>"> --->
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <!--- <label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> -->
-                                                    <div class="col-sm-6" id="vehicle_no">
-                                                        <!--	<input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php // echo $row['owner_vehicle_jcc_no'];
-																																										?>"> -->
-                                                    </div>
-                                                </div>
-
-                                                <div class="hr-dashed"></div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Vehical Overview<span
-                                                            style="color:red">*</span></label>
-                                                    <div class="col-sm-10">
-                                                        <textarea class="form-control" name="vehicalorcview" rows="3"
-                                                            required></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Price Per Day(in USD)<span
-                                                            style="color:red">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" name="priceperday" class="form-control"
-                                                            required>
-                                                    </div>
-                                                    <label class="col-sm-2 control-label">Select Fuel Type<span
-                                                            style="color:red">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <select class="selectpicker" name="fueltype" required>
-                                                            <option value=""> Select </option>
-
-                                                            <option value="Petrol">Petrol</option>
-                                                            <option value="Diesel">Diesel</option>
-                                                            <option value="CNG">CNG</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Model Year<span
-                                                            style="color:red">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" name="modelyear" class="form-control"
-                                                            required>
-                                                    </div>
-                                                    <label class="col-sm-2 control-label">Seating Capacity<span
-                                                            style="color:red">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" name="seatingcapacity" class="form-control"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <div class="hr-dashed"></div>
-
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <h4><b>Upload Images</b></h4>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-4">
-                                                        FrontImage <span style="color:red">*</span><input type="file"
-                                                            name="img1" required>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        SideImage<span style="color:red">*</span><input type="file"
-                                                            name="img2" required>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        BackImage<span style="color:red"></span><input type="file"
-                                                            name="img3">
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-4">
-                                                        Image 4<span style="color:red"></span><input type="file"
-                                                            name="img4">
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="hr-dashed"></div>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Owner Name<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="owner_name" id="owner_name"
+                                                        class="form-control" value="<?php echo $row['owner_name']; ?>">
+                                                </div>
+                                                <label class="col-sm-2 control-label">Owner Mobile No.<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="owner_mobile" id="owner_mobile"
+                                                        class="form-control"
+                                                        value="<?php echo $row['owner_mobile']; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Owner Email<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="owner_email" id="owner_email"
+                                                        class="form-control" value="<?php echo $row['owner_email']; ?>">
+                                                </div>
+                                                <label class="col-sm-2 control-label">Vehicle JCC No<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" name="owner_vehicle_jcc_no"
+                                                        id="owner_vehicle_jcc_no" class="form-control"
+                                                        value="<?php echo $row['owner_vehicle_jcc_no']; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="hr-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Vehical Overview<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" name="vehicalorcview" rows="3"
+                                                        required></textarea>
+                                                </div>
+                                            </div>
+
+                                            </select>
                                     </div>
+
                                 </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Accessories</div>
-                                        <div class="panel-body">
-
-
-                                            <div class="form-group">
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="airconditioner" name="airconditioner"
-                                                            value="1">
-                                                        <label for="airconditioner"> Air Conditioner </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="powerdoorlocks" name="powerdoorlocks"
-                                                            value="1">
-                                                        <label for="powerdoorlocks"> Power Door Locks </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="antilockbrakingsys"
-                                                            name="antilockbrakingsys" value="1">
-                                                        <label for="antilockbrakingsys"> AntiLock Braking System
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="checkbox checkbox-inline">
-                                                    <input type="checkbox" id="brakeassist" name="brakeassist"
-                                                        value="1">
-                                                    <label for="brakeassist"> Brake Assist </label>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="form-group">
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="powersteering" name="powersteering"
-                                                            value="1">
-                                                        <input type="checkbox" id="powersteering" name="powersteering"
-                                                            value="1">
-                                                        <label for="inlineCheckbox5"> Power Steering </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="driverairbag" name="driverairbag"
-                                                            value="1">
-                                                        <label for="driverairbag">Driver Airbag</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="passengerairbag"
-                                                            name="passengerairbag" value="1">
-                                                        <label for="passengerairbag"> Passenger Airbag </label>
-                                                    </div>
-                                                </div>
-                                                <div class="checkbox checkbox-inline">
-                                                    <input type="checkbox" id="powerwindow" name="powerwindow"
-                                                        value="1">
-                                                    <label for="powerwindow"> Power Windows </label>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="cdplayer" name="cdplayer" value="1">
-                                                        <label for="cdplayer"> CD Player </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox h checkbox-inline">
-                                                        <input type="checkbox" id="centrallocking" name="centrallocking"
-                                                            value="1">
-                                                        <label for="centrallocking">Central Locking</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="crashcensor" name="crashcensor"
-                                                            value="1">
-                                                        <label for="crashcensor"> Crash Sensor </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input type="checkbox" id="leatherseats" name="leatherseats"
-                                                            value="1">
-                                                        <label for="leatherseats"> Leather Seats </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="form-group">
-                                                <div class="col-sm-8 col-sm-offset-2">
-                                                    <button class="btn btn-default" type="reset">Cancel</button>
-                                                    <button class="btn btn-primary" name="submit" type="submit">Save
-                                                        changes</button>
-                                                </div>
-                                            </div>
-
-                                            </form>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Vehicle RC No<span
+                                            style="color:red">*</span></label>
+                                    <div class="col-sm-4" id="vehicle_no">
+                                        <input type="text" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no"
+                                            class="form-control" value="<?php echo $row['owner_vehicle_rc_no']; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <!--- <label class="col-sm-2 control-label">Owner Name<span style="color:red">*</span></label>  -->
+                                        <div class="col-sm-6" id="vehicle_no">
+                                            <!--- <input type="text" name="owner_name" id="owner_name" class="form-control" value="<?php  // echo $row['owner_name'];
+																																	?>"> -->
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <!-- <label class="col-sm-2 control-label">Owner Mobile No.<span style="color:red">*</span></label> -->
+                                        <div class="col-sm-6" id="vehicle_no">
+                                            <!--  <input type="text" name="owner_mobile" id="owner_mobile" class="form-control" value="<?php // echo $row['owner_mobile'];
+																																		?>"> --->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--- <label class="col-sm-2 control-label">Vehicle JCC No<span style="color:red">*</span></label> -->
+                                        <div class="col-sm-6" id="vehicle_no">
+                                            <!--	<input type="text" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" class="form-control" value="<?php // echo $row['owner_vehicle_jcc_no'];
+																																							?>"> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Vehical Overview<span
+                                                style="color:red">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="vehicalorcview" rows="3"
+                                                required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Price Per Day(in USD)<span
+                                                style="color:red">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="priceperday" class="form-control" required>
+                                        </div>
+                                        <label class="col-sm-2 control-label">Select Fuel Type<span
+                                                style="color:red">*</span></label>
+                                        <div class="col-sm-4">
+                                            <select class="selectpicker" name="fueltype" required>
+                                                <option value=""> Select </option>
+
+                                                <option value="Petrol">Petrol</option>
+                                                <option value="Diesel">Diesel</option>
+                                                <option value="CNG">CNG</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Model Year<span
+                                                style="color:red">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="modelyear" class="form-control" required>
+                                        </div>
+                                        <label class="col-sm-2 control-label">Seating Capacity<span
+                                                style="color:red">*</span></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="seatingcapacity" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="hr-dashed"></div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <h4><b>Upload Images</b></h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            FrontImage <span style="color:red">*</span><input type="file" name="img1"
+                                                required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            SideImage<span style="color:red">*</span><input type="file" name="img2"
+                                                required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            BackImage<span style="color:red"></span><input type="file" name="img3">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            Image 4<span style="color:red"></span><input type="file" name="img4">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="hr-dashed"></div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Accessories</div>
+                                <div class="panel-body">
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="airconditioner" name="airconditioner"
+                                                    value="1">
+                                                <label for="airconditioner"> Air Conditioner </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="powerdoorlocks" name="powerdoorlocks"
+                                                    value="1">
+                                                <label for="powerdoorlocks"> Power Door Locks </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="antilockbrakingsys" name="antilockbrakingsys"
+                                                    value="1">
+                                                <label for="antilockbrakingsys"> AntiLock Braking System
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="checkbox checkbox-inline">
+                                            <input type="checkbox" id="brakeassist" name="brakeassist" value="1">
+                                            <label for="brakeassist"> Brake Assist </label>
+                                        </div>
+                                    </div>
 
 
 
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="powersteering" name="powersteering"
+                                                    value="1">
+                                                <input type="checkbox" id="powersteering" name="powersteering"
+                                                    value="1">
+                                                <label for="inlineCheckbox5"> Power Steering </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="driverairbag" name="driverairbag" value="1">
+                                                <label for="driverairbag">Driver Airbag</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="passengerairbag" name="passengerairbag"
+                                                    value="1">
+                                                <label for="passengerairbag"> Passenger Airbag </label>
+                                            </div>
+                                        </div>
+                                        <div class="checkbox checkbox-inline">
+                                            <input type="checkbox" id="powerwindow" name="powerwindow" value="1">
+                                            <label for="powerwindow"> Power Windows </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="cdplayer" name="cdplayer" value="1">
+                                                <label for="cdplayer"> CD Player </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox h checkbox-inline">
+                                                <input type="checkbox" id="centrallocking" name="centrallocking"
+                                                    value="1">
+                                                <label for="centrallocking">Central Locking</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="crashcensor" name="crashcensor" value="1">
+                                                <label for="crashcensor"> Crash Sensor </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="leatherseats" name="leatherseats" value="1">
+                                                <label for="leatherseats"> Leather Seats </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <button class="btn btn-default" type="reset">Cancel</button>
+                                            <button class="btn btn-primary" name="submit" type="submit">Save
+                                                changes</button>
+                                        </div>
+                                    </div>
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -388,38 +430,43 @@ if (isset($_POST['submit'])) {
 
                 </div>
             </div>
+
+
+
         </div>
+    </div>
+    </div>
 
-        <!-- Loading Scripts -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap-select.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.dataTables.min.js"></script>
-        <script src="js/dataTables.bootstrap.min.js"></script>
-        <script src="js/Chart.min.js"></script>
-        <script src="js/fileinput.js"></script>
-        <script src="js/chartData.js"></script>
-        <script src="js/main.js"></script>
+    <!-- Loading Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/fileinput.js"></script>
+    <script src="js/chartData.js"></script>
+    <script src="js/main.js"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
-            $('#owner_vehicle_no').on('change', function() {
-                var owner_vehicle_no = this.value;
-                $.ajax({
-                    url: "get_vehicle.php",
-                    type: "POST",
-                    data: {
-                        owner_vehicle_no: owner_vehicle_no
-                    },
-                    cache: false,
-                    success: function(result) {
-                        $("#vehicle_no").html(result);
-                    }
-                });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#owner_vehicle_no').on('change', function() {
+            var owner_vehicle_no = this.value;
+            $.ajax({
+                url: "get_vehicle.php",
+                type: "POST",
+                data: {
+                    owner_vehicle_no: owner_vehicle_no
+                },
+                cache: false,
+                success: function(result) {
+                    $("#vehicle_no").html(result);
+                }
             });
         });
-        </script>
+    });
+    </script>
 
 </body>
 

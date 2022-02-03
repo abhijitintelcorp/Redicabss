@@ -10,6 +10,7 @@
 		 $owner_email=htmlspecialchars($_POST['owner_email']);
 		 $owner_vehicle_no=htmlspecialchars($_POST['owner_vehicle_no']);
 		 $owner_vehicle_rc_no=htmlspecialchars($_POST['owner_vehicle_rc_no']);
+		 $owner_vehicle_jcc_no=htmlspecialchars($_POST['owner_vehicle_jcc_no']);
 		 $owner_vehicle_brand=htmlspecialchars($_POST['owner_vehicle_brand']);
 		 $owner_vehicle_name=htmlspecialchars($_POST['owner_vehicle_name']);
 		 $owner_vehicle_color=htmlspecialchars($_POST['owner_vehicle_color']);
@@ -33,7 +34,7 @@
   
 		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
 		    if($size<=7000000){
-         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$created_at')";
+         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_jcc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no', '$owner_vehicle_jcc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$created_at')";
          $res_query=mysqli_query($conn, $insert_qry);
 		 }  
 		  $path = "image/".$front_image;
@@ -48,6 +49,9 @@
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
 		   }   
+		}
+		if($res_query){
+			header("location:manage-owner.php");
 		}
 	}
 ?>
@@ -84,6 +88,10 @@
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+	
+
+	
+	
   <style>
 		.errorWrap {
     padding: 10px;
@@ -101,6 +109,7 @@
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
+
 		</style>
 
 
@@ -118,29 +127,30 @@
 					
 						<h2 class="page-title">Add Owner</h2>
 
+
 						<div class="row">
 							<div class="col-md-10">
 								<div class="panel panel-default">
 									<div class="panel-heading">Add Owner</div>
 									<div class="panel-body">
 
-					<form action="" method="post" name="add_owner" class="form-horizontal" enctype="multipart/form-data">
+					<form action="" method="post" name="add_owner" id="add_owner" class="form-horizontal" enctype="multipart/form-data">
 										
 											
   	        <!-- 	<div class="errorWrap"><strong>ERROR</strong></div>
 			<div class="succWrap"><strong>SUCCESS</strong></div> -->
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Owner Name</label>
+												<label for="owner_name" class="col-sm-4 control-label">Owner Name <span style="color:red">*</span></label>
+
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_name" id="owner_name" placeholder="Enter  Name" required>
+													<input type="text" class="form-control" name="owner_name" id="owner_name"  placeholder="Enter  Name" required>
 												</div>
 											</div>
 									</div>
-
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Mobile</label>
+												<label for="owner_mobile" class="col-sm-4 control-label">Mobile  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
 													<input type="number" class="form-control" name="owner_mobile" id="owner_mobile" placeholder="Mobile Number" required>
 												</div>
@@ -149,26 +159,34 @@
 
 										<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label"> Email Id</label>
+												<label for="owner_email" class="col-sm-4 control-label"> Email Id  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_email" id="owner_email" placeholder="Email Id" required>
+													<input type="email" class="form-control" name="owner_email" id="owner_email" placeholder="Email Id" required>
+												</div>
+											</div>
+									</div>
+									<div class="col-md-5">
+											<div class="form-group">
+												<label for="owner_vehicle_no" class="col-sm-4 control-label"> Vehicle Number<span style="color:red">*</span></label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control"  name="owner_vehicle_no" id="owner_vehicle_no" placeholder=" Vehicle Number" required>
 												</div>
 											</div>
 									</div>
 
 
-									<div class="col-md-5">
+								<!-- 	<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label"> Vehicle Number</label>
+												<label for="owner_vehicle_no" lass="col-sm-4 control-label"> Vehicle Number <span style="color:red">*</span> </label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_no" id="owner_vehicle_no" placeholder=" Vehicle Number" required>
 												</div>
 											</div>
-									</div>
+									</div> -->
 
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Vehicle RC Number</label>
+												<label  for="owner_vehicle_rc_no"class="col-sm-4 control-label">Vehicle RC Number  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_rc_no" id="owner_vehicle_rc_no" placeholder="Vehicle RC Number" required>
 												</div>
@@ -177,7 +195,17 @@
 
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Vehicle Brand</label>
+												<label  for="owner_vehicle_jcc_no"class="col-sm-4 control-label">Vehicle Jcc Number  <span style="color:red">*</span></label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" placeholder=" Vehicle Jcc Number" required>
+												</div>
+											</div>
+									</div>
+
+
+									<div class="col-md-5">
+											<div class="form-group">
+												<label for="owner_vehicle_brand" class="col-sm-4 control-label">Vehicle Brand  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_brand" id="owner_vehicle_brand" placeholder="Vehicle Brand" required>
 												</div>
@@ -186,7 +214,7 @@
 
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label"> Vehicle Name</label>
+												<label for="owner_vehicle_name"class="col-sm-4 control-label"> Vehicle Name  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_name" id="owner_vehicle_name" placeholder="Vehicle Name" required>
 												</div>
@@ -195,32 +223,37 @@
 
 									<div class="col-md-5">
 											<div class="form-group">
-												<label class="col-sm-4 control-label"> Vehicle Color</label>
+												<label for="owner_vehicle_color" class="col-sm-4 control-label"> Vehicle Color  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="owner_vehicle_color" id="owner_vehicle_color" placeholder=" Vehicle Color" required>
+													<input type="text" class="form-control" name="owner_vehicle_color" id="owner_vehicle_color" placeholder=" Vehicle Color">
 												</div>
 											</div>
 									</div>
 
-								
+
+																
 
 									<div class="col-md-5">
 										<div class="form-group">
-												<label class="col-sm-4 control-label"> Assign Driver</label>
+												<label class="col-sm-4 control-label"> Assign Driver  <span style="color:red">*</span></label>
 											<div class="col-sm-8">
 												<select class="selectpicker" name="driver_id" id="driver_id" >
 													<option value=""> Select </option>
-													<option value="1">RAM</option>
-													<option value="2">SAM</option>
+													
 
-												</select>
-		$qry = "SELECT id,BrandName from tblbrands";
-		  $exe = mysqli_query($conn, $qry); 
-		  while ($row = mysqli_fetch_array($exe)) 
-		  {
+		<?php										
+			$qry = "SELECT id, name from tbldriver";
+		  	$exe = mysqli_query($conn, $qry); 
+		  	while ($row = mysqli_fetch_array($exe)) 
+		  	{
 		  ?>
-  <option  value="<?php echo $row['id'] ?>"><?php echo $row['BrandName'] ?>
+  <option  value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?>
   </option>
+ 
+  <?php
+	}
+  ?>
+   </select>
 											</div>
 										</div>
 									</div>
@@ -234,13 +267,13 @@
 
 								<div class="form-group">
 									<div class="col-sm-4">
-										Front Image <span style="color:red">*</span><input type="file" name="front_image" required>
+										Front Image <span style="color:red">*</span><input type="file" name="front_image" id="front_image"required>
 									</div>
 									<div class="col-sm-4">
-										Back Image <span style="color:red">*</span><input type="file" name="back_image" >
+										Back Image <span style="color:red">*</span><input type="file" name="back_image" id="back_image"required>
 									</div>
 									<div class="col-sm-4">
-										Side Image <span style="color:red">*</span><input type="file" name="side_image" >
+										Side Image <span style="color:red">*</span><input type="file" name="side_image" id="side_image"required>
 									</div>
 								</div>
 
@@ -284,6 +317,12 @@
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>
+	<script src="js/validation.js"></script>
+
+	
+
 
 </body>
 
