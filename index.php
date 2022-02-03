@@ -2,7 +2,6 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-
 ?>
 
 <!DOCTYPE HTML>
@@ -42,7 +41,6 @@ error_reporting(0);
 </head>
 
 <body>
-
   <!-- Start Switcher -->
   <?php include('includes/colorswitcher.php'); ?>
   <!-- /Switcher -->
@@ -83,11 +81,11 @@ error_reporting(0);
                   <option>Select Brand</option>
 
                   <?php $sql = "SELECT * from  tblbrands ";
-                  $query = $dbh->prepare($sql);
-                  $query->execute();
-                  $results = $query->fetchAll(PDO::FETCH_OBJ);
+                  $query = mysqli_query($conn,$sql);
+                  $results =mysqli_fetch_assoc($query);
+                  $count= mysqli_num_rows($query);
                   $cnt = 1;
-                  if ($query->rowCount() > 0) {
+                  if ($count > 0) {
                     foreach ($results as $result) {       ?>
                       <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
                   <?php }
@@ -154,29 +152,29 @@ error_reporting(0);
           <div role="tabpanel" class="tab-pane active" id="resentnewcar">
 
             <?php $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id,tblvehicles.SeatingCapacity,tblvehicles.VehiclesOverview,tblvehicles.Vimage1 from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand limit 9";
-            $query = $dbh->prepare($sql);
-            $query->execute();
-            $results = $query->fetchAll(PDO::FETCH_OBJ);
+            $query = mysqli_query($conn, $sql);
+            $results = mysqli_fetch_assoc($query);
+            $count = mysqli_num_rows($query);
             $cnt = 1;
-            if ($query->rowCount() > 0) {
-              foreach ($results as $result) {
+            if ($count > 0) {
+              while ($results = mysqli_fetch_assoc($query)) {
             ?>
 
                 <div class="col-list-3">
                   <div class="recent-car-list">
-                    <div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="image" width="600px" height="500px"></a>
+                    <div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($results['id']); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($results['Vimage1']); ?>" class="img-responsive" alt="image" width="600px" height="500px"></a>
                       <ul>
-                        <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
-                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?> Model</li>
-                        <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?> seats</li>
+                        <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($results['FuelType']); ?></li>
+                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($results['ModelYear']); ?> Model</li>
+                        <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($results['SeatingCapacity']); ?> seats</li>
                       </ul>
                     </div>
                     <div class="car-title-m">
-                      <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"> <?php echo htmlentities($result->VehiclesTitle); ?></a></h6>
-                      <span class="price">$<?php echo htmlentities($result->PricePerDay); ?> /Day</span>
+                      <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($results['id']); ?>"> <?php echo htmlentities($results['VehiclesTitle']); ?></a></h6>
+                      <span class="price">$<?php echo htmlentities($results['PricePerDay']); ?> /Day</span>
                     </div>
                     <div class="inventory_info_m">
-                      <p><?php echo substr($result->VehiclesOverview, 0, 70); ?></p>
+                      <p><?php echo substr($results['VehiclesOverview'], 0, 70); ?></p>
                     </div>
                   </div>
                 </div>
@@ -252,22 +250,20 @@ error_reporting(0);
         <div id="testimonial-slider">
           <?php
           $tid = 1;
-          $sql = "SELECT tbltestimonial.Testimonial,tblusers.FullName from tbltestimonial join tblusers on tbltestimonial.UserEmail=tblusers.EmailId where tbltestimonial.status=:tid limit 4";
-          $query = $dbh->prepare($sql);
-          $query->bindParam(':tid', $tid, PDO::PARAM_STR);
-          $query->execute();
-          $results = $query->fetchAll(PDO::FETCH_OBJ);
+          $sql = "SELECT tbltestimonial.Testimonial,tblusers.FullName from tbltestimonial join tblusers on tbltestimonial.UserEmail=tblusers.EmailId where tbltestimonial.status='$tid' limit 4";
+          $query = mysqli_query($conn,$sql);
+          $results = mysqli_fetch_assoc($query);
+          $count=mysqli_num_rows($query);
           $cnt = 1;
-          if ($query->rowCount() > 0) {
-            foreach ($results as $result) {  ?>
-
+          if ($count > 0) {
+            while ($results = mysqli_fetch_assoc($query)) {  ?>
 
               <div class="testimonial-m">
 
                 <div class="testimonial-content">
                   <div class="testimonial-heading">
-                    <h5><?php echo htmlentities($result->FullName); ?></h5>
-                    <p><?php echo htmlentities($result->Testimonial); ?></p>
+                    <h5><?php echo htmlentities($results['FullName']); ?></h5>
+                    <p><?php echo htmlentities($results['Testimonial']); ?></p>
                   </div>
                 </div>
               </div>

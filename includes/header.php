@@ -1,22 +1,24 @@
 
+<?php
+session_start();
+include("config.php");
+?>
 <header>
   <div class="default-header" style="padding:0px">
     <div class="container">
       <div class="row">
         <div class="col-sm-2 col-md-2">
-          <div class="logo"> <a href="index.php"><img src="./assets/images/redicabs_logo.png" height="200" width="250" alt="image"/></a> </div>
+          <div class="logo"> <a href="index.php"><img src="./assets/images/redicabs_logo.png" height="180" width="250" alt="image"/></a> </div>
         </div>
         <div class="col-sm-10 col-md-10" >
           <div class="header_info" style="padding: 50px;">
          <?php
-         $sql = "SELECT EmailId,ContactNo from tblcontactusinfo";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-foreach ($results as $result) {
-$email=$result->EmailId;
-$contactno=$result->ContactNo;
-}
+         $sql = "SELECT id,EmailId,ContactNo FROM tblcontactusinfo WHERE id=1";
+$query =mysqli_query($conn, $sql);
+$results=mysqli_fetch_assoc($query);
+$email=$results['EmailId'];
+$contactno=$results['ContactNo'];
+
 ?>   
 
             <div class="header_widgets" >
@@ -60,12 +62,11 @@ echo "<h5 style='color:#1886bb'>Welcome To Car rental portal<h5>";
             <li class="dropdown"> <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded=" false"><i class="fa fa-user-circle" aria-hidden="true"></i> 
 <?php 
 $email=$_SESSION['login'];
-$sql ="SELECT FullName FROM tblusers WHERE EmailId=:email ";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
+$sql ="SELECT FullName FROM tblusers WHERE EmailId='$email'";
+$query1=mysqli_query($conn,$sql1);
+$results=mysqli_fetch_assoc($query1);
+$count=mysqli_num_rows($query1);
+if($count > 0)
 {
 foreach($results as $result)
   {

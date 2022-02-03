@@ -2,23 +2,21 @@
 if(isset($_POST['emailsubscibe']))
 {
 $subscriberemail=$_POST['subscriberemail'];
-$sql ="SELECT SubscriberEmail FROM tblsubscribers WHERE SubscriberEmail=:subscriberemail";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':subscriberemail', $subscriberemail, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
+$sql ="SELECT SubscriberEmail FROM tblsubscribers WHERE SubscriberEmail='$subscriberemail'";
+$query= mysqli_query($conn,$sql);
+$results = mysqli_fetch_assoc($query);
+$count= mysqli_num_rows($query);
 $cnt=1;
-if($query -> rowCount() > 0)
+if($count > 0)
 {
 echo "<script>alert('Already Subscribed.');</script>";
 }
 else{
-$sql="INSERT INTO  tblsubscribers(SubscriberEmail) VALUES(:subscriberemail)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':subscriberemail',$subscriberemail,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
+$sql="INSERT INTO  tblsubscribers(SubscriberEmail) VALUES('$subscriberemail')";
+$query = mysqli_query($conn,$sql);
+
+ $insert_id = mysqli_insert_id($conn);
+if($insert_id)
 {
 echo "<script>alert('Subscribed successfully.');</script>";
 }
