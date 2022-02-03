@@ -3,73 +3,74 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
-	header('location:index.php');
+    header('location:index.php');
 }
 // else{
 if (isset($_POST['submit'])) {
-	// extract($_POST); 
-	$owner_name = htmlspecialchars($_POST['owner_name']);
-	$owner_mobile = htmlspecialchars($_POST['owner_mobile']);
-	$owner_email = htmlspecialchars($_POST['owner_email']);
-	$owner_vehicle_no = htmlspecialchars($_POST['owner_vehicle_no']);
-	$owner_vehicle_rc_no = htmlspecialchars($_POST['owner_vehicle_rc_no']);
-	$owner_vehicle_jcc_no = htmlspecialchars($_POST['owner_vehicle_jcc_no']);
-	$vehicletitle = htmlspecialchars($_POST['vehicletitle']);
-	$brand = htmlspecialchars($_POST['brand']);
-	$vehicalorcview = htmlspecialchars($_POST['vehicalorcview']);
-	$priceperday = htmlspecialchars($_POST['priceperday']);
-	$fueltype = htmlspecialchars($_POST['fueltype']);
-	$modelyear = htmlspecialchars($_POST['modelyear']);
-	$seatingcapacity = htmlspecialchars($_POST['seatingcapacity']);
-	$img1 = $_FILES['img1']['name'];
-	$type = $_FILES['img1']['type'];
-	$size = $_FILES['img1']['size'];
-	$img_file1 = $_FILES['img1']['tmp_name'];
-	$img3 = $_FILES['img3']['name'];
-	$type = $_FILES['img3']['type'];
-	$size = $_FILES['img3']['size'];
-	$img_file2 = $_FILES['img3']['tmp_name'];
-	$img2 = $_FILES['img2']['name'];
-	$type = $_FILES['img2']['type'];
-	$size = $_FILES['img2']['size'];
-	$img_file3 = $_FILES['img2']['tmp_name'];
-	$img4 = $_FILES['img4']['name'];
-	$type = $_FILES['img4']['type'];
-	$size = $_FILES['img4']['size'];
-	$img_file3 = $_FILES['img4']['tmp_name'];
-	$path1 = "image/" . $img3;
-	$path2 = "image/" . $img2;
-	$path3 = "image/" . $img4;
+    // extract($_POST); 
+    $owner_name = htmlspecialchars($_POST['owner_name']);
+    $owner_mobile = htmlspecialchars($_POST['owner_mobile']);
+    $owner_email = htmlspecialchars($_POST['owner_email']);
+    $owner_vehicle_no = htmlspecialchars($_POST['owner_vehicle_no']);
+    $owner_vehicle_rc_no = htmlspecialchars($_POST['owner_vehicle_rc_no']);
+    $owner_vehicle_jcc_no = htmlspecialchars($_POST['owner_vehicle_jcc_no']);
+    $vehicletitle = htmlspecialchars($_POST['vehicletitle']);
+    $brand = htmlspecialchars($_POST['brand']);
+    $vehicalorcview = htmlspecialchars($_POST['vehicalorcview']);
+    $priceperday = htmlspecialchars($_POST['priceperday']);
+    $fueltype = htmlspecialchars($_POST['fueltype']);
+    $modelyear = htmlspecialchars($_POST['modelyear']);
+    $seatingcapacity = htmlspecialchars($_POST['seatingcapacity']);
+    $img1 = $_FILES['img1']['name'];
+    $type = $_FILES['img1']['type'];
+    $size = $_FILES['img1']['size'];
+    $img_file1 = $_FILES['img1']['tmp_name'];
+    $img3 = $_FILES['img3']['name'];
+    $type = $_FILES['img3']['type'];
+    $size = $_FILES['img3']['size'];
+    $img_file2 = $_FILES['img3']['tmp_name'];
+    $img2 = $_FILES['img2']['name'];
+    $type = $_FILES['img2']['type'];
+    $size = $_FILES['img2']['size'];
+    $img_file3 = $_FILES['img2']['tmp_name'];
+    $img4 = $_FILES['img4']['name'];
+    $type = $_FILES['img4']['type'];
+    $size = $_FILES['img4']['size'];
+    $img_file3 = $_FILES['img4']['tmp_name'];
+    $path1 = "image/" . $img3;
+    $path2 = "image/" . $img2;
+    $path3 = "image/" . $img4;
 
-	if ($type == 'image/jpg' || $type == 'image/jpeg' || $type == 'image/png' || $type == 'image/gif') {
-		if ($size <= 7000000) {
+    if ($type == 'image/jpg' || $type == 'image/jpeg' || $type == 'image/png' || $type == 'image/gif') {
+        if ($size <= 7000000) {
 
-			$sql = "INSERT INTO tblvehicles(ownname,ContactNo,email,vehno,VehRCno,vehreg,vehchas,VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no','$vehreg','$owner_vehicle_jcc_no','$vehicletitle','$brand','$vehicalorcview','$priceperday','$fueltype','$modelyear','$seatingcapacity','$img1','$img2','$img3','$img4','$airconditioner','$powerdoorlocks','$antilockbrakingsys','$brakeassist','$powersteering','$driverairbag','$passengerairbag','$powerwindow','$cdplayer','$centrallocking','$crashcensor','$leatherseats')";
-			$res = mysqli_query($conn, $sql);
-		}
-		$path = "image/" . $img1;
-		if (move_uploaded_file($img_file1, $path)) {
-			copy($path, "$path");
-		}
-		$path = "image/" . $img2;
-		if (move_uploaded_file($img_file2, $path)) {
-			copy($path, "$path");
-		}
-		$path = "image/" . $img3;
-		if (move_uploaded_file($img_file3, $path)) {
-			copy($path, "$path");
-		}
-		$path = "image/" . $img4;
-		if (move_uploaded_file($img_file4, $path)) {
-			copy($path, "$path");
-		}
-	}
-	if ($res) {
-		$msg = "<b class='succWrap'>Vehicle posted Successfully</b>";
-	} else {
-		$msg = "<b class='errorWrap'>Vehicle  Failed</b>";
-	}
-	// }
+            $sql = "INSERT INTO tblvehicles(ownname,ContactNo,email,vehno,VehRCno,vehreg,vehchas,VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no','$vehreg','$owner_vehicle_jcc_no','$vehicletitle','$brand','$vehicalorcview','$priceperday','$fueltype','$modelyear','$seatingcapacity','$img1','$img2','$img3','$img4','$airconditioner','$powerdoorlocks','$antilockbrakingsys','$brakeassist','$powersteering','$driverairbag','$passengerairbag','$powerwindow','$cdplayer','$centrallocking','$crashcensor','$leatherseats')";
+            $res = mysqli_query($conn, $sql);
+        }
+        $path = "image/" . $img1;
+        if (move_uploaded_file($img_file1, $path)) {
+            copy($path, "$path");
+        }
+        $path = "image/" . $img2;
+        if (move_uploaded_file($img_file2, $path)) {
+            copy($path, "$path");
+        }
+        $path = "image/" . $img3;
+        if (move_uploaded_file($img_file3, $path)) {
+            copy($path, "$path");
+        }
+        $path = "image/" . $img4;
+        if (move_uploaded_file($img_file4, $path)) {
+            copy($path, "$path");
+        }
+    }
+    if ($res) {
+        $msg = "<b class='succWrap'>Vehicle posted Successfully</b>";
+        header("location:manage-vehicles.php");
+    } else {
+        $msg = "<b class='errorWrap'>Vehicle  Failed</b>";
+    }
+    // }
 }
 
 ?>
@@ -152,10 +153,10 @@ if (isset($_POST['submit'])) {
                                                     <select class="selectpicker" name="brand" id="brand" required>
                                                         <option value=""> Select </option>
                                                         <?php
-														$qry = "SELECT id,BrandName from tblbrands";
-														$exe = mysqli_query($conn, $qry);
-														while ($row = mysqli_fetch_array($exe)) {
-														?>
+                                                        $qry = "SELECT id,BrandName from tblbrands";
+                                                        $exe = mysqli_query($conn, $qry);
+                                                        while ($row = mysqli_fetch_array($exe)) {
+                                                        ?>
                                                         <option value="<?php echo $row['id'] ?>">
                                                             <?php echo $row['BrandName'] ?>
                                                         </option>
@@ -178,14 +179,14 @@ if (isset($_POST['submit'])) {
                                                         id="owner_vehicle_no">
                                                         <option value=""> Select </option>
                                                         <?php
-														$qry = "SELECT * from add_owner";
-														$exe = mysqli_query($conn, $qry);
-														while ($row = mysqli_fetch_array($exe)) {
-															$owner_vehicle_rc_no = $row['owner_vehicle_rc_no'];
-															$owner_name = $row['owner_name'];
-															$owner_mobile = $row['owner_mobile'];
-															$owner_vehicle_jcc_no = $row['owner_vehicle_jcc_no'];
-														?>
+                                                        $qry = "SELECT * from add_owner";
+                                                        $exe = mysqli_query($conn, $qry);
+                                                        while ($row = mysqli_fetch_array($exe)) {
+                                                            $owner_vehicle_rc_no = $row['owner_vehicle_rc_no'];
+                                                            $owner_name = $row['owner_name'];
+                                                            $owner_mobile = $row['owner_mobile'];
+                                                            $owner_vehicle_jcc_no = $row['owner_vehicle_jcc_no'];
+                                                        ?>
                                                         <option
                                                             owner_vehicle_rc_no="<?php echo $row['owner_vehicle_rc_no']; ?>"
                                                             owner_name="<?php echo $row['owner_name']; ?>"
