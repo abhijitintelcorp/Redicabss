@@ -39,7 +39,13 @@
 					</ul>
 				</li>
 
-		
+		<li><a href="#"><i class="fas fa-comment"></i>Feedback</a>
+					<ul>
+						<li><a href="add_feedback.php">Add Feedback</a></li>
+						<li><a href="manage_feedback.php">Manage Feedback</a></li>
+					</ul>
+				</li>
+
 
 				<li><a href="testimonials.php"><i class="fa fa-table"></i> Manage Testimonials</a></li>
 				<li><a href="manage-conactusquery.php"><i class="fa fa-desktop"></i> Manage Conatctus Query</a></li>

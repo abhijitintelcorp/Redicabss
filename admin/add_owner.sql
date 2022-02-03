@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2022 at 01:13 PM
+-- Generation Time: Feb 03, 2022 at 07:22 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -42,6 +42,8 @@ CREATE TABLE `add_owner` (
   `front_image` varchar(255) DEFAULT NULL,
   `back_image` varchar(255) DEFAULT NULL,
   `side_image` varchar(255) DEFAULT NULL,
+  `adhar_front` varchar(255) DEFAULT NULL,
+  `adhar_back` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -49,9 +51,8 @@ CREATE TABLE `add_owner` (
 -- Dumping data for table `add_owner`
 --
 
-INSERT INTO `add_owner` (`id`, `owner_name`, `owner_mobile`, `owner_email`, `owner_vehicle_no`, `owner_vehicle_rc_no`, `owner_vehicle_jcc_no`, `owner_vehicle_brand`, `owner_vehicle_name`, `owner_vehicle_color`, `driver_id`, `front_image`, `back_image`, `side_image`, `created_at`) VALUES
-(15, 'LAXMIPRIYA', '9087654321', 'laxmi@gmail.com', '98HFZ', 'SADCSVG3435', ' FVDS3545', 'FSZF', 'FVDV', 'SCFSZC', 51, '1.png', 'delivery.png', 'car2.png', '2022-01-27 18:30:00'),
-(16, 'ASCV', '4456', 'DFD', 'ZCV ', 'VCVC', ' BVBVB', 'FDFF', 'DFDF', 'XC C', 51, '10.png', 'car.png', 'car2.png', '2022-01-27 18:30:00');
+INSERT INTO `add_owner` (`id`, `owner_name`, `owner_mobile`, `owner_email`, `owner_vehicle_no`, `owner_vehicle_rc_no`, `owner_vehicle_jcc_no`, `owner_vehicle_brand`, `owner_vehicle_name`, `owner_vehicle_color`, `driver_id`, `front_image`, `back_image`, `side_image`, `adhar_front`, `adhar_back`, `created_at`) VALUES
+(28, 'LAXMIPRIYA', '7654321879', 'laxmipriya@gmail.com', 'OD 25 1234', 'RC1234', 'JCC1234', 'BMW', 'BMW', 'BLACK', 64, 'car.png', 'car2.png', 'delivery.png', 'prescription.jpg', 'prescription.png', '2022-02-02 18:30:00');
 
 --
 -- Indexes for dumped tables
@@ -71,7 +72,7 @@ ALTER TABLE `add_owner`
 -- AUTO_INCREMENT for table `add_owner`
 --
 ALTER TABLE `add_owner`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -71,80 +71,80 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Manage Owner</h2>
-<a href="add-owner.php"><button class="addbtn">+ Add Owner</button></a>
+						<h2 class="page-title">Manage Feedback</h2>
+<a href="add_feedback.php"><button class="addbtn">+ Add Feedback</button></a>
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Owner Details</div>
+							<div class="panel-heading">Feedback Details</div>
 							<div class="panel-body">
 							
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
 									<thead>
 										<tr>
 										<th>Sl.No.</th>
-											<th>Owner Name</th>
-											<th>Mobile</th>
-											<th>Email Id</th>
-											<th>Vehicle Number</th>
-											<th>Vehicle RC Number</th>
-											<th>Vehicle Brand</th>
-											<th>Vehicle Name</th>
-											<!-- <th>Vehicle Color</th>
-											<th>Assign Driver</th>
-											<th>Front Image</th>
-											<th>Back Image</th>
-											<th>Side Image</th> -->
-											<th colspan="2">Action</th>
+										<th>Booking No.</th>
+										<th>Driver Id</th>
+										<th>User Id</th>
+										<th>Good</th>
+										<th>Medium</th>
+										<th>Bad</th>
+										<th colspan="2">Action</th>
 										</tr>
 									</thead>
 
+
 	<?php
-         $retrive_qyr="SELECT * FROM add_owner";
+         $retrive_qyr="SELECT * FROM add_feedback";
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
          $count++;
      ?>
-
+		
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
-											<td><?php echo $row['owner_name'];?></td>
-											<td><?php echo $row['owner_mobile'];?></td>
-											<td><?php echo $row['owner_email'];?></td>
-											<td><?php echo $row['owner_vehicle_no'];?></td>
-											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
-											<td><?php echo $row['owner_vehicle_brand'];?></td>
-											<td><?php echo $row['owner_vehicle_name'];?></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><?php echo $row['polite_professional'];?>
+												<br><?php echo $row['value_money'];?>
+												<br><?php echo $row['ontime_pikup'];?>
+												<br><?php echo $row['comfortable_ride'];?>
+												<br><?php echo $row['familiar'];?>
+											</td>
+											<td><?php echo $row['didnot_take_ride'];?>
+												<br><?php echo $row['unsafe_ride'];?>
+												<br><?php echo $row['uncomfortable_ride'];?>
+												<br><?php echo $row['rash_riding'];?>
+												<br><?php echo $row['unprofessional_rider'];?>
+												<br><?php echo $row['bad_car_condition'];?>
+												<br><?php echo $row['not_wearing_mask'];?>
+												<br><?php echo $row['reason'];?>
+											</td>
+											<td><?php echo $row['d_didnot_take_ride'];?>
+												<br><?php echo $row['d_unsafe_ride'];?>
+												<br><?php echo $row['d_uncomfortable_ride'];?>
+												<?php echo $row['d_rash_riding'];?>
+												<br><?php echo $row['d_unprofessional_rider'];?>
+												<br><?php echo $row['d_bad_car_condition'];?>
+												<br><?php echo $row['d_not_wearing_mask'];?>
+												<br><?php echo $row['d_reason'];?>
+											</td>
 											
-<!-- 											<td><?php echo $row['owner_vehicle_color'];?></td>
-											<td><?php echo $row['driver_id'];?></td>
+											<td><a href=""><i class="fa fa-edit"></i></a></td>
 
-											<td><img src="image/<?php echo $row['front_image'];?>" width="30" height="30"  alt=""></td>
-
-											<td><img src="image/<?php echo $row['back_image'];?>" width="30" height="30"  alt=""></td>
-										
-											<td><img src="image/<?php echo $row['side_image'];?>" width="30" height="30"  alt=""></td> -->
-											
-											<td><a href="owner_update.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
-
-											<td><a href="owner_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
-
+											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
 										</tr>
-
-										
 									</tbody>
 	<?php
        }
      ?>
-								</table>
 
-						
+  						</table>
 
-							</div>
 						</div>
-
-					
+						</div>
 
 					</div>
 				</div>
