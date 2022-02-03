@@ -142,5 +142,44 @@ $(document).ready(function() {
 
 
   });
+  // add -vehicle validation
+
+
+  $("#add_vehicle").validate({
+    rules: {
+      vehicletitle : {
+        required: true,
+        minlength: 3
+      },
+       priceperday : {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+      
+    },
+     modelyear: {
+        required: true,
+        modelyear: true,
+        maxlength: 10,      
+      }
+    },
+    messages : {
+      vehicletitle: {
+        required: "<b style='color:red;'>Please Enter Vehicle Name</b>",
+        minlength: "<b style='color:red;'>Name should be in characters</b>",   
+      },
+     priceperday : {
+        required: "<b style='color:red;'>Please Enter Priceperday</b>",
+        minlength: "<b style='color:red;'>price should be a number</b>",
+        maxlength: "<b style='color:red;'>price should be more than 3 digit number</b>",      
+      },
+       modelyear: {
+        required: "<b style='color:red;'>Please Enter model year</b>",
+        maxlength: "<b style='color:red;'>price should be a 4 digit number</b>", 
+      },
+    }
+  });
 
 });
+
+
