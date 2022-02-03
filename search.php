@@ -88,12 +88,10 @@ error_reporting(0);
 $searchdata=$_POST['searchdata'];
 $sql = "SELECT tblvehicles.id from tblvehicles 
 join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand 
-where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbrands.BrandName=:search || tblvehicles.ModelYear=:search";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':search',$searchdata, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=$query->rowCount();
+where tblvehicles.VehiclesTitle='$searchdata' || tblvehicles.FuelType='$searchdata' || tblbrands.BrandName='$searchdata' || tblvehicles.ModelYear='$searchdata'";
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
 ?>
                             <p><span><?php echo htmlentities($cnt);?> Listings found againt search</span></p>
                         </div>
@@ -102,35 +100,33 @@ $cnt=$query->rowCount();
                     <?php 
 $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles 
 join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand 
-where tblvehicles.VehiclesTitle=:search || tblvehicles.FuelType=:search || tblbrands.BrandName=:search || tblvehicles.ModelYear=:search";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':search',$searchdata, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+where tblvehicles.VehiclesTitle='$searchdata' || tblvehicles.FuelType='$searchdata' || tblbrands.BrandName='$searchdata' || tblvehicles.ModelYear='$searchdata'";
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt > 0)
 {
-foreach($results as $result)
+while($results=mysqli_fetch_assoc($query))
 {  ?>
                     <div class="product-listing-m gray-bg">
                         <div class="product-listing-img"><img
-                                src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>"
+                                src="admin/img/vehicleimages/<?php echo htmlentities($results['Vimage1']);?>"
                                 class="img-responsive" alt="Image" /> </a>
                         </div>
                         <div class="product-listing-content">
-                            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?>
-                                    , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
-                            <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
+                            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($results['id']);?>"><?php echo htmlentities($results['BrandName']);?>
+                                    , <?php echo htmlentities($results['VehiclesTitle']);?></a></h5>
+                            <p class="list-price">$<?php echo htmlentities($results['PricePerDay']);?> Per Day</p>
                             <ul>
                                 <li><i class="fa fa-user"
-                                        aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity);?>
+                                        aria-hidden="true"></i><?php echo htmlentities($results['SeatingCapacity']);?>
                                     seats</li>
                                 <li><i class="fa fa-calendar"
-                                        aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
+                                        aria-hidden="true"></i><?php echo htmlentities($results['ModelYear']);?> model</li>
                                 <li><i class="fa fa-car"
-                                        aria-hidden="true"></i><?php echo htmlentities($result->FuelType);?></li>
+                                        aria-hidden="true"></i><?php echo htmlentities($results['FuelType']);?></li>
                             </ul>
-                            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">View
+                            <a href="vehical-details.php?vhid=<?php echo htmlentities($results['id']);?>" class="btn">View
                                 Details <span class="angle_arrow"><i class="fa fa-angle-right"
                                         aria-hidden="true"></i></span></a>
                         </div>
@@ -151,16 +147,15 @@ foreach($results as $result)
                                         <option>Select Brand</option>
 
                                         <?php $sql = "SELECT * from  tblbrands ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt > 0)
 {
-foreach($results as $result)
+while($results=mysqli_fetch_assoc($query))
 {       ?>
-                                        <option value="<?php echo htmlentities($result->id);?>">
-                                            <?php echo htmlentities($result->BrandName);?></option>
+                                        <option value="<?php echo htmlentities($results['id']);?>">
+                                            <?php echo htmlentities($results['BrandName']);?></option>
                                         <?php }} ?>
 
                                     </select>
@@ -189,24 +184,23 @@ foreach($results as $result)
                         <div class="recent_addedcars">
                             <ul>
                                 <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand order by id desc limit 4";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt > 0)
 {
-foreach($results as $result)
+while($results=mysqli_fetch_assoc($query))
 {  ?>
 
                                 <li class="gray-bg">
                                     <div class="recent_post_img"> <a
-                                            href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img
-                                                src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>"
+                                            href="vehical-details.php?vhid=<?php echo htmlentities($results['id']);?>"><img
+                                                src="admin/img/vehicleimages/<?php echo htmlentities($results['Vimage1']);?>"
                                                 alt="image"></a> </div>
                                     <div class="recent_post_title"> <a
-                                            href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?>
-                                            , <?php echo htmlentities($result->VehiclesTitle);?></a>
-                                        <p class="widget_price">$<?php echo htmlentities($result->PricePerDay);?> Per
+                                            href="vehical-details.php?vhid=<?php echo htmlentities($results['id']);?>"><?php echo htmlentities($results['BrandName']);?>
+                                            , <?php echo htmlentities($results['VehiclesTitle']);?></a>
+                                        <p class="widget_price">$<?php echo htmlentities($results['PricePerDay']);?> Per
                                             Day</p>
                                     </div>
                                 </li>
