@@ -65,12 +65,12 @@ error_reporting(0);
               <div class="form-group select">
                 <select class="form-control" style="width: 180px; margin-left: 300px; " name="brand">
                   <option>Select Brand</option>
-                  <?php $sql = "SELECT * from  tblbrands ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+                  <?php $sql = "SELECT * from  tblbrands";
+$query = mysqli_query($conn, $sql);
+$results=mysqli_fetch_assoc($query);
+$count=mysqli_num_rows($query);
 $cnt=1;
-if($query->rowCount() > 0)
+if($count > 0)
 {
 foreach($results as $result)
 {       ?>  

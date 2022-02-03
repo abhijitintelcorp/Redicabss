@@ -86,8 +86,8 @@ error_reporting(0);
                   $count= mysqli_num_rows($query);
                   $cnt = 1;
                   if ($count > 0) {
-                    foreach ($results as $result) {       ?>
-                      <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
+                    while ($results =mysqli_fetch_assoc($query)) {       ?>
+                      <option value="<?php echo htmlentities($results['id']); ?>"><?php echo htmlentities($results['BrandName']); ?></option>
                   <?php }
                   } ?>
 
@@ -121,10 +121,10 @@ error_reporting(0);
   <div> <img src="assets/images/banner1.jpg" class="img-responsive"  height="400px" width="300%"></div>
    <div> <img src="assets/images/banner1.jpg" class="img-responsive"  height="400px" width="300%"></div>
   <div> <img src="assets/images/banner1.jpg" class="img-responsive"  height="400px" width="300%"></div> 
- <?php if ($result->Vimage5 == "") {
+ <?php if ($results['Vimage5'] == "") {
   } else {
   ?>
-  <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage5); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+  <div><img src="admin/img/vehicleimages/<?php echo htmlentities($results['Vimage5']); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
   <?php } ?> 
 </section>
  -->
@@ -159,7 +159,6 @@ error_reporting(0);
             if ($count > 0) {
               while ($results = mysqli_fetch_assoc($query)) {
             ?>
-
                 <div class="col-list-3">
                   <div class="recent-car-list">
                     <div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($results['id']); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($results['Vimage1']); ?>" class="img-responsive" alt="image" width="600px" height="500px"></a>

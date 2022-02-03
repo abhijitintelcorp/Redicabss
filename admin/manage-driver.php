@@ -81,17 +81,12 @@ include('includes/config.php');
 											<th>Driver Adhar no.</th>
 											<th>Driver pancard no.</th>
 											<th>Driving Licence</th>
-
-
 											<th>Action</th>
 										</tr>
 									</thead>
 
 									<tbody>
-
 										<?php
-
-
 										$select_qry = "SELECT * FROM tbldriver";
 										$select_fn_qry = mysqli_query($conn, $select_qry);
 										$count = 0;

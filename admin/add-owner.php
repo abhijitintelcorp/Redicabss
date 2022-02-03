@@ -27,26 +27,14 @@
 		 $type=$_FILES['side_image']['type'];
 		 $size=$_FILES['side_image']['size'];
 		 $img_file3=$_FILES['side_image']['tmp_name'];
-		 $adhar_front=$_FILES['adhar_front']['name'];
-		 $type=$_FILES['adhar_front']['type'];
-		 $size=$_FILES['adhar_front']['size'];
-		 $img_file4=$_FILES['adhar_front']['tmp_name'];
-		 $adhar_back=$_FILES['adhar_back']['name'];
-		 $type=$_FILES['adhar_back']['type'];
-		 $size=$_FILES['adhar_back']['size'];
-		 $img_file5=$_FILES['adhar_back']['tmp_name'];
-
 		 $path1 = "image/".$back_image;
 		 $path2 = "image/".$side_image;
-		 $path3 = "image/".$adhar_front;
-		 $path4 = "image/".$adhar_back;
-
 		 $created_at=date('Y-m-d');
 
   
 		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
 		    if($size<=7000000){
-         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_jcc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,adhar_front,adhar_back,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no', '$owner_vehicle_jcc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$adhar_front','$adhar_back','$created_at')";
+         $insert_qry = "INSERT INTO add_owner(owner_name,owner_mobile,owner_email,owner_vehicle_no,owner_vehicle_rc_no,owner_vehicle_jcc_no,owner_vehicle_brand,owner_vehicle_name,owner_vehicle_color,driver_id,front_image,back_image,side_image,created_at) VALUES('$owner_name','$owner_mobile','$owner_email','$owner_vehicle_no','$owner_vehicle_rc_no', '$owner_vehicle_jcc_no','$owner_vehicle_brand','$owner_vehicle_name','$owner_vehicle_color','$driver_id','$front_image','$back_image', '$side_image','$created_at')";
          $res_query=mysqli_query($conn, $insert_qry);
 		 }  
 		  $path = "image/".$front_image;
@@ -60,21 +48,14 @@
 		    $path = "image/".$side_image;
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
-		   } 
-		    $path = "image/".$adhar_front;
-		   if(move_uploaded_file($img_file4, $path)){
-            copy($path, "$path");
-		   } 
-		    $path = "image/".$adhar_back;
-		   if(move_uploaded_file($img_file5, $path)){
-            copy($path, "$path");
-		   }     
+		   }   
 		}
 		if($res_query){
 			header("location:manage-owner.php");
 		}
 	}
 ?>
+
 
 
 
@@ -280,7 +261,7 @@
 
 									<div class="form-group">
 										<div class="col-sm-12">
-										<h4><b>Upload Vehicle Images</b></h4>
+										<h4><b>Upload Images</b></h4>
 										</div>
 									</div>
 
@@ -289,27 +270,12 @@
 										Front Image <span style="color:red">*</span><input type="file" name="front_image" id="front_image"required>
 									</div>
 									<div class="col-sm-4">
-										 Back Image <span style="color:red">*</span><input type="file" name="back_image" id="back_image"required>
+										Back Image <span style="color:red">*</span><input type="file" name="back_image" id="back_image"required>
 									</div>
 									<div class="col-sm-4">
-										 Side Image <span style="color:red">*</span><input type="file" name="side_image" id="side_image"required>
+										Side Image <span style="color:red">*</span><input type="file" name="side_image" id="side_image"required>
 									</div>
 								</div>
-								<div class="form-group">
-										<div class="col-sm-12">
-										<h4><b>Upload Documents</b></h4>
-										</div>
-									</div>
-								<div class="form-group">
-									<div class="col-sm-4">
-										Adhar Front Image <span style="color:red">*</span><input type="file" name="adhar_front" id="adhar_front" required>
-									</div>
-									<div class="col-sm-4">
-										Adhar Back Image <span style="color:red">*</span><input type="file" name="adhar_back" id="adhar_back" required>
-									</div>
-								
-								</div>
-
 
 
 
@@ -354,9 +320,6 @@
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/additional-methods.min.js"></script>
 	<script src="js/validation.js"></script>
-
-	
-
 
 </body>
 
