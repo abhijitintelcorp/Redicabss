@@ -164,12 +164,11 @@ if(mysqli_num_rows($query_run) > 0)
                                     </tfoot>
                                     <tbody>
                                         <?php 
-extract($_POST); 
 $status=0;
 $query = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,
 tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
-join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id
+join tblusers on tblusers.id=tblbooking.user_id join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id
  where tblbooking.Status='$status'";
 $query_run = mysqli_query($conn, $query);
 $cnt=1;
@@ -230,9 +229,6 @@ echo htmlentities('Confirmed');
 
                                     </tbody>
                                 </table>
-
-
-
                             </div>
                         </div>
 

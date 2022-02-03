@@ -846,6 +846,7 @@ table thead th, table thead td {
   display: inline-block;
   width: 260px;
   text-align:left;
+  margin-top:30px;
 }
 .header_widgets a {
 	color:#555;
