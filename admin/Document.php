@@ -129,8 +129,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <tr>
                                                         <th>Sl.No.</th>
                                                         <th>Owner Name</th>
-                                                        <th>Vehicle RC Number</th>
-                                                        <th>Front Image</th>
+                                                        <th>Adhar Front</th>
+                                                        <th>Adhar Back</th>
                                                 </thead>
 
                                                 <?php
@@ -145,8 +145,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <tr>
                                                         <td><?php echo $count; ?></td>
                                                         <td><?php echo $row['owner_name']; ?></td>
-
-                                                        <td><img src="image/<?php echo $row['front_image']; ?>"
+                                                        <td><img src="image/<?php echo $row['adhar_front']; ?>"
+                                                                width="30" height="30" alt=""></td>
+                                                        <td><img src="image/<?php echo $row['adhar_back']; ?>"
                                                                 width="30" height="30" alt=""></td>
 
                                                     </tr>
@@ -209,53 +210,43 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <?php } ?>
                                             </table>
                                         </div>
-                                        <table id="zctb" class="display table table-striped table-bordered table-hover"
-                                            cellspacing="0" width="100%" style="border:2px solid #1886bb;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sl.No.</th>
-                                                    <th>vehicleName</th>
-                                                    <th>vehicleNumber</th>
-                                                    <th>RCNumber</th>
-                                                </tr>
-                                            </thead>
-                                            <div id="vehicle" class="tabcontent">
-                                                <table id="zctb"
-                                                    class="display table table-striped table-bordered table-hover"
-                                                    cellspacing="0" width="100%" style="border:2px solid #1886bb;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Sl.No.</th>
-                                                            <th>vehicleName</th>
-                                                            <th>vehicleNumber</th>
-                                                            <th>RCNumber</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <?php
-                                                    include('includes/config.php');
-                                                    $retrive_qyr = "SELECT * FROM tblvehicles";
-                                                    $retrive_fn_query = mysqli_query($conn, $retrive_qyr);
-                                                    $count = 0;
-                                                    while ($row = mysqli_fetch_array($retrive_fn_query)) {
-                                                        $count++;
-                                                    ?>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><?php echo $count; ?></td>
+                                        <div id="vehicle" class="tabcontent">
+                                            <table id="zctb"
+                                                class="display table table-striped table-bordered table-hover"
+                                                cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sl.No.</th>
+                                                        <th>vehicleName</th>
+                                                        <th>vehicleNumber</th>
+                                                        <th>RCNumber</th>
+                                                    </tr>
+                                                </thead>
+                                                <?php
+                                                include('includes/config.php');
+                                                $retrive_qyr = "SELECT * FROM tblvehicles";
+                                                $retrive_fn_query = mysqli_query($conn, $retrive_qyr);
+                                                $count = 0;
+                                                while ($row = mysqli_fetch_array($retrive_fn_query)) {
+                                                    $count++;
+                                                ?>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><?php echo $count; ?></td>
 
-                                                            <td><?php echo $row['VehiclesTitle']; ?></td>
-                                                            <td><?php echo $row['vehno']; ?></td>
+                                                        <td><?php echo $row['VehiclesTitle']; ?></td>
+                                                        <td><?php echo $row['vehno']; ?></td>
 
-                                                            <td><img src="image/<?php echo $row['Vimage4']; ?>"
-                                                                    width="30" height="30" alt=""></td>
-                                                        </tr>
+                                                        <td><img src="image/<?php echo $row['Vimage4']; ?>" width="30"
+                                                                height="30" alt=""></td>
+                                                    </tr>
 
 
-                                                    </tbody>
+                                                </tbody>
 
-                                                    <?php } ?>
-                                                </table>
-                                            </div>
+                                                <?php } ?>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
