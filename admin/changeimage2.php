@@ -13,18 +13,12 @@ if(isset($_POST['update']))
 $vimage=$_FILES["img2"]["name"];
 $id=intval($_GET['imgid']);
 move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
-$sql="update tblvehicles set Vimage2=:vimage where id=:id";
-$query = $dbh->prepare($sql);
-$query->bindParam(':vimage',$vimage,PDO::PARAM_STR);
-$query->bindParam(':id',$id,PDO::PARAM_STR);
-$query->execute();
-
+$query="UPDATE tblvehicles SET Vimage2='$vimage' where id='$id'";
+$query_run = mysqli_query($conn, $query);
 $msg="Image updated successfully";
-
-
-
 }
 ?>
+
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -106,19 +100,16 @@ $msg="Image updated successfully";
 												<label class="col-sm-4 control-label">Current Image2</label>
 <?php 
 $id=intval($_GET['imgid']);
-$sql ="SELECT Vimage2 from tblvehicles where tblvehicles.id=:id";
-$query = $dbh -> prepare($sql);
-$query-> bindParam(':id', $id, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{	?>
+$query1 ="SELECT Vimage2 from tblvehicles where tblvehicles.id='$id'";
+$query_run1 = mysqli_query($conn, $query1);
+                   if(mysqli_num_rows($query_run1) > 0)        
+                        {
+                            while($row = mysqli_fetch_array($query_run1))
+                            {
+                        ?>
 
 <div class="col-sm-8">
-<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage2);?>" width="300" height="200" style="border:solid 1px #000">
+<img src="img/vehicleimages/<?php echo $row['Vimage2'];?>" width="300" height="200" style="border:solid 1px #000">
 </div>
 <?php }}?>
 </div>

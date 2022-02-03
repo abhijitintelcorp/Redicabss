@@ -3,11 +3,11 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+{	
 header('location:index.php');
 }
 else{
-	?>
+?>
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -46,8 +46,7 @@ else{
 <?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
-
-				<div class="row" >
+				<div class="row">
 					<div class="col-md-12">
 
 						<h2 class="page-title" style="border-bottom: 2px solid #0a0a0a;">Dashboard</h2>
@@ -60,7 +59,7 @@ else{
 											<div class="panel-body bk-primary text-light">
 												<div class="stat-panel text-center">
 <?php 
-$sql ="SELECT id from tblusers";
+$sql ="SELECT id from tblusers ";
 $query = mysqli_query($conn,$sql);
 $results=mysqli_fetch_assoc($query);
 $regusers=mysqli_num_rows($query);
@@ -77,7 +76,7 @@ $regusers=mysqli_num_rows($query);
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
 												<?php 
-$sql1 ="SELECT id from tblvehicles";
+$sql1 ="SELECT id from tblvehicles ";
 $query1 = mysqli_query($conn,$sql1);;
 $results1=mysqli_fetch_assoc($query1);
 $totalvehicle=mysqli_num_rows($query1);
@@ -94,7 +93,7 @@ $totalvehicle=mysqli_num_rows($query1);
 											<div class="panel-body bk-info text-light">
 												<div class="stat-panel text-center">
 <?php 
-$sql2 ="SELECT id from tblbooking";
+$sql2 ="SELECT id from tblbooking ";
 $query2= mysqli_query($conn,$sql2);
 $results2=mysqli_fetch_assoc($query2);
 $bookings=mysqli_num_rows($query2);

@@ -10,16 +10,11 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from  tblsubscribers  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
+$query = "delete from  tblsubscribers  WHERE id='$id'";
+$query_run = mysqli_query($conn,$query);
 $msg="Subscriber info deleted";
-
 }
-
-
- ?>
+?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -109,25 +104,22 @@ $msg="Subscriber info deleted";
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT * from tblsubscribers";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php $query1 = "SELECT * from tblsubscribers";
+$query_run1 = mysqli_query($conn, $query1);
+$cnt = 1;
+if(mysqli_num_rows($query_run1) > 0)        
+	 {
+		 while($row = mysqli_fetch_array($query_run1))
+		 {
+	 ?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->SubscriberEmail);?></td>
-									
-											<td><?php echo htmlentities($result->PostingDate);?></td>
-
+											<td><?php echo $row['SubscriberEmail'];?></td>									
+											<td><?php echo $row['PostingDate'];?></td>
 										<td>
 
 
-<a href="manage-subscribers.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
+<a href="manage-subscribers.php?del=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
 </td>
 
 										</tr>

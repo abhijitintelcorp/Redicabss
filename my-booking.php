@@ -69,6 +69,7 @@ $msg="Booking Successfully Cancelled";
 </head>
 <body>
 
+
 <!-- Start Switcher -->
 <?php include('includes/colorswitcher.php');?>
 <!-- /Switcher -->  

@@ -13,12 +13,8 @@ if(isset($_POST['submit']))
 $address=$_POST['address'];
 $email=$_POST['email'];	
 $contactno=$_POST['contactno'];
-$sql="update tblcontactusinfo set Address=:address,EmailId=:email,ContactNo=:contactno";
-$query = $dbh->prepare($sql);
-$query->bindParam(':address',$address,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
-$query->bindParam(':contactno',$contactno,PDO::PARAM_STR);
-$query->execute();
+$query="update tblcontactusinfo set Address='$address',EmailId='$email',ContactNo='$contactno'";
+$query_run = mysqli_query($conn,$query);
 $msg="Info Updateed successfully";
 }
 ?>
@@ -96,32 +92,30 @@ $msg="Info Updateed successfully";
 											
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-				<?php $sql = "SELECT * from  tblcontactusinfo ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+				<?php $query1 = "SELECT * from  tblcontactusinfo ";
+				  $query_run1 = mysqli_query($conn, $query1);
+                   if(mysqli_num_rows($query_run1) > 0)        
+                        {
+                            while($row = mysqli_fetch_array($query_run1))
+                            {
+                        ?>
 
 				<div class="form-group">
 												<label class="col-sm-4 control-label"> Address</label>
 												<div class="col-sm-8">
-													<textarea class="form-control" name="address" id="address" required><?php echo htmlentities($result->Address);?></textarea>
+													<textarea class="form-control" name="address" id="address" required><?php echo $row['Address'];?></textarea>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-4 control-label"> Email id</label>
 												<div class="col-sm-8">
-													<input type="email" class="form-control" name="email" id="email" value="<?php echo htmlentities($result->EmailId);?>" required>
+													<input type="email" class="form-control" name="email" id="email" value="<?php echo $row['EmailId'];?>" required>
 												</div>
 											</div>
 <div class="form-group">
 												<label class="col-sm-4 control-label"> Contact Number </label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo htmlentities($result->ContactNo);?>" name="contactno" id="contactno" required>
+													<input type="text" class="form-control" value="<?php echo $row['ContactNo'];?>" name="contactno" id="contactno" required>
 												</div>
 											</div>
 <?php }} ?>
