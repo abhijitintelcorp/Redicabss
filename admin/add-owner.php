@@ -306,6 +306,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
