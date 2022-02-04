@@ -11,13 +11,10 @@ if(isset($_POST['submit']))
   {
 $testimonoial=$_POST['testimonial'];
 $email=$_SESSION['login'];
-$sql="INSERT INTO  tbltestimonial(UserEmail,Testimonial) VALUES(:email,:testimonoial)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':testimonoial',$testimonoial,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
+$sql="INSERT INTO  tbltestimonial(UserEmail,Testimonial) VALUES('$email','$testimonoial')";
+$query = mysqli_query($conn,$sql);
 
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
+$lastInsertId = mysqli_insert_id($conn);
 if($lastInsertId)
 {
 $msg="Testimonail submitted successfully";
@@ -110,16 +107,13 @@ $error="Something went wrong. Please try again";
 
 <?php 
 $useremail=$_SESSION['login'];
-$sql = "SELECT * from tblusers where EmailId=:useremail";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':useremail',$useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+$sql = "SELECT * from tblusers where EmailId='$useremail'";
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt > 0)
 {
-foreach($results as $result)
-{ ?>
+?>
 <section class="user_profile inner_pages">
   <div class="container">
     <div class="user_profile_info gray-bg padding_4x4_40">
@@ -127,9 +121,9 @@ foreach($results as $result)
       </div>
 
       <div class="dealer_info">
-        <h5><?php echo htmlentities($result->FullName);?></h5>
-        <p><?php echo htmlentities($result->Address);?><br>
-          <?php echo htmlentities($result->City);?>&nbsp;<?php echo htmlentities($result->Country); }}?></p>
+        <h5><?php echo htmlentities($results['FullName']);?></h5>
+        <p><?php echo htmlentities($results['Address']);?><br>
+          <?php echo htmlentities($results['City']);?>&nbsp;<?php echo htmlentities($results['Country']); }?></p>
       </div>
     </div>
   

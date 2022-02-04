@@ -34,6 +34,7 @@ $contactno=$results['ContactNo'];
             </div>
    <?php   if(strlen($_SESSION['login'])==0)
   { 
+    
 ?>
 
   
@@ -41,8 +42,8 @@ $contactno=$results['ContactNo'];
  <!--  <div class="login_btn " > <a href="car-listing.php" class="btn btn-xs uppercase" >Book a car</a> </div> -->
 <?php }
 else{ 
-
-echo "<h5 style='color:#1886bb'>Welcome To Car rental portal<h5>";
+   $fname = $_SESSION['fname'];
+echo "<div class='login_btn'><h5 style='color:#1886bb'>Welcome To Car rental portal<h5></div>";
  } ?>
           </div>
         </div>
@@ -59,22 +60,23 @@ echo "<h5 style='color:#1886bb'>Welcome To Car rental portal<h5>";
       <div class="header_wrap">
         <div class="user_login">
           <ul>
+           
             <li class="dropdown"> <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded=" false"><i class="fa fa-user-circle" aria-hidden="true"></i> 
-<?php 
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+ <?php 
 $email=$_SESSION['login'];
-$sql ="SELECT FullName FROM tblusers WHERE EmailId='$email'";
+$sql1 ="SELECT FullName FROM tblusers WHERE EmailId='$email'";
 $query1=mysqli_query($conn,$sql1);
 $results=mysqli_fetch_assoc($query1);
 $count=mysqli_num_rows($query1);
-if($count > 0)
-{
-foreach($results as $result)
-  {
 
-   echo htmlentities($result->FullName); }}?>
-   <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+
+while($results=mysqli_fetch_assoc($query1))
+  {
+?>
+  <?php echo $fname; } ?> </a>
               <ul class="dropdown-menu">
-           <?php if($_SESSION['login']){?>
+           <?php if($_SESSION['login']){ ?>
             <li><a href="profile.php">Profile Settings</a></li>
               <li><a href="update-password.php">Update Password</a></li>
             <li><a href="my-booking.php">My Booking</a></li>

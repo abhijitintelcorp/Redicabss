@@ -7,25 +7,19 @@ if(strlen($_SESSION['login'])==0)
   { 
 header('location:index.php');
 }
-else{
 if(isset($_POST['updatepass']))
   {
 $password=md5($_POST['password']);
 $newpassword=md5($_POST['newpassword']);
 $email=$_SESSION['login'];
-  $sql ="SELECT Password FROM tblusers WHERE EmailId=:email and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
+  $sql ="SELECT Password FROM tblusers WHERE EmailId='$email' and Password='$password'";
+$query= mysqli_query($conn,$sql);
+$results = mysqli_fetch_assoc($query);
+$count = mysqli_num_rows($query);
+if($count > 0)
 {
-$con="update tblusers set Password=:newpassword where EmailId=:email";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
+$upd="update tblusers set Password='$newpassword' where EmailId='$email'";
+$chngpwd1 = mysqli_query($conn,$upd);
 $msg="Your Password succesfully changed";
 }
 else {
@@ -130,16 +124,13 @@ return true;
 
 <?php 
 $useremail=$_SESSION['login'];
-$sql = "SELECT * from tblusers where EmailId=:useremail";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':useremail',$useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+$sql = "SELECT * from tblusers where EmailId='$useremail'";
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt)
 {
-foreach($results as $result)
-{ ?>
+?>
 <section class="user_profile inner_pages">
   <div class="container">
     <div class="user_profile_info gray-bg padding_4x4_40">
@@ -147,9 +138,9 @@ foreach($results as $result)
       </div>
 
       <div class="dealer_info">
-        <h5><?php echo htmlentities($result->FullName);?></h5>
-        <p><?php echo htmlentities($result->Address);?><br>
-          <?php echo htmlentities($result->City);?>&nbsp;<?php echo htmlentities($result->Country);}}?></p>
+        <h5><?php echo htmlentities($results['FullName']);?></h5>
+        <p><?php echo htmlentities($results['Address']);?><br>
+          <?php echo htmlentities($results['City']);?>&nbsp;<?php echo htmlentities($results['Country']);}?></p>
       </div>
     </div>
     <div class="row">
@@ -162,8 +153,7 @@ foreach($results as $result)
             <div class="gray-bg field-title">
               <h6>Update password</h6>
             </div>
-             <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-        else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+       <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div>
             <div class="form-group">
               <label class="control-label">Current Password</label>
               <input class="form-control white_bg" id="password" name="password"  type="password" required>
@@ -179,7 +169,7 @@ foreach($results as $result)
             </div>
           
             <div class="form-group">
-               <input type="submit" value="Update" name="updatepass" id="submit" class="btn btn-block">
+               <center><input type="submit" value="Update" name="updatepass" id="submit" class="btn"></center>
             </div>
           </form>
         </div>
@@ -224,4 +214,3 @@ foreach($results as $result)
 
 </body>
 </html>
-<?php } ?>

@@ -22,7 +22,6 @@ error_reporting(0);
 <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
 <!--FontAwesome Font Style -->
 <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
 <!-- SWITCHER -->
 		<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
@@ -30,8 +29,7 @@ error_reporting(0);
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-        
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />     
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
@@ -71,7 +69,8 @@ error_reporting(0);
                 <select class="form-control" style="width: 180px; margin-left: 300px; " name="brand">
                   <option>Select Brand</option>
 
-                  <?php $sql = "SELECT * from  tblbrands ";
+<?php 
+$sql = "SELECT * from  tblbrands";
 $query = mysqli_query($conn,$sql);
 $results=mysqli_fetch_assoc($query);
 $count=mysqli_num_rows($query);
@@ -81,11 +80,10 @@ if($count > 0)
 while($results=mysqli_fetch_assoc($query))
 {       ?>  
 <option value="<?php echo htmlentities($results['id']);?>"><?php echo htmlentities($results['BrandName']);?></option>
-<?php }} ?>
-                 
+<?php }} ?>   
                 </select>
-                 <select class="form-control" style="width: 200px; margin-left: 500px;  margin-top: -46px;" name="fueltype">
-                  <option>Select Fuel Type</option>
+<select class="form-control" style="width: 200px; margin-left: 500px;  margin-top: -46px;" name="fueltype">
+<option>Select Fuel Type</option>
 <option value="Petrol">Petrol</option>
 <option value="Diesel">Diesel</option>
 <option value="CNG">CNG</option>
@@ -155,11 +153,8 @@ while($results=mysqli_fetch_assoc($query))
         </div>
       <?php }} ?>
          </div>
-      
       <!--Side-Bar-->
       <aside class="col-md-3 col-md-pull-9">
-      
-
         <div class="sidebar_widget">
           <div class="widget_heading">
             <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Cars</h5>
@@ -182,7 +177,6 @@ while($results=mysqli_fetch_assoc($query))
                 </div>
               </li>
               <?php }} ?>
-              
             </ul>
           </div>
         </div>

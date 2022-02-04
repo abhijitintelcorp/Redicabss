@@ -56,11 +56,8 @@ if(isset($_REQUEST['eid']))
   {
 $eid=intval($_GET['eid']);
 $status="2";
-$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:eid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
-$query -> execute();
+$sql = "UPDATE tblbooking SET Status='$status' WHERE  id='$eid'";
+$query = mysqli_query($conn,$sql);
 
 $msg="Booking Successfully Cancelled";
 }
@@ -99,15 +96,13 @@ $msg="Booking Successfully Cancelled";
 
 <?php 
 $useremail=$_SESSION['login'];
-$sql = "SELECT * from tblusers where EmailId=:useremail ";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':useremail',$useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+$sql = "SELECT * from tblusers where EmailId='$useremail'";
+$query = mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
+if($cnt > 0)
 {
-foreach($results as $result)
+while($results=mysqli_fetch_assoc($query))
 { ?>
 <section class="user_profile inner_pages">
   <div class="container">
@@ -116,9 +111,9 @@ foreach($results as $result)
       </div>
 
       <div class="dealer_info">
-        <h5><?php echo htmlentities($result->FullName);?></h5>
-        <p><?php echo htmlentities($result->Address);?><br>
-          <?php echo htmlentities($result->City);?>&nbsp;<?php echo htmlentities($result->Country); }}?></p>
+        <h5><?php echo htmlentities($results['FullName']);?></h5>
+        <p><?php echo htmlentities($results['Address']);?><br>
+          <?php echo htmlentities($results['City']);?>&nbsp;<?php echo htmlentities($results['Country']); }}?></p>
       </div>
     </div>
     <div class="row">
@@ -132,27 +127,25 @@ foreach($results as $result)
             <ul class="vehicle_listing">
 <?php 
 $useremail=$_SESSION['login'];
- $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail order by tblbooking.id desc";
-$query = $dbh -> prepare($sql);
-$query-> bindParam(':useremail', $useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
+ $sql1= "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail='$useremail' order by tblbooking.id desc";
+$query1 = mysqli_query($conn,$sql1);
+$resultss=mysqli_fetch_assoc($query1);
+$cnt=mysqli_num_rows($query1);
+if($cnt > 0)
 {
-foreach($results as $result)
+while($resultss=mysqli_fetch_assoc($query1))
 {  ?>
 
 <li>
-    <h4 style="color:red">Booking No #<?php echo htmlentities($result->BookingNumber);?></h4>
-                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
+    <h4 style="color:red">Booking No #<?php echo htmlentities($resultss['BookingNumber']);?></h4>
+                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($resultss['vid']);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($resultss['Vimage1']);?>" alt="image"></a> </div>
                 <div class="vehicle_title">
 
-                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>"> <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
+                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($resultss['vid']);?>"> <?php echo htmlentities($resultss['BrandName']);?> , <?php echo htmlentities($resultss['VehiclesTitle']);?></a></h6>
                   <p><b>From </b> <?php echo htmlentities($result->FromDate);?> <b>To </b> <?php echo htmlentities($result->ToDate);?></p>
-                  <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($result->message);?> </p></div>
+                  <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($resultss['message']);?> </p></div>
                 </div>
-                <?php if($result->Status==1)
+                <?php if($resultss['Status']==1)
                 { ?>
                 <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Confirmed</a>
                 <div class="clearfix"></div>
@@ -160,12 +153,12 @@ foreach($results as $result)
 
         </div>
 
-        <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo htmlentities($result->id);?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
+        <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo htmlentities($resultss['id']);?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
 
 <!-- <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Cancel it</a></div>
 <div class="clearfix"></div> -->
 
-              <?php } else if($result->Status==2) { ?>
+              <?php } else if($resultss['Status']==2) { ?>
  <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Cancelled</a>
             <div class="clearfix"></div>
         </div>
@@ -181,7 +174,7 @@ foreach($results as $result)
   </div>
 
             
-             <!-- <div class="vehicle_status"> <a href="my-booking.php?eid=<?php echo htmlentities($result->id);?>" class="btn outline btn-xs">cancell it</a>
+             <!-- <div class="vehicle_status"> <a href="my-booking.php?eid=<?php echo htmlentities($resultss['id']);?>" class="btn outline btn-xs">cancell it</a>
         </div> -->
                 <?php } ?>
        
@@ -197,11 +190,11 @@ foreach($results as $result)
     <th>Rent / Day</th>
   </tr>
   <tr>
-    <td><?php echo htmlentities($result->VehiclesTitle);?>, <?php echo htmlentities($result->BrandName);?></td>
-     <td><?php echo htmlentities($result->FromDate);?></td>
-      <td> <?php echo htmlentities($result->ToDate);?></td>
-       <td><?php echo htmlentities($tds=$result->totaldays);?></td>
-        <td> <?php echo htmlentities($ppd=$result->PricePerDay);?></td>
+    <td><?php echo htmlentities($resultss['VehiclesTitle']);?>, <?php echo htmlentities($resultss['BrandName']);?></td>
+     <td><?php echo htmlentities($resultss['FromDate']);?></td>
+      <td> <?php echo htmlentities($resultss['ToDate']);?></td>
+       <td><?php echo htmlentities($tds=$resultss['totaldays']);?></td>
+        <td> <?php echo htmlentities($ppd=$resultss['PricePerDay']);?></td>
   </tr>
   <tr>
     <th colspan="4" style="text-align:center;"> Grand Total</th>
