@@ -1,19 +1,17 @@
 <?php
 if(isset($_POST['login']))
 {
-$email=$_POST['email'];
+$email=htmlspecialchars($_POST['email']);
 //$password=md5($_POST['password']);
 $password=md5($_POST['password']);
-$sql ="SELECT EmailId,Password,FullName FROM tblusers WHERE EmailId=:email and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
+$sql ="SELECT EmailId,Password,FullName FROM tblusers WHERE EmailId='$email' and Password='$password'";
+$query= mysqli_query($conn,$sql);
+$results=mysqli_fetch_assoc($query);
+$count=mysqli_num_rows($query);
+if($count > 0)
 {
 $_SESSION['login']=$_POST['email'];
-$_SESSION['fname']=$results->FullName;
+$_SESSION['fname']=$results['FullName'];
 $currentpage=$_SERVER['REQUEST_URI'];
 echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
 } else{
@@ -37,12 +35,12 @@ echo "<script type='text/javascript'> document.location = '$currentpage'; </scri
         <div class="row">
           <div class="login_wrap">
             <div class="col-md-12 col-sm-6">
-              <form method="post">
+              <form method="post" name="login_form" id="login_form">
                 <div class="form-group">
-                  <input type="email" class="form-control" name="email" placeholder="Email address*">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email address*" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" name="password" placeholder="Password*">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Password*" required>
                 </div>
                 <div class="form-group checkbox">
                   <input type="checkbox" id="remember">
@@ -64,3 +62,7 @@ echo "<script type='text/javascript'> document.location = '$currentpage'; </scri
     </div>
   </div>
 </div>
+
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="js/additional-methods.min.js"></script>
+  <script src="js/validation.js"></script>

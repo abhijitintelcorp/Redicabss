@@ -128,7 +128,7 @@
 											
 											<td><a href="owner_update.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a></td>
 
-											<td><a href="owner_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
+											<td><a href="owner_delete.php?id=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 
 										</tr>
 

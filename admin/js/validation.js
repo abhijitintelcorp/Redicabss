@@ -18,7 +18,6 @@ $(document).ready(function() {
         owner_email: true,
       }
 
-
       
     },
     messages : {
@@ -437,6 +436,7 @@ $(document).ready(function() {
       },   
     }
   });
+
 
 });
 

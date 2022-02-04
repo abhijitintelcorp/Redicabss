@@ -1,5 +1,6 @@
 <?php
 	include('includes/config.php');
+	date_default_timezone_set('Asia/Kolkata');
 	$user_id = $_GET['id'];
 	$u_query = "SELECT * FROM add_owner WHERE id='$user_id'";
 	$user_update_query = mysqli_query($conn, $u_query);

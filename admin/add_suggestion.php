@@ -9,7 +9,7 @@ if (isset($_POST['feedback_submit'])) {
     $insert_qry = "INSERT INTO  add_feedback(`suggestions`)VALUES('$suggestions')";
     $fn_qry = mysqli_query($conn, $insert_qry);
     if ($fn_qry) {
-        header("location:add_suggestion.php");
+        header("location:manage_feedback.php");
     }
 }
 
@@ -44,8 +44,6 @@ if (isset($_POST['feedback_submit'])) {
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
 
-
-
     <style>
         .addbtn {
             background-color: #37a6c4;
@@ -70,7 +68,7 @@ if (isset($_POST['feedback_submit'])) {
 
                         <h2 class="page-title">Add Suggestion </h2>
 
-                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="post" class="form-horizontal" name="sugform" id="sugform" enctype="multipart/form-data">
 
 
                             <div class="row">
@@ -103,7 +101,7 @@ if (isset($_POST['feedback_submit'])) {
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Your Suggestions :</label>
                                                 <div class="col-sm-8">
-                                                    <textarea type="text" class="form-control" name="suggestions" id="suggestions" rows="4" required></textarea>
+                                                    <textarea type="text" class="form-control" name="suggestions" id="suggestions" rows="4" ></textarea>
                                                 </div>
                                             </div>
 

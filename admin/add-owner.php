@@ -215,7 +215,7 @@
 
 									<div class="col-md-5">
 											<div class="form-group">
-												<label  for="owner_vehicle_jcc_no"class="col-sm-4 control-label">Vehicle Jcc Number  <span style="color:red">*</span></label>
+												<label  for="owner_vehicle_jcc_no"class="col-sm-4 control-label">Vehicle Chassis Number  <span style="color:red">*</span></label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" name="owner_vehicle_jcc_no" id="owner_vehicle_jcc_no" placeholder=" Vehicle Jcc Number" required>
 												</div>

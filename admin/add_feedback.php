@@ -18,7 +18,13 @@ error_reporting(0);
 
 					$insert_qry="INSERT INTO add_feedback(booking_no,polite_professional,value_money,ontime_pikup,comfortable_ride,familiar,created_at,status)VALUES('$booking_no','$polite_professional','$value_money','$ontime_pikup','$comfortable_ride','$familiar','$created_at','$status')";
 					$fn_qry = mysqli_query($conn, $insert_qry);
-				} else if(isset($_POST['medium_submit'])){
+
+				} 
+				if($fn_qry)
+					{
+						header('location:add_suggestion.php');
+						
+					}else if(isset($_POST['medium_submit'])){
 					$didnot_take_ride=htmlspecialchars($_POST['didnot_take_ride']);
 		             $unsafe_ride=htmlspecialchars($_POST['unsafe_ride']);
 		             $uncomfortable_ride=htmlspecialchars($_POST['uncomfortable_ride']);
@@ -31,7 +37,12 @@ error_reporting(0);
 
 					$insert_qry="INSERT INTO add_feedback(didnot_take_ride,unsafe_ride,uncomfortable_ride,rash_riding,	unprofessional_rider,bad_car_condition,not_wearing_mask,reason,status)VALUES('$didnot_take_ride','$unsafe_ride','$uncomfortable_ride','$rash_riding','$unprofessional_rider','$bad_car_condition','$not_wearing_mask','$reason','$status')";
 					$fn_qry = mysqli_query($conn, $insert_qry);
-				} else if(isset($_POST['bad_submit'])){
+				} 
+				if($fn_qry)
+					{
+						header('location:add_suggestion.php');
+
+					}else if(isset($_POST['bad_submit'])){
 					$d_didnot_take_ride=htmlspecialchars($_POST['d_didnot_take_ride']);
 		             $d_unsafe_ride=htmlspecialchars($_POST['d_unsafe_ride']);
 		             $uncomfortable_ride=htmlspecialchars($_POST['uncomfortable_ride']);
@@ -44,15 +55,13 @@ error_reporting(0);
 
 					 $insert_qry="INSERT INTO add_feedback(d_didnot_take_ride,d_unsafe_ride,uncomfortable_ride,d_rash_riding,	d_unprofessional_rider,d_bad_car_condition,d_not_wearing_mask,d_reason,status)VALUES('$d_didnot_take_ride','$d_unsafe_ride','$uncomfortable_ride','$d_rash_riding','$d_unprofessional_rider','$d_bad_car_condition','$d_not_wearing_mask','$d_reason','$status')";
 					 $fn_qry = mysqli_query($conn, $insert_qry);
-					} else {
-
-						echo "<b stye='color:red;'>Please Try again Later</b>";
+					} 
 					
 					if($fn_qry)
 					{
-						header('location:manage_feedback.php');
+						header('location:add_suggestion.php');
 					}
-				}
+
 ?>
 <!doctype html>
 <html lang="en" class="no-js">

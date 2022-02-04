@@ -85,13 +85,13 @@
 									</thead>
 
 
-<?php
+	<?php
          $retrive_qyr="SELECT * FROM add_feedback";
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
          $count++;
-     ?>
+    ?>
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
@@ -99,15 +99,14 @@
 											<td></td>
 											<td></td>
 											<td><?php echo $row['created_at'];?></td>
-											<td><?php echo $row['message'];?></td>
+											<td></td>
 											<td><?php echo $row['status'];?></td>
-											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
+											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
-									</tbody>
-	
+									</tbody>	
 	<?php
        }
-     ?>
+    ?>
   						</table>
 
 						</div>
@@ -121,7 +120,7 @@
 	</div>
 
 	<!-- Loading Scripts -->
-<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
