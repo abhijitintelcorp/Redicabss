@@ -42,6 +42,7 @@
 					<ul>
 						<li><a href="add_feedback.php">Add Feedback</a></li>
 						<li><a href="manage_feedback.php">Manage Feedback</a></li>
+						<li><a href="add_suggestion.php">Add Suggestion</a></li>
 					</ul>
 		</li>
 
