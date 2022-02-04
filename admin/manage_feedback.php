@@ -49,15 +49,6 @@
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
 
-.addbtn{
-	margin-left: 1100px;
-	margin-bottom: 20px;
-	background-color: #37a6c4;
-	color: white;
-	font-size: 18px;
-
-}
-
 		</style>
 
 </head>
@@ -74,10 +65,6 @@
 					<div class="col-md-12">
 
 						<h2 class="page-title">Manage Feedback</h2>
-
-<a href="add_feedback.php"><button class="addbtn">+ Add Feedback</button></a>
-
-
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
 							<div class="panel-heading">Feedback Details</div>
@@ -88,79 +75,29 @@
 										<tr>
 										<th>Sl.No.</th>
 										<th>Booking No.</th>
-
-										<th>Driver Id</th>
-										<th>User Id</th>
-										<th>Good</th>
-										<th>Medium</th>
-										<th>Bad</th>
-										<th colspan="2">Action</th>
-
 										<th>User Name</th>	
 										<th>Driver Name</th>								
 										<th>Date of Journey</th>
 										<th>Feedback Message</th>
 										<th>Status</th>
 										<th>Action</th>
-
 										</tr>
 									</thead>
 
 
-
-	<?php
-
+<?php
          $retrive_qyr="SELECT * FROM add_feedback";
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
          $count++;
      ?>
-
-		
-
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
 											<td></td>
 											<td></td>
 											<td></td>
-
-											<td><?php echo $row['polite_professional'];?>
-												<br><?php echo $row['value_money'];?>
-												<br><?php echo $row['ontime_pikup'];?>
-												<br><?php echo $row['comfortable_ride'];?>
-												<br><?php echo $row['familiar'];?>
-											</td>
-											<td><?php echo $row['didnot_take_ride'];?>
-												<br><?php echo $row['unsafe_ride'];?>
-												<br><?php echo $row['uncomfortable_ride'];?>
-												<br><?php echo $row['rash_riding'];?>
-												<br><?php echo $row['unprofessional_rider'];?>
-												<br><?php echo $row['bad_car_condition'];?>
-												<br><?php echo $row['not_wearing_mask'];?>
-												<br><?php echo $row['reason'];?>
-											</td>
-											<td><?php echo $row['d_didnot_take_ride'];?>
-												<br><?php echo $row['d_unsafe_ride'];?>
-												<br><?php echo $row['d_uncomfortable_ride'];?>
-												<?php echo $row['d_rash_riding'];?>
-												<br><?php echo $row['d_unprofessional_rider'];?>
-												<br><?php echo $row['d_bad_car_condition'];?>
-												<br><?php echo $row['d_not_wearing_mask'];?>
-												<br><?php echo $row['d_reason'];?>
-											</td>
-											
-											<td><a href=""><i class="fa fa-edit"></i></a></td>
-
-											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
-										</tr>
-									</tbody>
-	<?php
-       }
-     ?>
-
-
 											<td><?php echo $row['created_at'];?></td>
 											<td><?php echo $row['message'];?></td>
 											<td><?php echo $row['status'];?></td>
@@ -171,7 +108,6 @@
 	<?php
        }
      ?>
-
   						</table>
 
 						</div>

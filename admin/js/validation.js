@@ -251,8 +251,8 @@ $(document).ready(function() {
         },
     });
 
-<<<<<<< HEAD
-=======
+
+
 //Create Brand validation 
     $("#brand_form").validate({
     rules: {

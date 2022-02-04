@@ -13,16 +13,10 @@ error_reporting(0);
 		$ontime_pikup=htmlspecialchars($_POST['ontime_pikup']);
 		$comfortable_ride=htmlspecialchars($_POST['comfortable_ride']);
 		$familiar=htmlspecialchars($_POST['familiar']);
-
-		$status=2;
-
-					$insert_qry="INSERT INTO add_feedback(booking_no,polite_professional,value_money,ontime_pikup,comfortable_ride,familiar,status)VALUES('$booking_no','$polite_professional','$value_money','$ontime_pikup','$comfortable_ride','$familiar','$status')";
-
 		$created_at=htmlspecialchars($_POST['created_at']);
 		$status=2;
 
 					$insert_qry="INSERT INTO add_feedback(booking_no,polite_professional,value_money,ontime_pikup,comfortable_ride,familiar,created_at,status)VALUES('$booking_no','$polite_professional','$value_money','$ontime_pikup','$comfortable_ride','$familiar','$created_at','$status')";
-
 					$fn_qry = mysqli_query($conn, $insert_qry);
 				} else if(isset($_POST['medium_submit'])){
 					$didnot_take_ride=htmlspecialchars($_POST['didnot_take_ride']);
@@ -99,11 +93,7 @@ error_reporting(0);
 	font-size: 18px;
 	height: 40px;
 	width: 100px;
-
 }
-
-}
-
 
 
 </style>
@@ -126,9 +116,6 @@ error_reporting(0);
 						<div class="row">
 							<div class="col-md-10">
 								<div class="panel panel-default">
-
-									<div class="panel-heading"><center><b>How's Your Ride???</b></center></div>
-
 							<div class="row">
 		
 			
@@ -141,7 +128,6 @@ error_reporting(0);
 									
 									<div class="panel-heading">
 										<center><h2><b>How's Your Ride?</b></h2></center></div>
-
 									<div class="panel-body">
 
 
@@ -194,11 +180,7 @@ error_reporting(0);
 
 								</div><br>
 								<div class="col-md-5">
-
 											<div class="form-group">
-
-											<div class="checkbox checkbox-inline">
-
 												<div class="col-sm-8">
 													 <input type="checkbox" id="good1" name="polite_professional" value="Polite and Professional Driver">
 											  <label for="good1">Polite and Professional Driver</label>
@@ -207,11 +189,7 @@ error_reporting(0);
 									</div>
 
 									<div class="col-md-5">
-
 											<div class="form-group">
-
-											<div class="checkbox checkbox-inline">
-
 												<div class="col-sm-8">
 													 <input type="checkbox" id="good2" name="value_money" value="Value of Money">
 											  <label for="good2">Value of Money</label>
@@ -219,11 +197,7 @@ error_reporting(0);
 											</div>
 									</div>
 									<div class="col-md-5">
-
 											<div class="form-group">
-
-											<div class="checkbox checkbox-inline">
-
 												<div class="col-sm-8">
 													 <input type="checkbox" id="good3" name="ontime_pikup" value="On Time Pikup">
 											  <label for="good3"> On Time Pikup</label>
@@ -231,11 +205,7 @@ error_reporting(0);
 											</div>
 									</div>
 									<div class="col-md-5">
-
 											<div class="form-group">
-
-											<div class="checkbox checkbox-inline">
-
 												<div class="col-sm-8">
 													 <input type="checkbox" id="good4" name="comfortable_ride" value="Comfortable Ride">
 											  <label for="good4">Comfortable Ride</label>
@@ -243,11 +213,7 @@ error_reporting(0);
 											</div>
 									</div>
 									<div class="col-md-5">
-
 											<div class="form-group">
-
-											<div class="checkbox checkbox-inline">
-
 												<div class="col-sm-8">
 													 <input type="checkbox" id="good5" name="familiar" value="Driver Familiar With The Route">
 											  <label for="good5">Driver Familiar With The Route</label>
