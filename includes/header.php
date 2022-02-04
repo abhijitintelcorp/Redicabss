@@ -38,11 +38,10 @@ $contactno=$results['ContactNo'];
 ?>
 
   
- <div class="login_btn " > <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login / Register</a> &nbsp; &nbsp;<a href="Book_car.php" class="btn btn-xs uppercase" >Book a car</a></div>
+ <div class="login_btn"> <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login / Register</a> &nbsp; &nbsp;<a href="Book_car.php" class="btn btn-xs uppercase" >Book a car</a></div>
  <!--  <div class="login_btn " > <a href="car-listing.php" class="btn btn-xs uppercase" >Book a car</a> </div> -->
 <?php }
-else{ 
-   $fname = $_SESSION['fname'];
+else { 
 echo "<div class='login_btn'><h5 style='color:#1886bb'>Welcome To Car rental portal<h5></div>";
  } ?>
           </div>
@@ -62,19 +61,15 @@ echo "<div class='login_btn'><h5 style='color:#1886bb'>Welcome To Car rental por
           <ul>
            
             <li class="dropdown"> <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded=" false"><i class="fa fa-user-circle" aria-hidden="true"></i> 
-            <i class="fa fa-angle-down" aria-hidden="true"></i>
  <?php 
 $email=$_SESSION['login'];
 $sql1 ="SELECT FullName FROM tblusers WHERE EmailId='$email'";
 $query1=mysqli_query($conn,$sql1);
 $results=mysqli_fetch_assoc($query1);
-$count=mysqli_num_rows($query1);
+$fname1 = $results['FullName'];
 
-
-while($results=mysqli_fetch_assoc($query1))
-  {
 ?>
-  <?php echo $fname; } ?> </a>
+  <?php echo $fname1;  ?> <i class="fa fa-angle-down" aria-hidden="true"></i></a>
               <ul class="dropdown-menu">
            <?php if($_SESSION['login']){ ?>
             <li><a href="profile.php">Profile Settings</a></li>

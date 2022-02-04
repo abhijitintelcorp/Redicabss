@@ -2,41 +2,32 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
+$useremail=$_SESSION['login'];
+
 if(isset($_POST['submit']))
 {
+$user_id = htmlspecialchars($_POST['user_id']);
 $fromdate=htmlspecialchars($_POST['fromdate']);
 $todate=htmlspecialchars($_POST['todate']); 
+$pickup_time=htmlspecialchars($_POST['pickup_time']);
+$BrandId=htmlspecialchars($_POST['BrandId']);
 $message=htmlspecialchars($_POST['message']);
 $useremail=$_SESSION['login'];
 $status=0;
 $vhid=$_GET['vhid'];
 $bookingno=mt_rand(100000000, 999999999);
-$ret="SELECT * FROM tblbooking WHERE ('$fromdate' BETWEEN date(FromDate) and date(ToDate) || '$todate' BETWEEN date(FromDate) and date(ToDate) || date(FromDate) BETWEEN '$fromdate' and '$todate') and VehicleId='$vhid'";
-$query1 = mysqli_query($conn,$ret);
-$results1=mysqli_fetch_assoc($query1);
-$count=mysqli_num_rows($query1);
 
-if($count==0)
-{
-
-$sql="INSERT INTO  tblbooking(BookingNumber,userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES('$bookingno','$useremail','$vhid','$fromdate','$todate','$message','$status')";
+$sql="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `BrandId`, `FromDate`, `ToDate`, `pickup_time`, `message`, `Status`)VALUES('$user_id','$bookingno','$vhid','$BrandId','$fromdate','$todate','$pickup_time','$message','$status')";
 $query = mysqli_query($conn,$sql);
 
-$insert_id = mysqli_insert_id($conn);
-if($insert_id)
-{
-echo "<script>alert('Booking successfull.');</script>";
-echo "<script type='text/javascript'> document.location = 'my-booking.php'; </script>";
-}
-else 
-{
-echo "<script>alert('Something went wrong. Please try again');</script>";
- echo "<script type='text/javascript'> document.location = 'car-listing.php'; </script>";
-} }  else{
- echo "<script>alert('Car already booked for these days');</script>"; 
- echo "<script type='text/javascript'> document.location = 'car-listing.php'; </script>";
-}
 
+if($query)
+{
+  header("location:my-booking.php?user_id=$user_id");
+// echo "<script type='text/javascript'> document.location = 'my-booking.php'; </script>";
+} else {
+  echo "Failed";
+}
 }
 
 ?>
@@ -321,7 +312,12 @@ $_SESSION['brndid']=$results['bid'];
 <?php } ?>
    
       </div>
-      
+      <?php
+      $useremail=$_SESSION['login']; 
+     $sel="SELECT * FROM tblusers WHERE EmailId='$useremail'";
+     $res = mysqli_query($conn, $sel);
+     $rows=mysqli_fetch_assoc($res);
+      ?>
       <!--Side-Bar-->
       <aside class="col-md-3">
       
@@ -332,14 +328,33 @@ $_SESSION['brndid']=$results['bid'];
           <div class="widget_heading">
             <h5><i class="fa fa-envelope" style="color: #1886bb;" aria-hidden="true"></i>Book Now</h5>
           </div>
-          <form method="post">
+          <form action="" method="post">
             <div class="form-group">
               <label>From Date:</label>
+              <input type="hidden" class="form-control" name="user_id" value="<?php echo $rows['id']; ?>"/>
               <input type="date" class="form-control" id="datepicker" name="fromdate" placeholder="From Date" required>
             </div>
             <div class="form-group">
               <label>To Date:</label>
               <input type="date" class="form-control" id="datepicker" name="todate" placeholder="To Date" required>
+            </div>
+             <div class="form-group">
+              <label>Pickup Time: <span style="font-size:12px; color:gray;">(Please mention in hour:minutes:second format Ex: 21:05:30 )</span></label>
+              <input type="text" class="form-control" id="pickup_time" name="pickup_time" placeholder="Pickup Time" required>
+            </div>
+            <div class="form-group">
+              <label>Select Brand: </label>
+              <select id="brandId" name="BrandId" type="text"  class="selectpicker form-control">
+                                                        <option>Select Brand</option>
+                                                        <?php
+                                                        $query = "SELECT id,BrandName From tblbrands";
+                                                        $query_run=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($query_run)){
+                                                            ?>
+                                                        <option value="<?php echo $row['id'];?>">
+                                                            <?php echo $row['BrandName']; ?></option>
+                                                        <?php } ?>
+                                                    </select>
             </div>
             <div class="form-group">
               <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>

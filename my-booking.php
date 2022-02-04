@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+$user_id = $_GET['user_id'];
 if(strlen($_SESSION['login'])==0)
   { 
 header('location:index.php');
@@ -102,8 +103,7 @@ $results=mysqli_fetch_assoc($query);
 $cnt=mysqli_num_rows($query);
 if($cnt > 0)
 {
-while($results=mysqli_fetch_assoc($query))
-{ ?>
+ ?>
 <section class="user_profile inner_pages">
   <div class="container">
     <div class="user_profile_info gray-bg padding_4x4_40">
@@ -113,7 +113,7 @@ while($results=mysqli_fetch_assoc($query))
       <div class="dealer_info">
         <h5><?php echo htmlentities($results['FullName']);?></h5>
         <p><?php echo htmlentities($results['Address']);?><br>
-          <?php echo htmlentities($results['City']);?>&nbsp;<?php echo htmlentities($results['Country']); }}?></p>
+          <?php echo htmlentities($results['City']);?>&nbsp;<?php echo htmlentities($results['Country']); }?></p>
       </div>
     </div>
     <div class="row">
@@ -122,19 +122,19 @@ while($results=mysqli_fetch_assoc($query))
    
       <div class="col-md-8 col-sm-8">
         <div class="profile_wrap">
-          <h5 class="uppercase underline">My Booikngs </h5>
+          <h5 class="uppercase underline">My Bookings</h5>
           <div class="my_vehicles_list">
             <ul class="vehicle_listing">
 <?php 
 $useremail=$_SESSION['login'];
- $sql1= "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totaldays,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail='$useremail' order by tblbooking.id desc";
+$sql1= "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblusers.id,tblusers.FullName,tblbooking.user_id,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand join tblusers on tblbooking.user_id=tblusers.id where tblbooking.user_id='$user_id' and tblbooking.status='0' order by tblbooking.id desc";
 $query1 = mysqli_query($conn,$sql1);
 $resultss=mysqli_fetch_assoc($query1);
 $cnt=mysqli_num_rows($query1);
 if($cnt > 0)
 {
-while($resultss=mysqli_fetch_assoc($query1))
-{  ?>
+  while($resultss=mysqli_fetch_assoc($query1)){
+ ?>
 
 <li>
     <h4 style="color:red">Booking No #<?php echo htmlentities($resultss['BookingNumber']);?></h4>
@@ -202,7 +202,7 @@ while($resultss=mysqli_fetch_assoc($query1))
   </tr>
 </table>
 <hr /> -->
-          <?php }}  else { ?>
+          <?php } }  else { ?>
                 <h5 align="center" style="color:red">No booking yet</h5>
               <?php } ?>
              
