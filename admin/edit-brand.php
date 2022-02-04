@@ -71,7 +71,6 @@ if(isset($_POST['submit']))
 }
 		</style>
 
-
 </head>
 
 <body>
@@ -92,7 +91,7 @@ if(isset($_POST['submit']))
 									<div class="panel-heading">Update Brand</div>
 									<div class="panel-body">
 										<?php echo $msg."<br><br>"; ?>
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
+										<form method="post" name="chngpwd" id="brand_form" class="form-horizontal" onSubmit="return valid();">
 <?php	
 $id = $_GET['id'];
 $select="SELECT * FROM tblbrands WHERE id='$id'";
@@ -146,6 +145,10 @@ $row = mysqli_fetch_assoc($result);
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>
+	<script src="js/validation.js"></script>
+
 
 </body>
 

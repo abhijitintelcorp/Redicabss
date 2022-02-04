@@ -48,6 +48,7 @@
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
+<<<<<<< HEAD
 .addbtn{
 	margin-left: 1100px;
 	margin-bottom: 20px;
@@ -56,6 +57,9 @@
 	font-size: 18px;
 
 }
+=======
+
+>>>>>>> main
 		</style>
 
 </head>
@@ -72,7 +76,10 @@
 					<div class="col-md-12">
 
 						<h2 class="page-title">Manage Feedback</h2>
+<<<<<<< HEAD
 <a href="add_feedback.php"><button class="addbtn">+ Add Feedback</button></a>
+=======
+>>>>>>> main
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
 							<div class="panel-heading">Feedback Details</div>
@@ -83,30 +90,47 @@
 										<tr>
 										<th>Sl.No.</th>
 										<th>Booking No.</th>
+<<<<<<< HEAD
 										<th>Driver Id</th>
 										<th>User Id</th>
 										<th>Good</th>
 										<th>Medium</th>
 										<th>Bad</th>
 										<th colspan="2">Action</th>
+=======
+										<th>User Name</th>	
+										<th>Driver Name</th>								
+										<th>Date of Journey</th>
+										<th>Feedback Message</th>
+										<th>Status</th>
+										<th>Action</th>
+>>>>>>> main
 										</tr>
 									</thead>
 
 
+<<<<<<< HEAD
 	<?php
+=======
+<?php
+>>>>>>> main
          $retrive_qyr="SELECT * FROM add_feedback";
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
          $count++;
      ?>
+<<<<<<< HEAD
 		
+=======
+>>>>>>> main
 									<tbody>
 										<tr>
 											<td><?php echo $count;?></td>
 											<td></td>
 											<td></td>
 											<td></td>
+<<<<<<< HEAD
 											<td><?php echo $row['polite_professional'];?>
 												<br><?php echo $row['value_money'];?>
 												<br><?php echo $row['ontime_pikup'];?>
@@ -141,6 +165,18 @@
        }
      ?>
 
+=======
+											<td><?php echo $row['created_at'];?></td>
+											<td><?php echo $row['message'];?></td>
+											<td><?php echo $row['status'];?></td>
+											<td><a href="feedback_delete.php?id=<?php echo $row['id'];?>"><i class="fa fa-close"></i></a></td>
+										</tr>
+									</tbody>
+	
+	<?php
+       }
+     ?>
+>>>>>>> main
   						</table>
 
 						</div>

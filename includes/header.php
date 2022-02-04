@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-2 col-md-2">
-          <div class="logo"> <a href="index.php"><img src="https://www.bing.com/th?id=OIP.SG4y0icbWjd0IX0zodnHeAHaF7&w=200&h=148&c=7&qlt=90&bgcl=ececec&o=6&pid=PersonalBing" alt="image"/></a> </div>
+          <div class="logo"> <a href="index.php"><img src="./assets/images/redicabs_logo.png" height="200" width="250" alt="image"/></a> </div>
         </div>
         <div class="col-sm-10 col-md-10" >
           <div class="header_info" style="padding: 50px;">

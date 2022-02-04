@@ -88,8 +88,7 @@ $msg="Vehicle  record deleted successfully";
 						<div class="panel panel-default">
 							<div class="panel-heading">Vehicle Details</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+							 <?php echo $msg."<br><br>"; ?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
 									<thead>
 										<tr>
@@ -118,24 +117,22 @@ $msg="Vehicle  record deleted successfully";
 
 <?php 
 $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{			
-		?>	
+ $query_run = mysqli_query($conn, $sql);
+   $i = 1;
+  if(mysqli_num_rows($query_run) > 0)        
+     {
+     while($row = mysqli_fetch_array($query_run))
+       {                       
+?>	
 										<tr>
-											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->VehiclesTitle);?></td>
-											<td><?php echo htmlentities($result->BrandName);?></td>
-											<td><?php echo htmlentities($result->PricePerDay);?></td>
-											<td><?php echo htmlentities($result->FuelType);?></td>
-												<td><?php echo htmlentities($result->ModelYear);?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+											<td><?php echo $cnt; ?></td>
+											<td><?php echo $row['VehiclesTitle'];?></td>
+											<td><?php echo $row['BrandName'];?></td>
+											<td><?php echo $row['PricePerDay'];?></td>
+											<td><?php echo $row['FuelType'];?></td>
+											<td><?php echo $row['ModelYear'];?></td>
+		<td><a href="edit-vehicle.php?id=<?php echo $row['id'];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-vehicles.php?del=<?php echo $row['id'];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										

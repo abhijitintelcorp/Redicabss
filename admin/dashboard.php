@@ -3,11 +3,11 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+{	
 header('location:index.php');
 }
 else{
-	?>
+?>
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -46,8 +46,7 @@ else{
 <?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
-
-				<div class="row" >
+				<div class="row">
 					<div class="col-md-12">
 
 						<h2 class="page-title" style="border-bottom: 2px solid #0a0a0a;">Dashboard</h2>

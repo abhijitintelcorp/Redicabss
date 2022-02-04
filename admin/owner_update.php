@@ -144,7 +144,7 @@
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
   <style>
-		.errorWrap {
+.errorWrap {
     padding: 10px;
     margin: 0 0 20px 0;
     background: #fff;
@@ -286,7 +286,7 @@
 											<div class="col-sm-8">
 												<select class="selectpicker" name="driver_id" id="driver_id" >
 
-													<?php										
+		<?php										
 			// $qry = "SELECT id, name from tbldriver";
 		$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id WHERE add_owner.id='$user_id'";
 		  	$exe = mysqli_query($conn, $sql); 

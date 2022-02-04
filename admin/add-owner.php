@@ -69,6 +69,12 @@
 		   if(move_uploaded_file($img_file5, $path)){
             copy($path, "$path");
 		   }     
+<<<<<<< HEAD
+=======
+		}
+		if( $res_query){
+			header('location:manage-owner.php');
+>>>>>>> main
 		}
 	}
 ?>

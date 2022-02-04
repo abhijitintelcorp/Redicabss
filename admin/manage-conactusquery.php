@@ -8,21 +8,13 @@ header('location:index.php');
 }
 else{
 if(isset($_REQUEST['eid']))
-	{
+{
 $eid=intval($_GET['eid']);
 $status=1;
-$sql = "UPDATE tblcontactusquery SET status=:status WHERE  id=:eid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
-$query -> execute();
-
-
+$query = "UPDATE tblcontactusquery SET status='$status' WHERE  id='$eid'";
+$query_run = mysqli_query($conn,$query);
 }
-
-
-
- ?>
+?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -118,28 +110,27 @@ $query -> execute();
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT * from  tblcontactusquery ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php $query1 = "SELECT * from  tblcontactusquery ";
+$query_run1 = mysqli_query($conn, $query1);
+$cnt = 1;
+if(mysqli_num_rows($query_run1) > 0)        
+	 {
+		 while($row = mysqli_fetch_array($query_run1))
+		 {
+	 ?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->name);?></td>
-											<td><?php echo htmlentities($result->EmailId);?></td>
-											<td><?php echo htmlentities($result->ContactNumber);?></td>
-											<td><?php echo htmlentities($result->Message);?></td>
-											<td><?php echo htmlentities($result->PostingDate);?></td>
-																<?php if($result->status==1)
+											<td><?php echo $row['name'];?></td>
+											<td><?php echo $row['EmailId'];?></td>
+											<td><?php echo $row['ContactNumber'];?></td>
+											<td><?php echo $row['Message'];?></td>
+											<td><?php echo $row['PostingDate'];?></td>
+																<?php if($row['status']==1)
 {
 	?><td>Read</td>
 <?php } else {?>
 
-<td><a href="manage-conactusquery.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to read')" >Pending</a>
+<td><a href="manage-conactusquery.php?eid=<?php echo $row['id'];?>" onclick="return confirm('Do you really want to read')" >Pending</a>
 </td>
 <?php } ?>
 										</tr>

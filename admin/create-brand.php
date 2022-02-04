@@ -10,8 +10,8 @@ else{
 	if(isset($_POST['submit']))
  {
   extract($_POST); 
-
-  $sql = "insert into tblbrands(BrandName)values('$brand')";
+$brand=htmlspecialchars($_POST['brand']);
+$sql = "insert into tblbrands(BrandName)values('$brand')";
   $res=mysqli_query($conn, $sql);
   if($res){
   $msg="<b class='succWrap'>Brand Created Successfully</b>";
@@ -92,10 +92,7 @@ else{
 									<div class="panel-body">
                                          <?php echo $msg."<br><br>"; ?>
 
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	 
+										<form method="post" name="chngpwd" id="brand_form" class="form-horizontal" onSubmit="return valid();">	        	 
 				
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Brand Name</label>
@@ -143,6 +140,9 @@ else{
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>
+	<script src="js/validation.js"></script>
 
 </body>
 
