@@ -183,7 +183,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <?php } ?>
                                             </table>
                                             <?php
-                                            $retrive_qyr = "SELECT sum(PricePerDay) FROM tblbooking";
+                                            $retrive_qyr = "SELECT sum(distinct PricePerDay) FROM tblbooking GROUP BY BookingNumber";
                                             $result = mysqli_query($conn, $retrive_qyr);
                                             while ($rows = mysqli_fetch_array($result)) {
                                             ?>
