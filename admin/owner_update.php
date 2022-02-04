@@ -32,8 +32,21 @@
 		 $size=$_FILES['side_image']['size'];
 		 $img_file3=$_FILES['side_image']['tmp_name'];
 
+		 $adhar_front=$_FILES['adhar_front']['name'];
+		 $type=$_FILES['adhar_front']['type'];
+		 $size=$_FILES['adhar_front']['size'];
+		 $img_file4=$_FILES['adhar_front']['tmp_name'];
+
+		 $adhar_back=$_FILES['adhar_back']['name'];
+		 $type=$_FILES['adhar_back']['type'];
+		 $size=$_FILES['adhar_back']['size'];
+		 $img_file5=$_FILES['adhar_back']['tmp_name'];
+
+
 		 $path1 = "image/".$back_image;
 		 $path2 = "image/".$side_image;
+		 $path3 = "image/".$adhar_front;
+		 $path4 = "image/".$adhar_back;
 	
        
 		    $update_qry = "UPDATE  add_owner SET  owner_name='$owner_name',owner_mobile='$owner_mobile',owner_email='$owner_email',owner_vehicle_no='$owner_vehicle_no',owner_vehicle_rc_no='$owner_vehicle_rc_no',owner_vehicle_jcc_no=' $owner_vehicle_jcc_no',owner_vehicle_brand='$owner_vehicle_brand',owner_vehicle_name='$owner_vehicle_name',owner_vehicle_color='$owner_vehicle_color',driver_id='$driver_id' WHERE id='$user_id'";
@@ -45,8 +58,8 @@
  
 		 if($type=='image/jpg' || $type=='image/jpeg' || $type=='image/png' || $type=='image/gif'){
 		   
-		    	if(empty($front_image) OR empty($back_image) OR empty($side_image)) {
-            $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image' WHERE id='$user_id'";
+		    	if(empty($front_image) OR empty($back_image) OR empty($side_image) OR empty($adhar_front) OR empty($adhar_back)) {
+            $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image',adhar_front='$adhar_front',adhar_back='$adhar_back' WHERE id='$user_id'";
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
              $path = "image/".$front_image;
 		   if(move_uploaded_file($img_file1, $path)){
@@ -59,9 +72,16 @@
 		    $path = "image/".$side_image;
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
-		   }   
+		   }    $path = "image/".$adhar_front;
+		   if(move_uploaded_file($img_file4, $path)){
+            copy($path, "$path");
+		   } 
+		    $path = "image/".$adhar_back;
+		   if(move_uploaded_file($img_file5, $path)){
+            copy($path, "$path");
+		   } 
         } else {
-        	 $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image' WHERE id='$user_id'";
+        	 $update_qry = "UPDATE  add_owner SET front_image='$front_image',back_image='$back_image',side_image='$side_image',adhar_front='$adhar_front',adhar_back='$adhar_back' WHERE id='$user_id'";
 
             $inst_u_fn_qry = mysqli_query($conn, $update_qry);
             $path = "image/".$front_image;
@@ -75,11 +95,21 @@
 		    $path = "image/".$side_image;
 		   if(move_uploaded_file($img_file3, $path)){
             copy($path, "$path");
-		   }   
+		   }
+		   	if(move_uploaded_file($img_file4, $path)){
+            copy($path, "$path");
+		   } 
+		    $path = "image/".$adhar_back;
+		   if(move_uploaded_file($img_file5, $path)){
+            copy($path, "$path");
+		   }    
         }
+       
         if($inst_u_fn_qry){
         	header("location:manage-owner.php");
-        } 
+        }
+    
+        
 }
 }
 
@@ -114,7 +144,7 @@
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
   <style>
-		.errorWrap {
+.errorWrap {
     padding: 10px;
     margin: 0 0 20px 0;
     background: #fff;
@@ -256,7 +286,7 @@
 											<div class="col-sm-8">
 												<select class="selectpicker" name="driver_id" id="driver_id" >
 
-													<?php										
+		<?php										
 			// $qry = "SELECT id, name from tbldriver";
 		$sql = "SELECT * FROM tbldriver  INNER JOIN  add_owner ON tbldriver.id=add_owner.driver_id WHERE add_owner.id='$user_id'";
 		  	$exe = mysqli_query($conn, $sql); 
@@ -290,7 +320,7 @@
 
 									<div class="form-group">
 										<div class="col-sm-12">
-										<h4><b>Upload Images</b></h4>
+										<h4><b>Edit Vehicle Images</b></h4>
 										</div>
 									</div>
 
@@ -311,6 +341,26 @@
 										<img src="image/<?php echo $urows['side_image']; ?>" style="width:20%;">
 										 <span style="color:red">*</span><input type="file" name="side_image" id="side_image" required>
 									</div>
+								</div>
+								<div class="form-group">
+										<div class="col-sm-12">
+										<h4><b>Edit Documents</b></h4>
+										</div>
+									</div>
+
+								<div class="form-group">
+									<div class="col-sm-4">
+										Adhar Front Image
+										<img src="image/<?php echo $urows['adhar_front']; ?>" style="width:20%;">
+										 <span style="color:red">*</span><input type="file" name="adhar_front" id="adhar_front" required>
+
+									</div>
+									<div class="col-sm-4">
+										Adhar Back Image 
+										<img src="image/<?php echo $urows['adhar_back']; ?>" style="width:20%;"> 
+										<span style="color:red">*</span><input type="file" name="adhar_back"  id="adhar_back" required>
+									</div>
+
 								</div>
 
 

@@ -92,10 +92,7 @@ $sql = "insert into tblbrands(BrandName)values('$brand')";
 									<div class="panel-body">
                                          <?php echo $msg."<br><br>"; ?>
 
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	 
+										<form method="post" name="chngpwd" id="brand_form" class="form-horizontal" onSubmit="return valid();">	        	 
 				
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Brand Name</label>
@@ -143,6 +140,9 @@ $sql = "insert into tblbrands(BrandName)values('$brand')";
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/additional-methods.min.js"></script>
+	<script src="js/validation.js"></script>
 
 </body>
 

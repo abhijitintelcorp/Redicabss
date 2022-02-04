@@ -88,7 +88,7 @@ $msg="Image updated successfully";
 								<div class="panel panel-default">
 									<div class="panel-heading">Vehicle Image 2 Details</div>
 									<div class="panel-body">
-										<form method="post" class="form-horizontal" enctype="multipart/form-data">
+										<form method="post" class="form-horizontal" name="changingimg2" id="changingimg2"enctype="multipart/form-data">
 										
 											
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
@@ -117,7 +117,7 @@ $query_run1 = mysqli_query($conn, $query1);
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Upload New Image 1<span style="color:red">*</span></label>
 												<div class="col-sm-8">
-											<input type="file" name="img2" required>
+											<input type="file" name="img2"  id="img2" required>
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
@@ -160,6 +160,9 @@ $query_run1 = mysqli_query($conn, $query1);
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+    <script src="js/additional-methods.min.js"></script>
+    <script src="js/validation.js"></script>
 
 </body>
 

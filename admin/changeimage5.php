@@ -87,7 +87,7 @@ $msg="Image updated successfully";
 								<div class="panel panel-default">
 									<div class="panel-heading">Vehicle Image 5 Details</div>
 									<div class="panel-body">
-										<form method="post" class="form-horizontal" enctype="multipart/form-data">
+										<form method="post" class="form-horizontal" name="changingimg5" id="changingimg5" enctype="multipart/form-data">
 										
 											
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
@@ -115,7 +115,7 @@ $query_run1 = mysqli_query($conn, $query1);
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Upload New Image 5<span style="color:red">*</span></label>
 												<div class="col-sm-8">
-											<input type="file" name="img5" required>
+											<input type="file" name="img5" id="img5" required>
 												</div>
 											</div>
 											<div class="hr-dashed"></div>

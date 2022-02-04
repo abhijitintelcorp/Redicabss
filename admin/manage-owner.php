@@ -103,7 +103,7 @@
          $retrive_fn_query=mysqli_query($conn,$retrive_qyr);
          $count=0;
          while($row=mysqli_fetch_array($retrive_fn_query)){
-           $count++;
+         $count++;
      ?>
 
 									<tbody>
@@ -116,6 +116,7 @@
 											<td><?php echo $row['owner_vehicle_rc_no'];?></td>
 											<td><?php echo $row['owner_vehicle_brand'];?></td>
 											<td><?php echo $row['owner_vehicle_name'];?></td>
+											
 <!-- 											<td><?php echo $row['owner_vehicle_color'];?></td>
 											<td><?php echo $row['driver_id'];?></td>
 
