@@ -39,61 +39,61 @@ if (strlen($_SESSION['alogin']) == 0) {
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-    .errorWrap {
-        padding: 10px;
-        margin: 0 0 20px 0;
-        background: #fff;
-        border-left: 4px solid #dd3d36;
-        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
-    }
+        .errorWrap {
+            padding: 10px;
+            margin: 0 0 20px 0;
+            background: #fff;
+            border-left: 4px solid #dd3d36;
+            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+        }
 
-    .succWrap {
-        padding-top: 10px;
-        background: #fff;
-        margin-left: 50%;
-        margin-top: 10px;
-        border-left: 4px solid #5cb85c;
-        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
-    }
+        .succWrap {
+            padding-top: 10px;
+            background: #fff;
+            margin-left: 50%;
+            margin-top: 10px;
+            border-left: 4px solid #5cb85c;
+            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+        }
 
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
 
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-        font-size: 17px;
-    }
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
 
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
 
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
 
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
     </style>
 </head>
 
@@ -115,16 +115,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <div class="tab">
                                             <button class="tablinks" onclick="openTab(event, 'owner')">owner</button>
                                             <button class="tablinks" onclick="openTab(event, 'driver')">driver</button>
-                                            <button class="tablinks"
-                                                onclick="openTab(event, 'vehicle')">vehicle</button>
+                                            <button class="tablinks" onclick="openTab(event, 'vehicle')">vehicle</button>
                                         </div>
 
                                         <div id="owner" class="tabcontent">
-
-
-                                            <table id="zctb"
-                                                class="display table table-striped table-bordered table-hover"
-                                                cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+                                            <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
                                                 <thead>
                                                     <tr>
                                                         <th>Sl.No.</th>
@@ -141,17 +136,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 while ($row = mysqli_fetch_array($retrive_fn_query)) {
                                                     $count++;
                                                 ?>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><?php echo $count; ?></td>
-                                                        <td><?php echo $row['owner_name']; ?></td>
-                                                        <td><img src="image/<?php echo $row['adhar_front']; ?>"
-                                                                width="30" height="30" alt=""></td>
-                                                        <td><img src="image/<?php echo $row['adhar_back']; ?>"
-                                                                width="30" height="30" alt=""></td>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><?php echo $count; ?></td>
+                                                            <td><?php echo $row['owner_name']; ?></td>
+                                                            <td><img src="image/<?php echo $row['adhar_front']; ?>" width="30" height="30" alt=""></td>
+                                                            <td><img src="image/<?php echo $row['adhar_back']; ?>" width="30" height="30" alt=""></td>
 
-                                                    </tr>
-                                                </tbody>
+                                                        </tr>
+                                                    </tbody>
                                                 <?php } ?>
                                             </table>
                                         </div>
@@ -159,9 +152,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
                                         <div id="driver" class="tabcontent">
-                                            <table id="zctb"
-                                                class="display table table-striped table-bordered table-hover"
-                                                cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+                                            <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
                                                 <thead>
                                                     <tr>
                                                         <th>Sl.No.</th>
@@ -180,40 +171,35 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 while ($row = mysqli_fetch_array($retrive_fn_query)) {
                                                     $count++;
                                                 ?>
-                                                <!-- <div class="form-group">
+                                                    <!-- <div class="form-group">
 												<label class="col-sm-4 control-label">Driver</label>
 												<div class="col-sm-8">
 													<input type="text" class="form-control" value="<?php echo $row['name']; ?>" name="driver" id="driver" required>
 												</div>
 											</div> -->
-                                                <tbody>
-                                                    <tr>
-                                                        <td><?php echo $count; ?></td>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><?php echo $count; ?></td>
 
-                                                        <td><?php echo $row['name']; ?></td>
+                                                            <td><?php echo $row['name']; ?></td>
 
-                                                        <td><img src="image/<?php echo $row['adhar']; ?>" width="30"
-                                                                height="30" alt=""></td>
+                                                            <td><img src="image/<?php echo $row['adhar']; ?>" width="30" height="30" alt=""></td>
 
-                                                        <td><img src="image/<?php echo $row['pan']; ?>" width="30"
-                                                                height="30" alt=""></td>
+                                                            <td><img src="image/<?php echo $row['pan']; ?>" width="30" height="30" alt=""></td>
 
-                                                        <td><img src="image/<?php echo $row['licence']; ?>" width="30"
-                                                                height="30" alt=""></td>
+                                                            <td><img src="image/<?php echo $row['licence']; ?>" width="30" height="30" alt=""></td>
 
 
 
-                                                    </tr>
+                                                        </tr>
 
 
-                                                </tbody>
+                                                    </tbody>
                                                 <?php } ?>
                                             </table>
                                         </div>
                                         <div id="vehicle" class="tabcontent">
-                                            <table id="zctb"
-                                                class="display table table-striped table-bordered table-hover"
-                                                cellspacing="0" width="100%" style="border:2px solid #1886bb;">
+                                            <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="border:2px solid #1886bb;">
                                                 <thead>
                                                     <tr>
                                                         <th>Sl.No.</th>
@@ -230,19 +216,18 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 while ($row = mysqli_fetch_array($retrive_fn_query)) {
                                                     $count++;
                                                 ?>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><?php echo $count; ?></td>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><?php echo $count; ?></td>
 
-                                                        <td><?php echo $row['VehiclesTitle']; ?></td>
-                                                        <td><?php echo $row['vehno']; ?></td>
+                                                            <td><?php echo $row['VehiclesTitle']; ?></td>
+                                                            <td><?php echo $row['vehno']; ?></td>
 
-                                                        <td><img src="image/<?php echo $row['Vimage4']; ?>" width="30"
-                                                                height="30" alt=""></td>
-                                                    </tr>
+                                                            <td><img src="image/<?php echo $row['Vimage4']; ?>" width="30" height="30" alt=""></td>
+                                                        </tr>
 
 
-                                                </tbody>
+                                                    </tbody>
 
                                                 <?php } ?>
                                             </table>
@@ -264,19 +249,19 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <script src="js/chartData.js"></script>
                         <script src="js/main.js"></script>
                         <script>
-                        function openTab(evt, cityName) {
-                            var i, tabcontent, tablinks;
-                            tabcontent = document.getElementsByClassName("tabcontent");
-                            for (i = 0; i < tabcontent.length; i++) {
-                                tabcontent[i].style.display = "none";
+                            function openTab(evt, cityName) {
+                                var i, tabcontent, tablinks;
+                                tabcontent = document.getElementsByClassName("tabcontent");
+                                for (i = 0; i < tabcontent.length; i++) {
+                                    tabcontent[i].style.display = "none";
+                                }
+                                tablinks = document.getElementsByClassName("tablinks");
+                                for (i = 0; i < tablinks.length; i++) {
+                                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                                }
+                                document.getElementById(cityName).style.display = "block";
+                                evt.currentTarget.className += " active";
                             }
-                            tablinks = document.getElementsByClassName("tablinks");
-                            for (i = 0; i < tablinks.length; i++) {
-                                tablinks[i].className = tablinks[i].className.replace(" active", "");
-                            }
-                            document.getElementById(cityName).style.display = "block";
-                            evt.currentTarget.className += " active";
-                        }
                         </script>
 
 </body>
