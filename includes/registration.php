@@ -60,7 +60,7 @@ error:function (){}
                   <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name" required>
                 </div>
                       <div class="form-group">
-                  <input type="text" class="form-control" name="mobileno" id="mobileno"  placeholder="Mobile Number" maxlength="10" required>
+                  <input type="number" class="form-control" name="mobileno" id="mobileno"  placeholder="Mobile Number" maxlength="10" required>
                 </div>
                 <div class="form-group">
                   <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Email Address" required>
@@ -92,6 +92,6 @@ error:function (){}
   </div>
 </div>
 
-  <script src="admin/js/jquery.validate.min.js"></script>
-  <script src="admin/js/additional-methods.min.js"></script>
-  <script src="admin/js/validation.js"></script>
+  <script src="assets/js/jquery.validate.min.js"></script>
+  <script src="assets/js/additional-methods.min.js"></script>
+  <script src="assets/js/validation.js"></script>
