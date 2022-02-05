@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+ session_start();
 include("config.php");
 ?>
 <header>
@@ -33,11 +33,8 @@ $contactno=$results['ContactNo'];
             
             </div>
    <?php   if(strlen($_SESSION['login'])==0)
-  { 
-    
+  {  
 ?>
-
-  
  <div class="login_btn"> <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login / Register</a> &nbsp; &nbsp;<a href="Book_car.php" class="btn btn-xs uppercase" >Book a car</a></div>
  <!--  <div class="login_btn " > <a href="car-listing.php" class="btn btn-xs uppercase" >Book a car</a> </div> -->
 <?php }

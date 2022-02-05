@@ -1,13 +1,12 @@
 <?php
 session_start();
+include("includes/config.php");
 error_reporting(0);
-include('includes/config.php');
 $user_id = $_GET['user_id'];
 if(strlen($_SESSION['login'])==0)
   { 
 header('location:index.php');
 }
-else{
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -44,6 +43,11 @@ else{
 <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
 <!-- Google-Font-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<style>
+  .btn-danger {
+    background-color:red;
+  }
+  </style>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -120,30 +124,29 @@ if($cnt > 0)
       <div class="col-md-3 col-sm-3">
        <?php include('includes/sidebar.php');?>
    
-      <div class="col-md-8 col-sm-8">
+      <div class="col-md-8 col-sm-9">
         <div class="profile_wrap">
           <h5 class="uppercase underline">My Bookings</h5>
           <div class="my_vehicles_list">
             <ul class="vehicle_listing">
 <?php 
 $useremail=$_SESSION['login'];
-$sql1= "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblusers.id,tblusers.FullName,tblbooking.user_id,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status,tblvehicles.PricePerDay,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand join tblusers on tblbooking.user_id=tblusers.id where tblbooking.user_id='$user_id' and tblbooking.status='0' order by tblbooking.id desc";
-$query1 = mysqli_query($conn,$sql1);
-$resultss=mysqli_fetch_assoc($query1);
-$cnt=mysqli_num_rows($query1);
+$sql= "SELECT tblvehicles.id,tblvehicles.Vimage1,tblvehicles.VehiclesTitle,tblvehicles.PricePerDay,tblbrands.id,tblbrands.BrandName,tblusers.id,tblusers.FullName,tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  FROM tblbooking JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id JOIN tblbrands ON tblbooking.BrandId=tblbrands.id JOIN tblusers ON tblbooking.user_id=tblusers.id WHERE tblbooking.user_id=$user_id AND tblbooking.status=0 ORDER BY tblbooking.id DESC";
+$query = mysqli_query($conn,$sql);
+$resultss=mysqli_fetch_assoc($query);
+$cnt=mysqli_num_rows($query);
 if($cnt > 0)
 {
-  while($resultss=mysqli_fetch_assoc($query1)){
  ?>
 
 <li>
-    <h4 style="color:red">Booking No #<?php echo htmlentities($resultss['BookingNumber']);?></h4>
-                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($resultss['vid']);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($resultss['Vimage1']);?>" alt="image"></a> </div>
+    <h4 style="color:red">Booking No #<?php echo $resultss['BookingNumber'];?></h4>
+                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo $resultss['id'];?>"><img src="admin/img/vehicleimages/<?php echo $resultss['Vimage1'];?>" alt="image"></a> </div>
                 <div class="vehicle_title">
 
-                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($resultss['vid']);?>"> <?php echo htmlentities($resultss['BrandName']);?> , <?php echo htmlentities($resultss['VehiclesTitle']);?></a></h6>
-                  <p><b>From </b> <?php echo htmlentities($result->FromDate);?> <b>To </b> <?php echo htmlentities($result->ToDate);?></p>
-                  <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($resultss['message']);?> </p></div>
+                  <h6><a href="vehical-details.php?vhid=<?php echo $resultss['id'];?>"> <?php echo $resultss['BrandName'];?> , <?php echo $resultss['VehiclesTitle'];?></a></h6>
+                  <p><b>From </b> <?php echo $resultss['FromDate'];?> <b>To </b> <?php echo $resultss['ToDate'];?></p>
+                  <div style="float: left"><p><b>Message:</b> <?php echo $resultss['message'];?> </p></div>
                 </div>
                 <?php if($resultss['Status']==1)
                 { ?>
@@ -153,7 +156,7 @@ if($cnt > 0)
 
         </div>
 
-        <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo htmlentities($resultss['id']);?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
+        <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo $resultss['id'];?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
 
 <!-- <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Cancel it</a></div>
 <div class="clearfix"></div> -->
@@ -163,18 +166,16 @@ if($cnt > 0)
             <div class="clearfix"></div>
         </div>
              
-
-
                 <?php } else { ?>
- <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Not Confirm yet</a>
+ <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Not Confirm yet</a><br> 
             <div class="clearfix"></div>
-</div>
-  <div class="vehicle_status"> <a href="#" class="btn outline btn-xs" style="margin-top: 50px;">Cancelled</a><br><br>
-   <h5>Wait For Confirmation!!</h5>
-  </div>
+</div><br><br>
+<div class="vehicle_status"> <a href="cancelled_booking.php?id=<?php echo $resultss['id'];?>?user_id=<?php echo $resultss['user_id'];?>"><button type="button" class="btn btn-danger">Cancel</button></a></div>
+ <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo $resultss['id'];?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
+
 
             
-             <!-- <div class="vehicle_status"> <a href="my-booking.php?eid=<?php echo htmlentities($resultss['id']);?>" class="btn outline btn-xs">cancell it</a>
+             <!-- <div class="vehicle_status"> <a href="my-booking.php?eid=<?php echo $resultss['id'];?>" class="btn outline btn-xs">cancell it</a>
         </div> -->
                 <?php } ?>
        
@@ -190,19 +191,19 @@ if($cnt > 0)
     <th>Rent / Day</th>
   </tr>
   <tr>
-    <td><?php echo htmlentities($resultss['VehiclesTitle']);?>, <?php echo htmlentities($resultss['BrandName']);?></td>
-     <td><?php echo htmlentities($resultss['FromDate']);?></td>
-      <td> <?php echo htmlentities($resultss['ToDate']);?></td>
-       <td><?php echo htmlentities($tds=$resultss['totaldays']);?></td>
-        <td> <?php echo htmlentities($ppd=$resultss['PricePerDay']);?></td>
+    <td><?php echo $resultss['VehiclesTitle'];?>, <?php echo $resultss['BrandName'];?></td>
+     <td><?php echo $resultss['FromDate'];?></td>
+      <td> <?php echo $resultss['ToDate'];?></td>
+       <td><?php echo $tds=$resultss['totaldays'];?></td>
+        <td> <?php echo $ppd=$resultss['PricePerDay'];?></td>
   </tr>
   <tr>
     <th colspan="4" style="text-align:center;"> Grand Total</th>
-    <th><?php echo htmlentities($tds*$ppd);?></th>
+    <th><?php echo $tds*$ppd;?></th>
   </tr>
 </table>
 <hr /> -->
-          <?php } }  else { ?>
+          <?php }   else { ?>
                 <h5 align="center" style="color:red">No booking yet</h5>
               <?php } ?>
              
@@ -230,4 +231,3 @@ if($cnt > 0)
 <script src="assets/js/owl.carousel.min.js"></script>
 </body>
 </html>
-<?php } ?>

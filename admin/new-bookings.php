@@ -119,7 +119,7 @@ $query = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle
 tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
 join tblusers on tblusers.id=tblbooking.user_id join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id
- where tblbooking.Status='$status'";
+where tblbooking.Status='$status'";
 $query_run = mysqli_query($conn, $query);
 $cnt=1;
 if(mysqli_num_rows($query_run) > 0)   
