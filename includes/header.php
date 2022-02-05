@@ -60,7 +60,7 @@ echo "<div class='login_btn'><h5 style='color:#1886bb'>Welcome To Car rental por
             <li class="dropdown"> <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded=" false"><i class="fa fa-user-circle" aria-hidden="true"></i> 
  <?php 
 $email=$_SESSION['login'];
-$sql1 ="SELECT FullName FROM tblusers WHERE EmailId='$email'";
+$sql1 ="SELECT id,FullName,EmailId FROM tblusers WHERE EmailId='$email'";
 $query1=mysqli_query($conn,$sql1);
 $results=mysqli_fetch_assoc($query1);
 $fname1 = $results['FullName'];
@@ -71,7 +71,7 @@ $fname1 = $results['FullName'];
            <?php if($_SESSION['login']){ ?>
             <li><a href="profile.php">Profile Settings</a></li>
               <li><a href="update-password.php">Update Password</a></li>
-            <li><a href="my-booking.php">My Booking</a></li>
+            <li><a href="my-booking.php?user_email=<?php echo $results['EmailId']; ?>">My Booking</a></li>
             <li><a href="post-testimonial.php">Post a Testimonial</a></li>
           <li><a href="my-testimonials.php">My Testimonial</a></li>
             <li><a href="logout.php">Sign Out</a></li>

@@ -23,7 +23,7 @@ $query = mysqli_query($conn,$sql);
 
 if($query)
 {
-  header("location:my-booking.php?user_id=$user_id");
+  header("location:my-booking.php?user_email=$useremail");
 // echo "<script type='text/javascript'> document.location = 'my-booking.php'; </script>";
 } else {
   echo "Failed";

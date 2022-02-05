@@ -2,7 +2,7 @@
 session_start();
 include("includes/config.php");
 error_reporting(0);
-$user_id = $_GET['user_id'];
+$useremail = $_GET['user_email'];
 if(strlen($_SESSION['login'])==0)
   { 
 header('location:index.php');
@@ -130,8 +130,7 @@ if($cnt > 0)
           <div class="my_vehicles_list">
             <ul class="vehicle_listing">
 <?php 
-$useremail=$_SESSION['login'];
-$sql= "SELECT tblvehicles.id,tblvehicles.Vimage1,tblvehicles.VehiclesTitle,tblvehicles.PricePerDay,tblbrands.id,tblbrands.BrandName,tblusers.id,tblusers.FullName,tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  FROM tblbooking JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id JOIN tblbrands ON tblbooking.BrandId=tblbrands.id JOIN tblusers ON tblbooking.user_id=tblusers.id WHERE tblbooking.user_id=$user_id AND tblbooking.status=0 ORDER BY tblbooking.id DESC";
+$sql= "SELECT tblvehicles.id,tblvehicles.Vimage1,tblvehicles.VehiclesTitle,tblvehicles.PricePerDay,tblbrands.id,tblbrands.BrandName,tblusers.id,tblusers.FullName,tblusers.EmailId,tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  FROM tblbooking JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id JOIN tblbrands ON tblbooking.BrandId=tblbrands.id JOIN tblusers ON tblbooking.user_id=tblusers.id WHERE tblusers.EmailId='$useremail' ORDER BY tblbooking.id DESC";
 $query = mysqli_query($conn,$sql);
 $resultss=mysqli_fetch_assoc($query);
 $cnt=mysqli_num_rows($query);
@@ -152,14 +151,10 @@ if($cnt > 0)
                 { ?>
                 <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Confirmed</a>
                 <div class="clearfix"></div>
- 
 
         </div>
 
         <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo $resultss['id'];?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
-
-<!-- <div class="vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Cancel it</a></div>
-<div class="clearfix"></div> -->
 
               <?php } else if($resultss['Status']==2) { ?>
  <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Cancelled</a>
@@ -170,7 +165,7 @@ if($cnt > 0)
  <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Not Confirm yet</a><br> 
             <div class="clearfix"></div>
 </div><br><br>
-<div class="vehicle_status"> <a href="cancelled_booking.php?id=<?php echo $resultss['id'];?>?user_id=<?php echo $resultss['user_id'];?>"><button type="button" class="btn btn-danger">Cancel</button></a></div>
+<div class="vehicle_status"> <a href="cancelled_booking.php?id=<?php echo $resultss['id'];?>"><button type="button" class="btn btn-danger">Cancel</button></a></div>
  <div class="vehicle_status"> <a href="booking_details.php?id=<?php echo $resultss['id'];?>" class="btn outline btn-xs active-btn" style="margin-top: 50px;">View Details</a></div>
 
 
