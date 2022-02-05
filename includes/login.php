@@ -63,6 +63,7 @@ echo "<script type='text/javascript'> document.location = '$currentpage'; </scri
   </div>
 </div>
 
-  <script src="js/jquery.validate.min.js"></script>
-  <script src="js/additional-methods.min.js"></script>
-  <script src="js/validation.js"></script>
+  <script src="admin/js/jquery.validate.min.js"></script>
+  <script src="admin/js/additional-methods.min.js"></script>
+  <script src="admin/js/validation.js"></script>
+  

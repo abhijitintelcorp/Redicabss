@@ -55,22 +55,22 @@ error:function (){}
         <div class="row">
           <div class="signup_wrap">
             <div class="col-md-12 col-sm-6">
-              <form  method="post" name="signup" >
+              <form  method="post" name="signup" id="signup">
                 <div class="form-group">
-                  <input type="text" class="form-control" name="fullname" placeholder="Full Name" required="required">
+                  <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name" required>
                 </div>
                       <div class="form-group">
-                  <input type="text" class="form-control" name="mobileno" placeholder="Mobile Number" maxlength="10" required="required">
+                  <input type="text" class="form-control" name="mobileno" id="mobileno"  placeholder="Mobile Number" maxlength="10" required>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Email Address" required="required">
+                  <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Email Address" required>
                    <span id="user-availability-status" style="font-size:12px;"></span> 
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required="required">
+                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password" required>
                 </div>
                 <div class="form-group checkbox">
                   <input type="checkbox" id="terms_agree" required="required" checked="">
@@ -86,8 +86,12 @@ error:function (){}
         </div>
       </div>
       <div class="modal-footer text-center">
-        <p>Already got an account? <a href="#loginform" data-toggle="modal" data-dismiss="modal" style="color:black">Login Here</a></p>
+        <p>Already got an account?<a href="#loginform" data-toggle="modal" data-dismiss="modal" style="color:black">Login Here</a></p>
       </div>
     </div>
   </div>
 </div>
+
+  <script src="admin/js/jquery.validate.min.js"></script>
+  <script src="admin/js/additional-methods.min.js"></script>
+  <script src="admin/js/validation.js"></script>
