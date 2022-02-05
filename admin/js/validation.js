@@ -471,9 +471,9 @@ $("#signup").validate({
         maxlength: 10,
       
     },
-      owner_email: {
+      emailid: {
         required: true,
-        owner_email: true,
+        emailid: true,
       },
       
         password : {
@@ -495,9 +495,9 @@ $("#signup").validate({
         minlength: "<b style='color:red;'>Mobile No should be 10 digit number</b>",
         maxlength: "<b style='color:red;'>Mobile No should be 10 digit number</b>",      
       },
-       owner_email: {
+       emailid: {
         required: "<b style='color:red;'>Please Enter Email Id</b>",
-        owner_email: "<b style='color:red;'>The email should be in the format: abc@domain.tld</b>",
+        emailid: "<b style='color:red;'>The email should be in the format: abc@domain.tld</b>",
       },
       password: {
         required: "<b style='color:red;'>Please Enter Password</b>",
