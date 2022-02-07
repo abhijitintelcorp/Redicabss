@@ -312,7 +312,38 @@ error_reporting(0);
   <!--Slider-JS-->
   <script src="assets/js/slick.min.js"></script>
   <script src="assets/js/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function() {
+  $("#signup").validate({
+    rules: {
+      password : {
+        required: true,
+        minlength: 5
+      },
+       confirmpassword : {
+        required: true,
+        minlength: 5,
+        equalTo: "#password", 
+      },
+      
+    },
+    messages : {
+      password: {
+        required: "<b style='color:red;'>Please Enter  Password</b>",
+        minlength: "<b style='color:red;'>Name should be at least 5 characters</b>",   
+      },
+      confirmpassword: {
+        required: "<b style='color:red;'>Password & Confirm Password Doesn't Match</b>",
+        minlength: "<b style='color:red;'>Name should be at least 5 characters</b>", 
+          
+      },
 
+    }
+
+
+  });
+});
+  </script>
 </body>
 
 <!-- Mirrored from themes.webmasterdriver.net/carforyou/demo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Jun 2017 07:22:11 GMT -->

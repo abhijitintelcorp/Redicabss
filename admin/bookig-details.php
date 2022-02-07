@@ -11,11 +11,10 @@ if(isset($_REQUEST['eid']))
 	{
 $eid=intval($_GET['eid']);
 $status="2";
-$query = "UPDATE tblbooking SET Status=:status WHERE  id='$eid'";
+$query = "UPDATE tblbooking SET Status='$status' WHERE  id='$eid'";
 $result=mysqli_query($conn,$query);
-$row=mysqli_fetch_array($result);
   echo "<script>alert('Booking Successfully Cancelled');</script>";
-echo "<script type='text/javascript'> document.location = 'canceled-bookings.php; </script>";
+echo "<script type='text/javascript'> document.location = 'canceled-bookings.php'; </script>";
 }
 
 
@@ -24,9 +23,8 @@ if(isset($_REQUEST['aeid']))
 $aeid=intval($_GET['aeid']);
 $status=1;
 
-$query = "UPDATE tblbooking SET Status=:status WHERE  id='$aeid'";
+$query = "UPDATE tblbooking SET Status='$status' WHERE  id='$aeid'";
 $result=mysqli_query($conn,$query);
-$row=mysqli_fetch_array($result);
 echo "<script>alert('Booking Successfully Confirmed');</script>";
 echo "<script type='text/javascript'> document.location = 'confirmed-bookings.php'; </script>";
 }
@@ -113,11 +111,14 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
                                             <?php 
 	extract($_POST);
 	$bid=intval($_GET['bid']);
-	$query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,
+	$query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.Driverid,tblbooking.DriverNo,tblbooking.FromDate,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
-	tblbooking.id,tblbooking.BookingNumber,
-	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblvehicles.PricePerDay
-	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where tblbooking.id='$bid'";
+	tblbooking.id,tblbooking.BookingNumber,tblbooking.Time,
+	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblbooking.PricePerDay
+	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
+    join tblusers on tblusers.id=tblbooking.user_id 
+    join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id 
+    where tblbooking.id='$bid'";
 	$query_run = mysqli_query($conn, $query);
 	$cnt=1;
 	if(mysqli_num_rows($query_run) > 0)   
@@ -154,6 +155,18 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
                                             </tr>
 
                                             <tr>
+                                                <th colspan="4" style="text-align:center;color:blue">Driver Details</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Driver Name.</th>
+                                                <td><?php echo $row['Driverid'];?></td>
+                                                <th>Phone Number</th>
+                                                <td><?php echo $row['DriverNo'];?></td>
+                                            </tr>
+
+
+
+                                            <tr>
                                                 <th colspan="4" style="text-align:center;color:blue">Booking Details
                                                 </th>
                                             </tr>
@@ -171,14 +184,19 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
                                                 <td><?php echo $row['ToDate'];?></td>
                                             </tr>
                                             <tr>
+                                                <th>PickUp Date</th>
+                                                <td><?php echo $row['Time'];?></td>
+
+                                            </tr>
+                                            <tr>
                                                 <th>Total Days</th>
-                                                <td><?php echo htmlentities($tdays=$row['totalnodays']);?></td>
+                                                <td><?php echo ($tdays=$row['totalnodays'])+1;?></td>
                                                 <th>Rent Per Days</th>
-                                                <td><?php echo htmlentities($ppdays=$row['PricePerDay']);?></td>
+                                                <td><?php echo ($ppdays=$row['PricePerDay']);?></td>
                                             </tr>
                                             <tr>
                                                 <th colspan="3" style="text-align:center">Grand Total</th>
-                                                <td><?php echo htmlentities(($tdays+1)*$ppdays);?></td>
+                                                <td><?php echo (($tdays+1)*$ppdays);?></td>
                                             </tr>
                                             <tr>
                                                 <th>Booking Status</th>
@@ -194,7 +212,7 @@ echo htmlentities('Confirmed');
  }
 										?></td>
                                                 <th>Last updation Date</th>
-                                                <td><?php echo htmlentities($row['UpdationDate']);?></td>
+                                                <td><?php echo ($row['UpdationDate']);?></td>
                                             </tr>
 
                                             <?php if($row['Status']==0){ ?>

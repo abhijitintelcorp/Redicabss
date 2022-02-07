@@ -48,7 +48,7 @@ error:function (){}
         <div class="row">
           <div class="signup_wrap">
             <div class="col-md-12 col-sm-6">
-              <form  method="post" name="signup" >
+              <form  method="post" name="signup" id="signup" >
                 <div class="form-group">
                   <input type="text" class="form-control" name="fullname" placeholder="Full Name" required="required">
                 </div>
@@ -63,14 +63,14 @@ error:function (){}
                   <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required="required">
+                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password" required="required">
                 </div>
                 <div class="form-group checkbox">
                   <input type="checkbox" id="terms_agree" required="required" checked="">
                   <label for="terms_agree">I Agree with <a href="#">Terms and Conditions</a></label>
                 </div>
                 <div class="form-group">
-                  <input type="submit" value="Sign Up" name="signup" id="submit" class="btn btn-block">
+                  <input type="submit" value="Sign Up" name="signup" id="submit" class="btn-block">
                 </div>
               </form>
             </div>

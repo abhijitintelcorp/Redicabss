@@ -94,8 +94,9 @@ else{
                                             <th>Vehicle</th>
                                             <th>From Date</th>
                                             <th>To Date</th>
+                                            <th>PickUp Time</th>
                                             <th>Status</th>
-                                            <th>Posting date</th>
+                                            <th>Posting Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -107,8 +108,9 @@ else{
                                             <th>Vehicle</th>
                                             <th>From Date</th>
                                             <th>To Date</th>
+                                            <th>PickUp Time</th>
                                             <th>Status</th>
-                                            <th>Posting date</th>
+                                            <th>Posting Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -117,9 +119,9 @@ else{
 $status=0;
 $query = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,
 tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
-tblbooking.id,tblbooking.BookingNumber  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
+tblbooking.id,tblbooking.BookingNumber,tblbooking.Time  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
 join tblusers on tblusers.id=tblbooking.user_id join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id
-where tblbooking.Status='$status'";
+ where tblbooking.Status='$status'";
 $query_run = mysqli_query($conn, $query);
 $cnt=1;
 if(mysqli_num_rows($query_run) > 0)   
@@ -137,6 +139,7 @@ if(mysqli_num_rows($query_run) > 0)
                                                     , <?php echo htmlentities($row['VehiclesTitle']); ?></td>
                                             <td><?php echo htmlentities($row['FromDate']); ?></td>
                                             <td><?php echo htmlentities($row['ToDate']); ?></td>
+                                            <td><?php echo htmlentities($row['Time']); ?></td>
                                             <td><?php
 if($row['Status']==0)
 {
@@ -152,7 +155,9 @@ echo htmlentities('Confirmed');
                                             <td>
 
 
-                                                <a href="bookig-details.php?bid=<?php echo $row['id'];?>"> View</a>
+                                                <a href="bookig-details.php?bid=<?php echo $row['id'];?>"> View</a>/
+                                                <a href="booking-modify-details.php?bid=<?php echo $row['id'];?>">
+                                                    Edit</a>
                                             </td>
 
                                         </tr>

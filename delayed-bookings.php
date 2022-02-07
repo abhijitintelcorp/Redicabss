@@ -113,7 +113,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         <?php
 											extract($_POST);
-											$status = 1;
+											$status = 3;  
+                                date_default_timezone_set('Asia/Kolkata');
+                                 $date = date('h:i:s');                                
+                                 echo $time;                                
+                                                                                                                    
 											$query = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.Driverid,tblbooking.DriverNo,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 	tblbooking.id,tblbooking.BookingNumber,tblbooking.Time from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
@@ -123,6 +127,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$cnt=1;
 											if (mysqli_num_rows($query_run) > 0) {
 												while ($row = mysqli_fetch_array($query_run)) {
+                                                     $time=htmlspecialchars($_POST['Time']);
+                                     if($time>=$date){  
 
 											?>
                                         <tr>
@@ -158,8 +164,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         </tr>
                                         <?php $cnt = $cnt + 1;
-												}
-											} ?>
+												}}}
+											 ?>
 
                                     </tbody>
                                 </table>
