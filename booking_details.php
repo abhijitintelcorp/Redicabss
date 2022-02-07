@@ -1,7 +1,7 @@
 <?php
 include("includes/config.php");
 $id = $_GET['id'];
-$sel="SELECT tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.Driverid,tblbooking.BrandId,tblbooking.VehicleNumber,tblbooking.PricePerDay,tblbooking.FuelType,tblbooking.FromDate,tblbooking.ToDate,tblbooking.pickup_time,tblusers.id,tblusers.FullName,tblusers.EmailId,tblusers.ContactNo,tblvehicles.id,tblvehicles.vehreg,tblvehicles.VehiclesTitle FROM tblbooking JOIN tblusers ON tblbooking.user_id=tblusers.id JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id  WHERE tblbooking.id=$id";
+$sel="SELECT tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.Driverid,tblbooking.BrandId,tblbooking.VehicleNumber,tblbooking.PricePerDay,tblbooking.FuelType,tblbooking.FromDate,tblbooking.ToDate,tblbooking.pickup_time,tblusers.id,tblusers.FullName,tblusers.EmailId,tblusers.ContactNo,tblvehicles.id,tblvehicles.vehreg,tblvehicles.VehiclesTitle,tbldriver.id,tbldriver.name,tbldriver.number FROM tblbooking JOIN tblusers ON tblbooking.user_id=tblusers.id JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id JOIN tbldriver ON tblbooking.Driverid=tbldriver.id  WHERE tblbooking.id=$id";
 $query=mysqli_query($conn,$sel);
 $rows=mysqli_fetch_assoc($query);
 ?>
@@ -29,7 +29,9 @@ $rows=mysqli_fetch_assoc($query);
 	  					<p>Contact No: <?php echo $rows['ContactNo']; ?></p>
     			</div>
     			<div class="col-md-6">
-    				<h3>Booking Status:</h3>
+    				<h3 style=" border-bottom: 1px solid #00000030;">Booking Status</h3>
+					<p>Driver Name: <?php echo $rows['name']; ?></p>
+	  				<p>Contact No: <?php echo $rows['number']; ?></p>
     			</div>
     		</div>
     		<div class="row">
@@ -47,12 +49,58 @@ $rows=mysqli_fetch_assoc($query);
 	  			
     			</div>
     		</div>
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+    				<h3 style=" border-bottom: 1px solid #00000030;">Payment</h3>
+	  					<p>Total Payment: <?php echo "<b>".$rows['PricePerDay']." Rupees</b>"; ?></p>
+    			</div>
+            </div>
     		
   	</div>
-  	<div><center><button>Go to Payment</button></center></div>
+  	<div><a href="javascript:void(0)" class="btn btn-sm btn-primary float-right buy_now" data-amount="<?php echo $rows['PricePerDay']; ?>" data-id="$id">Go to Payment</a></div>
     </div>
   </div>
 </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
 
+  $('body').on('click', '.buy_now', function(e){
+    var totalAmount = $(this).attr("data-amount");
+    var product_id =  $(this).attr("data-id");
+    var options = {
+    "key": "rzp_test_tJ6KDg9rJZDvkH",
+    "amount": (1*100), // 2000 paise = INR 20
+    "name": "Redicabs",
+    "description": "Payment",
+    "image": "https://www.tutsmake.com/wp-content/uploads/2018/12/cropped-favicon-1024-1-180x180.png",
+    "handler": function (response){
+          $.ajax({
+            url: 'http://localhost/razorpay/payment-proccess.php',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                razorpay_payment_id: response.razorpay_payment_id , totalAmount : totalAmount ,product_id : product_id,
+            }, 
+            success: function (msg) {
+
+               window.location.href = 'http://localhost/razorpay/success.php';
+            }
+        });
+     
+    },
+
+    "theme": {
+        "color": "#528FF0"
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+  e.preventDefault();
+  });
+
+</script>
 </body>
 </html>
