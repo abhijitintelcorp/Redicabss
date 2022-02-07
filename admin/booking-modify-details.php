@@ -6,22 +6,22 @@ $user_id = $_GET['bid'];
 	$u_query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 	tblbooking.id,tblbooking.BookingNumber,
-	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblbooking.PricePerDay,,tblbooking.Time
+	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblbooking.PricePerDay,tblbooking.Time
 	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on 
     tblusers.id=tblbooking.user_id join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id
      where tblbooking.id='$user_id'";
 	$user_update_query = mysqli_query($conn, $u_query);
 	$urows = mysqli_fetch_array($user_update_query);
    if (isset($_POST['owner_update_submit'])) {
-         
-         $priceperday=htmlspecialchars($_POST['priceperday']);
-         $name=htmlspecialchars($_POST['name']);
-         $number=htmlspecialchars($_POST['number']);
-         $time=htmlspecialchars($_POST['time']);
+$priceperday=htmlspecialchars($_POST['priceperday']);
+$driver_name=htmlspecialchars($_POST['driver_name']);
+$number=htmlspecialchars($_POST['number']);
 
-		 $update_qry= "UPDATE tblbooking SET PricePerDay='$priceperday',Driverid='$name',
-         Time='$time',DriverNo='$number' WHERE tblbooking.id='$user_id'";
-       
+ 
+    
+		 $update_qry= "UPDATE tblbooking SET `PricePerDay`='$priceperday',`Driverid`='$driver_name',`DriverNo`='$number'
+          WHERE tblbooking.id='$user_id'";
+     
 		   
         	  $inst_u_fn1_qry = mysqli_query($conn, $update_qry);
 
@@ -30,7 +30,14 @@ $user_id = $_GET['bid'];
         }
  
     }
+if(isset($_POST['owner_update_time']))
+{
+    $time=htmlspecialchars($_POST['time']);
+    $status=3;
+    $upd_time="UPDATE tblbooking SET `Time`='$time',`Status`='$status' WHERE tblbooking.id='$user_id'";
+    $res_query=mysqli_query($conn,$upd_time);
 
+}
 
 ?>
 <!doctype html>
@@ -110,23 +117,22 @@ $user_id = $_GET['bid'];
                                         <tbody>
                                             <form method="post">
                                                 <?php 
-	extract($_POST);
 	$bid=intval($_GET['bid']);
 	$query = "SELECT tblusers.*,tblbrands.BrandName,
-    tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.Driverid,tblbooking.DriverNo,
+    tblvehicles.VehiclesTitle,tbldriver.id,tbldriver.name,tbldriver.number,tblbooking.FromDate,tblbooking.Driverid,tblbooking.DriverNo,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 	tblbooking.id,tblbooking.BookingNumber,	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) 
     as totalnodays,tblbooking.PricePerDay,tblbooking.Time
 	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
      join tblusers on tblusers.id=tblbooking.user_id 
-    join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  where tblbooking.id='$bid'";
+    join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id join tbldriver on tblbooking.Driverid=tbldriver.id  where tblbooking.id='$bid'";
 	$query_run = mysqli_query($conn, $query);
 	$cnt=1;
 	if(mysqli_num_rows($query_run) > 0)   
 	{
 	while($row = mysqli_fetch_array($query_run))
     {
-	?> <form action="booking-update-details.php" method="post">
+	?> <form action="" method="post">
                                                     <h3 style="text-align:center; color:red">
                                                         #<?php echo $row['BookingNumber'];?> Booking Details </h3>
 
@@ -177,12 +183,6 @@ $user_id = $_GET['bid'];
                                                         </td>
                                                     </tr>
 
-
-
-
-
-
-
                                                     <tr>
                                                         <th colspan="4" style="text-align:center;color:blue">Booking
                                                             Details
@@ -212,11 +212,17 @@ $user_id = $_GET['bid'];
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>PickUp Date</th>
+                                                        <th>PickUp Time</th>
                                                         <td><input type="time" class="form-control" name="time"
-                                                                id="todate" value="<?php echo $row['Time'];?>" required>
+                                                                id="todate" value="<?php echo $row['Time'];?>" required></td>
+                                                                 <td style="text-align:center" colspan="4">
+                                                            <button class="btn btn-primary pull-left" name="owner_update_time"
+                                                                type="submit">Change Pickup Time</button>
+                                                        </td>
 
                                                     </tr>
+                                                       
+                                                   
                                                     <tr>
                                                         <th>Total Days</th>
                                                         <td><input type="text" class="form-control" name="totalnodays"
@@ -264,18 +270,17 @@ echo htmlentities('Confirmed');
                                                         <th>Driver Name</th>
                                                         <td><select name="name" id="name" type="text"
                                                                 class="selectpicker">
-                                                                <option value="">Select Driver</option>
+                                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                                                 <?php              
   $qry1 = "SELECT * from tbldriver";
   $exe = mysqli_query($conn, $qry1); 
-  while ($row1 = mysqli_fetch_array($exe)) 
+  while ($rows = mysqli_fetch_assoc($exe)) 
   {
-	  $number = $row1['number'];
-      $drivername = $row1['name'];
+	  $number = $rows['number'];
+      $drivername = $rows['name'];
   ?>
-                                                                <option number="<?php echo $row1['number']; ?>"
-                                                                    value="<?php echo $row1['id'] ?>">
-                                                                    <?php echo $row1['name'] ?>
+                                        <option value="<?php echo $rows['id'] ?>" driver_name="<?php echo $rows['id'] ?>" number="<?php echo $rows['number']; ?>">
+                                                                    <?php echo $rows['name'] ?>
                                                                 </option>
 
                                                                 <?php }  ?>
@@ -285,12 +290,17 @@ echo htmlentities('Confirmed');
                                                         <th>Phone Number</th>
                                                         <td><input class="form-control white_bg"
                                                                 placeholder="Driver Number" name="number" id="number"
-                                                                value="<?php echo $row1['number'];?>" type="text"
+                                                                value="<?php echo $row['DriverNo'];?>" type="text"
+                                                                readonly="readonly"></td>
+                                                                 <td><input class="form-control white_bg"
+                                                                placeholder="Driver Name" name="driver_name" id="driver_name"
+                                                                value="<?php echo $row['Driverid'];?>" type="hidden"
                                                                 readonly="readonly"></td>
                                                     </tr>
 
 
                                                     <?php if($row['Status']==0){ ?>
+                                                        
                                                     <tr>
                                                         <td style="text-align:center" colspan="4">
                                                             <button class="btn btn-primary" name="owner_update_submit"
@@ -341,7 +351,9 @@ echo htmlentities('Confirmed');
         $(document).ready(function() {
             $('select[name="name"]').change(function() {
                 var number = $('option:selected', this).attr('number');
+                var driver_name = $('option:selected', this).attr('driver_name');
                 $("#number").val(number);
+                $("#driver_name").val(driver_name);
             });
         });
         </script>

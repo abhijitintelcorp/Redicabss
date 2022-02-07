@@ -42,10 +42,10 @@ $message=htmlspecialchars($_POST['message']);
 	VALUES('$fname','$email','$mobile','$password','$confirmpassword','$dob','$adress','$city','$country')";
     $query_run = mysqli_query($conn,$query);
     $insert_id = mysqli_insert_id($conn);
-    $query1="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `Driverid`, `BrandId`,  `VehicleNumber`, 
+    $query1="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `Driverid`, `DriverNo`,`BrandId`,  `VehicleNumber`, 
     `PricePerDay`, `FuelType`, `ModelYear`, `SeatingCapacity`, `phonenumber`, `FromDate`, `ToDate`, 
     `Time`,`totalnodays`, `message`, `Status`) 
-    VALUES ('$insert_id','$bookingno','$VehiclesTitle','$name','$BrandName','$vehno','$PricePerDay',
+    VALUES ('$insert_id','$bookingno','$VehiclesTitle','$name','$number','$BrandName','$vehno','$PricePerDay',
     '$FuelType','$ModelYear','$SeatingCapacity','$number','$fromdate','$todate','$pickup',
     '$totalnodays','$message','$status')";  
 	

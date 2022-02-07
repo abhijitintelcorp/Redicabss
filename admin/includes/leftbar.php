@@ -36,7 +36,7 @@
 						<li><a href="quick-bookings.php">Quick Bookings</a></li>
 						<li><a href="confirmed-bookings.php">Confirmed</a></li>
 						<li><a href="canceled-bookings.php">Canceled</a></li>
-						<li><a href="Delay-booking.php">Delayed Pickup</a></li>
+						<li><a href="delayed-bookings.php">Delayed Pickup</a></li>
 					</ul>
 				</li>
 

@@ -128,7 +128,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											if (mysqli_num_rows($query_run) > 0) {
 												while ($row = mysqli_fetch_array($query_run)) {
                                                      $time=htmlspecialchars($_POST['Time']);
-                                     if($time>=$date){  
+                                     
 
 											?>
                                         <tr>
@@ -164,7 +164,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         </tr>
                                         <?php $cnt = $cnt + 1;
-												}}}
+												}}
 											 ?>
 
                                     </tbody>

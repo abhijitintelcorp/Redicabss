@@ -111,13 +111,14 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
                                             <?php 
 	extract($_POST);
 	$bid=intval($_GET['bid']);
-	$query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.Driverid,tblbooking.DriverNo,tblbooking.FromDate,
+	$query = "SELECT tblusers.*,tblbrands.BrandName,tblvehicles.VehiclesTitle,tbldriver.id,tbldriver.name,tblbooking.Driverid,tblbooking.DriverNo,tblbooking.FromDate,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 	tblbooking.id,tblbooking.BookingNumber,tblbooking.Time,
 	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) as totalnodays,tblbooking.PricePerDay
 	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
     join tblusers on tblusers.id=tblbooking.user_id 
     join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id 
+    join tbldriver on tbldriver.id=tblbooking.Driverid 
     where tblbooking.id='$bid'";
 	$query_run = mysqli_query($conn, $query);
 	$cnt=1;
@@ -159,7 +160,7 @@ echo "<script type='text/javascript'> document.location = 'confirmed-bookings.ph
                                             </tr>
                                             <tr>
                                                 <th>Driver Name.</th>
-                                                <td><?php echo $row['Driverid'];?></td>
+                                                <td><?php echo $row['name'];?></td>
                                                 <th>Phone Number</th>
                                                 <td><?php echo $row['DriverNo'];?></td>
                                             </tr>
