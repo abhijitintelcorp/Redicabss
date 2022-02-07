@@ -72,10 +72,10 @@ $rows=mysqli_fetch_assoc($query);
     var product_id =  $(this).attr("data-id");
     var options = {
     "key": "rzp_test_tJ6KDg9rJZDvkH",
-    "amount": (1*100), // 2000 paise = INR 20
+    "amount": (totalAmount*100), 
     "name": "Redicabs",
     "description": "Payment",
-    "image": "https://www.tutsmake.com/wp-content/uploads/2018/12/cropped-favicon-1024-1-180x180.png",
+    "image": "https://scontent.fbbi5-1.fna.fbcdn.net/v/t1.18169-9/17264701_211393769343982_2500283902066830394_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=a0SswYTxt0AAX8RNcp_&_nc_ht=scontent.fbbi5-1.fna&oh=00_AT-HNKJRivQuG8BdB_wuVuZSLir_e7DfUFp1Oh0HqRksMw&oe=62264B65",
     "handler": function (response){
           $.ajax({
             url: 'http://localhost/razorpay/payment-proccess.php',
