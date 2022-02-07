@@ -32,9 +32,10 @@ $phonenumber=htmlspecialchars($_POST['phonenumber']);
 $drivername=htmlspecialchars($_POST['drivername']); 
 $Driverid=htmlspecialchars($_POST['Driverid']);
 $number=htmlspecialchars($_POST['number']);
+$pickup=htmlspecialchars($_POST['pickup']);
 $fromdate=htmlspecialchars($_POST['fromdate']);
 $todate=htmlspecialchars($_POST['todate']); 
-$$totalnodays = $fromdate - $todate;
+$totalnodays = ($todate - $fromdate)+1;
 $message=htmlspecialchars($_POST['message']);
  
 	$query="INSERT INTO  tblusers(`FullName`, `EmailId`, `ContactNo`, `Password`, `confirmpassword`, `dob`, `Address`, `City`, `Country`) 
@@ -43,9 +44,9 @@ $message=htmlspecialchars($_POST['message']);
     $insert_id = mysqli_insert_id($conn);
     $query1="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `Driverid`, `BrandId`,  `VehicleNumber`, 
     `PricePerDay`, `FuelType`, `ModelYear`, `SeatingCapacity`, `phonenumber`, `FromDate`, `ToDate`, 
-    `totalnodays`, `message`, `Status`) 
+    `Time`,`totalnodays`, `message`, `Status`) 
     VALUES ('$insert_id','$bookingno','$VehiclesTitle','$name','$BrandName','$vehno','$PricePerDay',
-    '$FuelType','$ModelYear','$SeatingCapacity','$number','$fromdate','$todate',
+    '$FuelType','$ModelYear','$SeatingCapacity','$number','$fromdate','$todate','$pickup',
     '$totalnodays','$message','$status')";  
 	
 $query_run1= mysqli_query($conn,$query1);
@@ -189,8 +190,8 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                 <label class="col-sm-1 control-label">Date of Birth<span
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-3">
-                                                    <input class="form-control white_bg" name="dob"
-                                                        placeholder="dd/mm/yyyy" id="birth-date" type="text">
+                                                    <input type="date" class="form-control" id="datepicker" name="dob"
+                                                        placeholder="dd/mm/yyyy" required>
                                                 </div>
                                             </div>
                                             <div class="hr-dashed"></div>
@@ -211,8 +212,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-3">
                                                     <input class="form-control white_bg" id="city" placeholder="city"
-                                                        name="city" value="<?php echo htmlentities($result->City);?>"
-                                                        type="text">
+                                                        name="city" type="text">
                                                 </div>
                                             </div>
 
@@ -284,7 +284,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                 <div class="col-sm-3" id="vehicle_no">
                                                     <input class="form-control white_bg" placeholder="Vehicle Number"
                                                         name="vehno" id="vehno" value="<?php echo $row['vehno'];?>"
-                                                        type="text">
+                                                        type="text" readonly="readonly">
                                                 </div>
                                                 <label class="col-sm-1 control-label">Price Per Day<span
                                                         style="color:red">*</span></label>
@@ -304,21 +304,24 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                 <div class="col-sm-3">
                                                     <input class="form-control white_bg" placeholder=" Fuel Type"
                                                         name="FuelType" id="FuelType"
-                                                        value="<?php echo $row['FuelType'];?>" type="text">
+                                                        value="<?php echo $row['FuelType'];?>" type="text"
+                                                        readonly="readonly">
                                                 </div>
                                                 <label class="col-sm-1 control-label">Model Year<span
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-3">
                                                     <input class="form-control white_bg" placeholder="Model Year"
                                                         name="ModelYear" id="ModelYear"
-                                                        value="<?php echo $row['ModelYear'];?>" type="text">
+                                                        value="<?php echo $row['ModelYear'];?>" type="text"
+                                                        readonly="readonly">
                                                 </div>
                                                 <label class="col-sm-1 control-label">Seating Capacity<span
                                                         style="color:red">*</span></label>
                                                 <div class="col-sm-3">
                                                     <input class="form-control white_bg" placeholder="Seating Capacity"
                                                         name="SeatingCapacity" id="SeatingCapacity"
-                                                        value="<?php echo $row['SeatingCapacity'];?>" type="text">
+                                                        value="<?php echo $row['SeatingCapacity'];?>" type="text"
+                                                        readonly="readonly">
                                                 </div>
                                             </div>
 
@@ -351,7 +354,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                 <div class="col-sm-3">
                                                     <input class="form-control white_bg" placeholder="Driver Number"
                                                         name="number" id="number" value="<?php echo $row['number'];?>"
-                                                        type="text">
+                                                        type="text" readonly="readonly">
                                                 </div>
                                             </div>
 
@@ -369,6 +372,15 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                                                 <div class="col-sm-3">
                                                     <input type="date" class="form-control" id="datepicker"
                                                         name="todate" placeholder="To Date" required>
+                                                </div>
+                                            </div>
+                                            <div class="hr-dashed"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">PickUp Time:<span
+                                                        style="color:red">*</span></label>
+                                                <div class="col-sm-3">
+                                                    <input class="form-control white_bg" id="pickup"
+                                                        placeholder="PickUp Time" name="pickup" type="time">
                                                 </div>
                                                 <label class="col-sm-1 control-label">Message:<span
                                                         style="color:red">*</span></label>
@@ -414,6 +426,23 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
     <script src="js/fileinput.js"></script>
     <script src="js/chartData.js"></script>
     <script src="js/main.js"></script>
+    <script>
+    $(function() {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var minDate = year + '-' + month + '-' + day;
+
+        $('#datepicker').attr('min', minDate);
+    });
+    </script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
