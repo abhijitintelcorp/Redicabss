@@ -1,7 +1,7 @@
 <?php
 include("includes/config.php");
 $id = $_GET['id'];
-$sel="SELECT tblbooking.id,tblbooking.user_id,tblbooking.BookingNumber,tblbooking.VehicleId,tblbooking.BrandId,tblbooking.VehicleNumber,tblbooking.PricePerDay,tblbooking.FuelType,tblbooking.FromDate,tblbooking.ToDate,tblbooking.pickup_time,tblusers.id,tblusers.FullName,tblusers.EmailId,tblusers.ContactNo,tblvehicles.id,tblvehicles.vehreg,tblvehicles.VehiclesTitle FROM tblbooking JOIN tblusers ON tblbooking.user_id=tblusers.id JOIN tblvehicles ON tblbooking.VehicleId=tblvehicles.id  WHERE tblbooking.id=$id";
+$sel="SELECT tblbooking.*,tblusers.id,tblusers.FullName,tblusers.EmailId,tblusers.ContactNo,tbldriver.id,tbldriver.name,tbldriver.number  FROM tblbooking JOIN tblusers ON tblbooking.user_id=tblusers.id JOIN tbldriver ON tblbooking.Driverid=tbldriver.id WHERE tblbooking.id='$id'";
 $query=mysqli_query($conn,$sel);
 $rows=mysqli_fetch_assoc($query);
 ?>
@@ -45,7 +45,7 @@ $rows=mysqli_fetch_assoc($query);
     			
 	  					<p>From: <?php echo $rows['FromDate']; ?></p>
 	  					<p>To: <?php echo $rows['ToDate']; ?></p>
-						<p>Pickup Time: <?php echo $rows['pickup_time']; ?></p>
+						<p>Pickup Time: <?php echo $rows['Time']; ?></p>
 	  			
     			</div>
     		</div>
