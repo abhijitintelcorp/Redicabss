@@ -119,13 +119,13 @@ if(isset($_POST['owner_update_time']))
                                                 <?php 
 	$bid=intval($_GET['bid']);
 	$query = "SELECT tblusers.*,tblbrands.BrandName,
-    tblvehicles.VehiclesTitle,tbldriver.id,tbldriver.name,tbldriver.number,tblbooking.FromDate,tblbooking.Driverid,tblbooking.DriverNo,
+    tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.Driverid,tblbooking.DriverNo,
 	tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,
 	tblbooking.id,tblbooking.BookingNumber,	DATEDIFF(tblbooking.ToDate,tblbooking.FromDate) 
     as totalnodays,tblbooking.PricePerDay,tblbooking.Time
 	from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId 
      join tblusers on tblusers.id=tblbooking.user_id 
-    join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id join tbldriver on tblbooking.Driverid=tbldriver.id  where tblbooking.id='$bid'";
+    join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  where tblbooking.id='$bid'";
 	$query_run = mysqli_query($conn, $query);
 	$cnt=1;
 	if(mysqli_num_rows($query_run) > 0)   

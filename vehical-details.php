@@ -17,7 +17,7 @@ $status=0;
 $vhid=$_GET['vhid'];
 $bookingno=mt_rand(100000000, 999999999);
 
-$sql="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `BrandId`, `FromDate`, `ToDate`, `pickup_time`, `message`, `Status`)VALUES('$user_id','$bookingno','$vhid','$BrandId','$fromdate','$todate','$pickup_time','$message','$status')";
+$sql="INSERT INTO tblbooking(`user_id`, `BookingNumber`, `VehicleId`, `BrandId`, `FromDate`, `ToDate`, `Time`, `message`, `Status`)VALUES('$user_id','$bookingno','$vhid','$BrandId','$fromdate','$todate','$pickup_time','$message','$status')";
 $query = mysqli_query($conn,$sql);
 
 
